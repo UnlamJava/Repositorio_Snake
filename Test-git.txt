@@ -1,1 +1,9 @@
-esto es un archivo de prueba para ver mi commit
+los test obligatorios que tenemos que entregar son:
+
+*choque de cabezas de viboras.
+*test de moverse
+	nota: se tiene que hacer dos funciones separadas
+		1- funcion que haga que la vibora se mueva todo el tiempo.
+		2- funcion que corriga la direccion del movimiento de la vibora a medida que se preciona una tecla.
+
+pd: el profe dijo que incorporemos el concepto de cuerpo en el desarrollo.
