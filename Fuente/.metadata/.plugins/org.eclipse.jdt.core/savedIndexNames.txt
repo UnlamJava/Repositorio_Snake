@@ -1,0 +1,12 @@
+INDEX VERSION 1.126+C:\programacionTaller\JAVA\Repositorio_Snake\Fuente\.metadata\.plugins\org.eclipse.jdt.core
+4167746628.index
+142810164.index
+3347733149.index
+1678336583.index
+1055154312.index
+4286761268.index
+4085677722.index
+3045111203.index
+3014998084.index
+3812662748.index
+2851929320.index

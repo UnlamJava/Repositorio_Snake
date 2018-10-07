@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename source folder &apos;github.com.UnlamJava.Repositorio_Snake/src&apos; to &apos;snake&apos;&#x0D;&#x0A;- Original project: &apos;github.com.UnlamJava.Repositorio_Snake&apos;&#x0D;&#x0A;- Original element: &apos;github.com.UnlamJava.Repositorio_Snake/src&apos;&#x0D;&#x0A;- Renamed element: &apos;src&apos;" description="Rename source folder &apos;src&apos;" id="org.eclipse.jdt.ui.rename.source.folder" input="/src" name="snake" stamp="1538934389846" version="1.0"/>
+</session>
