@@ -5,8 +5,6 @@ public class Mapa {
 	//nombre para diferenciar los distintos mapas q hay disponibles
 	public static final String MAPA_1="Arena";
 	public static final String MAPA_2="Bosque";
-	protected static final int ID_OBSTACULO=1;
-	protected static final int ID_FRUTA=2;
 	
 	private int tamanioX;
 	private int tamanioY;
@@ -19,8 +17,8 @@ public class Mapa {
 			this.tamanioY=50;
 			this.matriz=new int [this.tamanioX][this.tamanioY];
 			//OBJETOS LOS DEFINIMOS NOSOTROS EN EL MAPA..
-			this.objetosDelMapa[0]=new Fruta(15, 25, ID_FRUTA);
-			this.matriz[15][25]=ID_FRUTA;
+			this.objetosDelMapa[0]=new Fruta(15, 25, ObjetoDelMapa.ID_FRUTA, Fruta.FRUTA_AGRANDA);
+
 			
 			
 			}
