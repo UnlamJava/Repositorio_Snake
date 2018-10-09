@@ -7,7 +7,18 @@ import snakePKG.Fruta;
 import snakePKG.ObjetoDelMapa;
 import snakePKG.Vibora;
 public class ViboraTest {
-
+	
+	
+	//para instanciar a una vibora es necesario primero instanciar un mapa en el cual
+	// se movera.
+	
+	
+	//Mapa map = new Mapa(Mapa.MAPA_1);
+	//Vibora v = new Vibora(map, 1); // mapa e id
+	
+	// entonces el metodo ubicarEnMapa se podria llamar directamente en el constructor
+	// de vibora ya que siempre va a saber en que mapa esta
+	
 	@Test
 	public void ValidarUbicarViboraEnMapa() {
 		Vibora v1=new Vibora ();

@@ -14,17 +14,25 @@ public class Vibora {
 	private int tamanio;
 	private ArrayList<Posicion> posicion;
 	private String sentidoDireccion;
-
-	public Vibora() {
+	
+	private Mapa mapa;
+	private int id;
+	
+	public Vibora(Mapa mapa, int id) {
 		this.cantidadFrutaComida = 0;
 		this.tamanio = TAMANIO_INICIAL;
-		this.posicion = new ArrayList();
+		this.posicion = new ArrayList<Posicion>();
+		this.mapa = mapa;
+		
+		mapa.agregarVibora(this);
+		this.id = id;
 	}
 
 	public String getSentidoDireccion() {
 		return sentidoDireccion;
 	}
-//solamte para testear movimiento vibora
+	
+	//solamte para testear movimiento vibora
 	public void setSentidoDireccion(String sentidoDireccion) {
 		this.sentidoDireccion = sentidoDireccion;
 	}
@@ -62,7 +70,7 @@ public class Vibora {
 
 	// validar si puedo moverme y despues de moverme si choque con algo -- Clase
 	// Mapa
-	public void Moverse() {
+	public boolean moverse() {
 		// si no apreto ninguna direccion tiene que seguir en la direccion que iba
 		this.posicion.remove(tamanio - 1);
 		if (this.sentidoDireccion == DIRECCION_ARRIBA)
@@ -73,6 +81,8 @@ public class Vibora {
 			this.posicion.add(0,new Posicion(this.posicion.get(0).getPosicionX() + 1, this.posicion.get(0).getPosicionY()));
 		if (this.sentidoDireccion == DIRECCION_IQUIERDA)
 			this.posicion.add(0,new Posicion(this.posicion.get(0).getPosicionX() - 1, this.posicion.get(0).getPosicionY()));
+		
+		return this.validarCamino();
 	}
 
 	public void cambiarDireccion(String direccion) {
@@ -108,13 +118,43 @@ public class Vibora {
 
 	}
 
-	public void Choco() {
+	public void choco() {
 		this.tamanio = 0;
 		this.posicion.clear();
 
 	}
 
-	public void validarCamino() {
+	public boolean validarCamino() {
 		
+		if(this.mapa.verificarColisionesConFruta(this.posicion.get(0))) {
+			this.crecer();
+		}
+		
+		if(this.mapa.verificarFueraDeLimite(this.posicion.get(0)) || this.mapa.verificarColisionesConViboras(this)) {
+			this.choco();
+			return false;
+		}
+		
+		return true;
+	}
+
+	public boolean verificarSiTienePosicion(Vibora vibora) {
+
+		boolean tiene = false;
+		int i = (this.id == vibora.id)? 1: 0;
+		
+		Posicion posicion = vibora.posicion.get(0);
+		Posicion pos;
+		
+		while( i < this.posicion.size()) {
+			pos = this.posicion.get(i);
+			tiene = posicion.equals(pos);
+			if(tiene) {
+				break;
+			}
+			i++;
+		}
+		
+		return tiene;
 	}
 }

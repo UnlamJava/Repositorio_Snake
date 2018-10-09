@@ -11,4 +11,7 @@ public class ObjetoDelMapa {
 		this.posicion=new Posicion(posicionX, posicionY);
 	}
 	
+	public Posicion getPosicion() {
+		return this.posicion;
+	}
 }

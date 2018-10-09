@@ -5,8 +5,7 @@ public class Posicion {
 
 	private int posicionX;
 	private int posicionY;
-	
-	
+
 	public Posicion(int posicionX, int posicionY) {
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
@@ -32,4 +31,11 @@ public class Posicion {
 		this.posicionY = posicionY;
 	}
 	
+	public boolean equals(Posicion o) {
+		return o.posicionX == this.posicionX && o.posicionY == this.posicionY;
+	}
+	
+	public String toString() {
+		return this.posicionX + " " + this.posicionY;
+	}
 }
