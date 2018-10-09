@@ -1,5 +1,6 @@
 package snakePKG;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Vibora {
@@ -12,13 +13,18 @@ public class Vibora {
 
 	private int cantidadFrutaComida;
 	private int tamanio;
-	private ArrayList<Posicion> posicion;
+	ArrayList<Posicion> posicion;// aca me saco el private para dejarme ver las posicioens de los elementos
 	private String sentidoDireccion;
+	//SE AGREGA BANDERA PARA SABER SI MUERE LA VIBORA
+	 boolean estadoMuerta;// esto lo deje como default para poder modificar
+	
 
 	public Vibora() {
 		this.cantidadFrutaComida = 0;
 		this.tamanio = TAMANIO_INICIAL;
 		this.posicion = new ArrayList();
+		//SE AGREGA BANDERA PARA SABER SI MUERE LA VIBORA
+		this.estadoMuerta = false;
 	}
 
 	public String getSentidoDireccion() {
@@ -60,10 +66,19 @@ public class Vibora {
 		}
 	}
 
+	public boolean isEstadoMuerta() {
+		return estadoMuerta;
+	}
+
+	public void setEstadoMuerta(boolean estadoMuerta) {
+		this.estadoMuerta = estadoMuerta;
+	}
+
 	// validar si puedo moverme y despues de moverme si choque con algo -- Clase
 	// Mapa
 	public void Moverse() {
 		// si no apreto ninguna direccion tiene que seguir en la direccion que iba
+		
 		this.posicion.remove(tamanio - 1);
 		if (this.sentidoDireccion == DIRECCION_ARRIBA)
 			this.posicion.add(0,new Posicion(this.posicion.get(0).getPosicionX(), this.posicion.get(0).getPosicionY() + 1));
@@ -73,6 +88,7 @@ public class Vibora {
 			this.posicion.add(0,new Posicion(this.posicion.get(0).getPosicionX() + 1, this.posicion.get(0).getPosicionY()));
 		if (this.sentidoDireccion == DIRECCION_IQUIERDA)
 			this.posicion.add(0,new Posicion(this.posicion.get(0).getPosicionX() - 1, this.posicion.get(0).getPosicionY()));
+		validarCamino();
 	}
 
 	public void cambiarDireccion(String direccion) {
@@ -111,10 +127,20 @@ public class Vibora {
 	public void Choco() {
 		this.tamanio = 0;
 		this.posicion.clear();
+	
 
 	}
 
 	public void validarCamino() {
+		
+		if(this.estadoMuerta)
+			Choco();
+	}
+	/*
+	 * Se agrega metodo para validar colisciones
+	 */
+	public boolean esColision(Rectangle obj){
+		return this.posicion.get(0).intersects(obj);
 		
 	}
 }

@@ -1,0 +1,50 @@
+package snakeTest;
+
+import java.util.ArrayList;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import snakePKG.Mapa;
+import snakePKG.Vibora;
+
+public class VivoraTestEntrega {
+
+	@Test
+	public void ValidarUbicarViboraEnMapa() {
+		Vibora v1=new Vibora ();
+		v1.UbicarViboraEnMapa(4, 4, 5);
+		
+		
+		//Ubicacion incial en la parte izquierda del mapa
+		//posicion de la Cabeza de la vibora
+		Assert.assertEquals(4, v1.getPosicion().get(0).getPosicionX() );
+		Assert.assertEquals(4, v1.getPosicion().get(0).getPosicionY() );
+		//posicion de la primera parte del cuerpo
+		Assert.assertEquals(3, v1.getPosicion().get(1).getPosicionX() );
+		Assert.assertEquals(4, v1.getPosicion().get(1).getPosicionY() );
+		//posicion de la ultima parte del cuerpo
+		Assert.assertEquals(2, v1.getPosicion().get(2).getPosicionX() );
+		Assert.assertEquals(4, v1.getPosicion().get(2).getPosicionY() );
+		
+
+		//Ubicacion incial en la parte derecha del mapa
+		Vibora v2=new Vibora ();
+		v2.UbicarViboraEnMapa(6, 4, 5);
+		//posicion de la Cabeza de la vibora
+		Assert.assertEquals(6, v2.getPosicion().get(0).getPosicionX() );
+		Assert.assertEquals(4, v2.getPosicion().get(0).getPosicionY() );
+		//posicion de la primera parte del cuerpo
+		Assert.assertEquals(7, v2.getPosicion().get(1).getPosicionX() );
+		Assert.assertEquals(4, v2.getPosicion().get(1).getPosicionY() );
+		//posicion de la ultima parte del cuerpo
+		Assert.assertEquals(8, v2.getPosicion().get(2).getPosicionX() );
+		Assert.assertEquals(4, v2.getPosicion().get(2).getPosicionY() );
+		
+		v1.Moverse();
+		ArrayList<Vibora> jugadores = new ArrayList<Vibora>();
+		Mapa map = new Mapa("Arena",jugadores);
+		map.colisionEntreCabezasDeVoboras();
+		
+	}
+}

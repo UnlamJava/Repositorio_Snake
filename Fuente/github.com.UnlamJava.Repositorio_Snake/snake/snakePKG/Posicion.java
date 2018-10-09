@@ -1,6 +1,8 @@
 package snakePKG;
 
-public class Posicion {
+import java.awt.Rectangle;
+
+public class Posicion extends Rectangle {
 
 
 	private int posicionX;
@@ -8,8 +10,10 @@ public class Posicion {
 	
 	
 	public Posicion(int posicionX, int posicionY) {
+		super(posicionX,posicionY,1,1);//creo un rectangulo en la cebeza de la vibora
 		this.posicionX = posicionX;
 		this.posicionY = posicionY;
+	
 	}
 
 
