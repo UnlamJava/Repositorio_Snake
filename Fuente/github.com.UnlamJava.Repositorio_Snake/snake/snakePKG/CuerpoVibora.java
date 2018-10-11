@@ -1,4 +1,4 @@
-package paqueteSnake;
+package snakePKG;
 
 public class CuerpoVibora{
   private int idCuerpo;

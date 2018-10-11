@@ -129,7 +129,7 @@ public boolean caminoValido(Mapa mapa){
 }
 	
 	public void crecer(Posicion pos){
-		CuerpoVibora cuerpo = new CuerpoVibora(2);
+		CuerpoVibora cuerpo = new CuerpoVibora(this.idVibora);
 		cuerpo.setPocision(pos);
 		this.cuerpo.add(cuerpo);
 		System.out.println("Creciii!!!!");
