@@ -34,7 +34,12 @@ public void setPosiciones(int x, int y){
 	this.posicionX = x;
 	this.posicionY = y;
 	
+	
 }
+		public boolean equals(Posicion pos){
+			return  pos.posicionX == this.posicionX && 
+					pos.posicionY == this.posicionY;
+		}
 
 
 @Override

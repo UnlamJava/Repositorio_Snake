@@ -21,7 +21,7 @@ public class Vibora {
 	private int desplazamiento;
 	private boolean estoyVivo;
 	
-	
+	private String sentidoMovActual;
 	
 	public Vibora(){
 		this.idVibora = Vibora.id;
@@ -34,6 +34,20 @@ public class Vibora {
 		this.desplazamiento=1;
 		this.estoyVivo = true;
 	}
+	//SOBRECARGA QUE ME PERMITE MANDAR EL ID DE LA VIBORA
+	
+	public Vibora(int idViboraJuego){
+		this.idVibora = idViboraJuego;
+
+		this.cantidadFrutaComida = 0;
+		this.cuerpo = new ArrayList<CuerpoVibora>();
+		CuerpoVibora cabeza = new CuerpoVibora(this.idVibora);
+		this.cuerpo.add(0,cabeza);
+		//this.tamanio = 1;	
+		this.desplazamiento=1;
+		this.estoyVivo = true;
+	}
+	
 	
 	public int getTamanioVibora(){
 		return this.cuerpo.size();
@@ -47,7 +61,11 @@ public class Vibora {
 	}
 
 	public void mover(String sentidoDelMovimiento, Mapa mapa){
-				
+		
+		if( sentidoDelMovimiento.equals(opuestoDe(this.sentidoMovActual))){
+			return;
+		}
+		
 		if(sentidoDelMovimiento=="Arriba") {
 			this.desplazamientoEnX = 0;
 			this.desplazamientoEnY = - this.desplazamiento;
@@ -64,11 +82,14 @@ public class Vibora {
 			this.desplazamientoEnX = this.desplazamiento;
 			this.desplazamientoEnY = 0;
 		}
+		
+		this.sentidoMovActual = sentidoDelMovimiento;
+		
 		//*********Esto va dentro del un evento que se ejecute cada cierto tiempo.********************//
 		 // Cero representa que el mapa en esa ubicación quedo libre
 		
 		//Seteo las nuevas posiciones del cuerpo
-		
+	
 		
 		Posicion  posAux = new Posicion(this.cuerpo.get(this.cuerpo.size()-1).getPocision());
 		System.out.println("tamanio: "+this.cuerpo.size());
@@ -83,6 +104,7 @@ public class Vibora {
 		int x = this.cuerpo.get(0).getPocision().getPosicionX() + this.desplazamientoEnX;
 		int y = this.cuerpo.get(0).getPocision().getPosicionY() + this.desplazamientoEnY;
 		Posicion newPos = new Posicion(x,y);
+		
 		this.cuerpo.get(0).setPocision(newPos);
 	
 		/*System.out.println("CABEZA: "+this.cuerpo.get(0).getPocision().toString());
@@ -112,18 +134,53 @@ public class Vibora {
 			    	
 			}
 		else {
-			  this.estoyVivo=false;
-			  this.cuerpo.clear();
+			  if(mapa.estoyDentroDeMapa(this.cuerpo.get(0).getPocision())){
+				  Vibora aux = mapa.getViboraDePosicion(this.cuerpo.get(0).getPocision()); 
+				  
+				  if((this != aux)&& // VALIDO QUE NO ME RETORNE 
+				     (this.cuerpo.get(0).getPocision().equals(aux.cuerpo.get(0).getPocision()))){
+					 aux.estoyVivo = false; 
+					 
+					 mapa.LimpiarMiCuerpo((List)aux.cuerpo);
+					 
+					 mapa.setPosMatriz(aux.cuerpo.get(aux.cuerpo.size()-1).getPocision(), 0);
+					 aux.cuerpo.clear();
+				  }
+			  }
+
 			  System.out.println("Me morii :c!!");
-			
+				  mapa.LimpiarMiCuerpo((List)this.cuerpo);
+				  
+				  mapa.setPosMatriz(posAux, 0);
+				  
+				  this.estoyVivo = false;
+				  this.cuerpo.clear();
+			  
 		     }
 		
 		//**********************************************************************************************//
 			
 	}
 	
+	private String opuestoDe(String sentidoMovActual) {
+		String res = "";
+		if(sentidoMovActual == "Arriba"){
+			res =  "Abajo"; 
+		} else if(sentidoMovActual == "Derecha"){
+			res =  "Izquierda";
+		}else if(sentidoMovActual == "Izquierda"){
+			res =  "Derecha";
+		}else if(sentidoMovActual == "Abajo"){
+			res = "Arriba";
+		}
+		return res;
+	}
+
 public boolean caminoValido(Mapa mapa){
 	 //si choca con un obstaculo, otra vibora o los limites del mapa entonces el camino no es valido.
+		if(!mapa.estoyDentroDeMapa(this.cuerpo.get(0).getPocision()))
+			return false;
+			
 	 return mapa.getPosMatriz(this.cuerpo.get(0).getPocision())==0 || mapa.HayFruta(this.cuerpo.get(0).getPocision());
 	 
 }
@@ -155,4 +212,13 @@ public boolean caminoValido(Mapa mapa){
 	public void setCantidadFrutaComida(int cantidadFrutaComida) {
 		this.cantidadFrutaComida = cantidadFrutaComida;
 	}
+	public boolean isEstoyVivo() {
+		return estoyVivo;
+	}
+
+	public void setEstoyVivo(boolean estoyVivo) {
+		this.estoyVivo = estoyVivo;
+	}
+	
+
 }

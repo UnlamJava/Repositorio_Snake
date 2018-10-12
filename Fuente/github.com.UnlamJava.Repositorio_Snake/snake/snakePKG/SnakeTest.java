@@ -6,7 +6,7 @@ import org.junit.Test;
 
 
 public class SnakeTest {
-@Test	
+//@Test	
  public void prueba(){
 	 
 	 Mapa mapa1 = new Mapa("Arena");
@@ -82,5 +82,30 @@ System.out.println("************************************************************
     	 System.out.println(s1.getCuerpoVibora(i).getPocision().toString());*/
 	//Assert.assertEquals(pos.getPosicionX(), s1.getCuerpoVibora(1).getPocision().getPosicionX());
 	//Assert.assertEquals(pos.getPosicionY(), s1.getCuerpoVibora(1).getPocision().getPosicionY());
+	 
+System.out.println("***************************************************************");
+	 
+	 s1.mover("Abajo", mapa1);
+	 System.out.println("");
+	 mapa1.mostrarMapa();
+	System.out.println("tamanio "+s1.getTamanioVibora());
+	 //System.out.println(s1.getCuerpoVibora(0).getIdCuerpo());
+	 System.out.println("POS CABEZA: "+s1.getCuerpoVibora(0).getPocision().getPosicionX()+" "+s1.getCuerpoVibora(0).getPocision().getPosicionY());
+	 
+	 //System.out.println(s1.getCuerpoVibora(1).getIdCuerpo());
+	 System.out.println("POS CUELLO: "+s1.getCuerpoVibora(1).getPocision().getPosicionX()+" "+s1.getCuerpoVibora(1).getPocision().getPosicionY());
+	 
+System.out.println("***************************************************************");
+	 
+	 s1.mover("Arriba", mapa1);
+	 System.out.println("");
+	 mapa1.mostrarMapa();
+	System.out.println("tamanio "+s1.getTamanioVibora());
+	 //System.out.println(s1.getCuerpoVibora(0).getIdCuerpo());
+	 System.out.println("POS CABEZA: "+s1.getCuerpoVibora(0).getPocision().getPosicionX()+" "+s1.getCuerpoVibora(0).getPocision().getPosicionY());
+	 
+	 //System.out.println(s1.getCuerpoVibora(1).getIdCuerpo());
+	 System.out.println("POS CUELLO: "+s1.getCuerpoVibora(1).getPocision().getPosicionX()+" "+s1.getCuerpoVibora(1).getPocision().getPosicionY());
+	 
  }
 }
