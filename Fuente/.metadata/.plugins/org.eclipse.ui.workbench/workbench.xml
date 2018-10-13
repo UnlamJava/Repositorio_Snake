@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="74" version="2.0">
+<workbench progressCount="63" version="2.0">
 <workbenchAdvisor/>
 <window height="728" maximized="true" width="1024" x="50" y="0">
 <fastViewData fastViewLocation="1024"/>
@@ -12,16 +12,16 @@
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="com.python.pydev.debug.actionSet" itemType="typeToolBarContribution" x="61" y="22"/>
 <coolItem id="com.python.pydev.navigate.actionSet" itemType="typeToolBarContribution" x="38" y="22"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="99" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="61" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="129" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="122" y="22"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="130" y="22"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -30,10 +30,16 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SnakeTestEntrega1.java" partName="SnakeTestEntrega1.java" path="C:/programacionTaller/Java_pruebas/Repositorio_Snake/Fuente/github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java" title="SnakeTestEntrega1.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="480"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
@@ -75,7 +81,7 @@
 <viewState CommonNavigator.LINKING_ENABLED="0"/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.navigator.ProjectExplorer" activePerspective="org.eclipse.ui.resourcePerspective">
+<perspectives activePart="org.eclipse.jdt.junit.ResultView" activePerspective="org.eclipse.ui.resourcePerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.ui.internal.ide.application.ResourcePerspective" id="org.eclipse.ui.resourcePerspective" label="Resource"/>
 <alwaysOnActionSet id="org.eclipse.help.internal.ui.HelpActionSet"/>
@@ -304,7 +310,43 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Mapa.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Vibora.java"/>
+</editors>
+<item historyLabel="Mapa.java" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Mapa.java" index="0">
+<position info="not_deleted" x="3289" y="19"/>
+</item>
+<item historyLabel="SnakeTestEntrega1.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Mapa.java" index="0">
+<position info="not_deleted" x="3289" y="19"/>
+</item>
+<item historyLabel="Vibora.java" index="2">
+<position info="not_deleted" x="222" y="0"/>
+</item>
+<item historyLabel="SnakeTestEntrega1.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Mapa.java" index="0">
+<position info="not_deleted" x="3289" y="19"/>
+</item>
+<item historyLabel="Vibora.java" index="2">
+<position info="not_deleted" x="4087" y="19"/>
+</item>
+<item historyLabel="Mapa.java" index="0">
+<position info="not_deleted" x="3289" y="19"/>
+</item>
+<item active="true" historyLabel="SnakeTestEntrega1.java" index="1">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -323,20 +365,20 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Fruta.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Fruta.java">
-<persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Fruta.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Vibora.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Vibora.java">
 <persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Vibora.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Obstaculo.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Obstaculo.java">
-<persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Obstaculo.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SnakeTestEntrega1.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java">
+<persistable path="/github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Mapa.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Mapa.java">
 <persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Mapa.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="SnakeTestEntrega1.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java">
-<persistable path="/github.com.UnlamJava.Repositorio_Snake/snakeTest/snakeTestPKG/SnakeTestEntrega1.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Fruta.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Fruta.java">
+<persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Fruta.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Obstaculo.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Obstaculo.java">
+<persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Obstaculo.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Posicion.java" tooltip="github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Posicion.java">
 <persistable path="/github.com.UnlamJava.Repositorio_Snake/snake/snakePKG/Posicion.java"/>

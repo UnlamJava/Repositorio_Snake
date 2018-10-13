@@ -116,7 +116,7 @@ public class Mapa {
 			this.tamanioY = tamanioY;
 		}
 		
-		public void LimpiarCuerpoVibora(List<CuerpoVibora> cuerpoViboraMuerta){
+		public void LimpiarMiCuerpo(List<CuerpoVibora> cuerpoViboraMuerta){
 			
 			for(int i=1; i< cuerpoViboraMuerta.size(); i++)
 				this.matriz[cuerpoViboraMuerta.get(i).getPocision().getPosicionY()][cuerpoViboraMuerta.get(i).getPocision().getPosicionX()] = 0;

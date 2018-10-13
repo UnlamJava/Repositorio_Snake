@@ -134,7 +134,7 @@ public class Vibora {
 				     (this.cuerpo.get(0).getPocision().equals(aux.cuerpo.get(0).getPocision()))){
 					 aux.estoyVivo = false; 
 					 
-					 mapa.LimpiarCuerpoVibora((List)aux.cuerpo);
+					 mapa.LimpiarMiCuerpo((List)aux.cuerpo);
 					 
 					 mapa.setPosMatriz(aux.cuerpo.get(aux.cuerpo.size()-1).getPocision(), 0);
 					 aux.cuerpo.clear();
@@ -142,7 +142,7 @@ public class Vibora {
 			  }
 
 			 
-				  mapa.LimpiarCuerpoVibora((List)this.cuerpo);
+				  mapa.LimpiarMiCuerpo((List)this.cuerpo);
 				  
 				  mapa.setPosMatriz(posAux, 0);
 				  
