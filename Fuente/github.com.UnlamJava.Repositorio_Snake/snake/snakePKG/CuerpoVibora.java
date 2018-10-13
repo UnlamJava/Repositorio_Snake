@@ -8,7 +8,7 @@ public class CuerpoVibora{
 	  
 	 this.idCuerpo = id;
 	pocision = new Posicion(0,0);
-	 //luego agregaremos mas atributos para representar a la vibora en el mapa.
+	 
   }
 
   public Posicion getPocision() {

@@ -25,9 +25,10 @@ public class Mapa {
 				
 				this.matriz=new int [this.tamanioX][this.tamanioY];
 				//OBJETOS LOS DEFINIMOS NOSOTROS EN EL MAPA..
-				this.objetosDelMapa = new ObjetoDelMapa[2];
+				this.objetosDelMapa = new ObjetoDelMapa[3];
 				this.objetosDelMapa[0]=new Fruta(1, 2, Fruta.FRUTA_AGRANDA);
 				this.objetosDelMapa[1]=new Fruta(6, 3, Fruta.FRUTA_AGRANDA);
+				this.objetosDelMapa[2]= new Obstaculo(8,8);
 				setMapa();
 				
 				this.ListaViboras = new  ArrayList<Vibora>();
@@ -76,7 +77,7 @@ public class Mapa {
 			this.matriz[pos.getPosicionX()][pos.getPosicionY()]=vibora.getIdVibora();
 			vibora.getCuerpoVibora(0).setPocision(pos);
 			
-			//this.ListaViboras.add(vibora);
+			
 			
 		}
 		public void ubicarViboraEnMapa(Vibora vibora, int x, int y){
