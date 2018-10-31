@@ -2,9 +2,14 @@ package snakePKG;
 
 public class Obstaculo extends ObjetoDelMapa{
 
+	public static final int ID_OBSTACULO=80;
 	
-	public Obstaculo(int posicionX, int posicionY, String id) {
-		super( posicionX, posicionY, id);
+	public Obstaculo(int posicionX, int posicionY, int idObstaculo) {
+		super( posicionX, posicionY, idObstaculo);
+		
+	}
+	public Obstaculo(int posicionX, int posicionY) {
+		super( posicionX, posicionY, ID_OBSTACULO);
 		
 	}
 		

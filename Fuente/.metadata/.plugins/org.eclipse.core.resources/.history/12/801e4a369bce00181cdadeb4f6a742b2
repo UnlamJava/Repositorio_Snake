@@ -1,0 +1,12 @@
+package snakePKG;
+
+public class Obstaculo extends ObjetoDelMapa{
+
+	public static final int ID_OBSTACULO=8;
+	
+	public Obstaculo(int posicionX, int posicionY, int idObstaculo) {
+		super( posicionX, posicionY, idObstaculo);
+		
+	}
+		
+}

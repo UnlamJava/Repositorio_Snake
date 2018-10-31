@@ -1,0 +1,146 @@
+package snakeTestPKG;
+
+import snakePKG.Mapa;
+import snakePKG.Posicion;
+import snakePKG.Vibora;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class SnakeTestEntrega1 {
+
+	/*
+	 * PARA TODOS LOS CASOS EL TAMAÑO INICIAL DE LA VIBORA ES 1
+	 */
+	@Test
+	public void ValidarUbicacionInicialdeLaViboraEnMapa(){
+
+		 Mapa mapa1 = new Mapa("Arena"); 
+		 Vibora s1 = new Vibora(1);
+		 mapa1.ubicarViboraEnMapa(s1, 3,3); 
+		 /*VALIDO POSICION INICIAL DE LA VIBORA EN EL MAPA*/
+		 Assert.assertEquals(1,mapa1.getPosMatriz( new Posicion(3,3)));
+	}
+	
+	
+	@Test
+	public void ValidarUbicacionDeViboraAlMoverse(){
+		
+		 Mapa mapa1 = new Mapa("Arena"); 
+		 Vibora s1 = new Vibora(2);
+		 mapa1.ubicarViboraEnMapa(s1, 3,3);	 
+		 /*ME MUEVO DOS VECES A LA DERECHA*/
+		 s1.mover("Derecha", mapa1);
+		 s1.mover("Derecha", mapa1); 
+		 /*VALIDO LA NUEVA POSICION DE LA VIBORA*/
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(3,3)));// POSICION VACIA
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(4,3)));// POSICION VACIA
+		 Assert.assertEquals(2,mapa1.getPosMatriz( new Posicion(5,3)));// POSICION OCUPADA POR VIBORA
+		 /*ME MUEVO DOS VECES HACIA ABAJO*/
+		 s1.mover("Abajo", mapa1);
+		 s1.mover("Abajo", mapa1);
+		 /*VALIDO LA NUEVA POSICION DE LA VIBORA*/
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(5,3)));// POSICION VACIA
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(5,4)));// POSICION VACIA
+		 Assert.assertEquals(2,mapa1.getPosMatriz( new Posicion(5,5)));// POSICION OCUPADA POR VIBORA	 
+		 /*ME MUEVO DOS VECES HACIA LA IZQUIERDA*/
+		 s1.mover("Izquierda", mapa1);
+		 s1.mover("Izquierda", mapa1);
+		 /*VALIDO LA NUEVA POSICION DE LA VIBORA*/
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(5,5)));// POSICION VACIA
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(4,5)));// POSICION VACIA
+		 Assert.assertEquals(2,mapa1.getPosMatriz( new Posicion(3,5)));// POSICION OCUPADA POR VIBORA
+		 /*ME MUEVO DOS VECES HACIA ARRIBA*/
+		 s1.mover("Arriba", mapa1);
+		 s1.mover("Arriba", mapa1);
+		 /*VALIDO LA NUEVA POSICION DE LA VIBORA*/
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(3,5)));// POSICION VACIA
+		 Assert.assertEquals(0,mapa1.getPosMatriz( new Posicion(3,4)));// POSICION VACIA
+		 Assert.assertEquals(2,mapa1.getPosMatriz( new Posicion(3,3)));// POSICION OCUPADA POR VIBORA
+	}
+	
+	@Test
+	public void ValidoQueLaViboraNoPuedaRetroceder(){
+		
+		 Mapa mapa1 = new Mapa("Arena"); 
+		 Vibora s1 = new Vibora(2);
+		 mapa1.ubicarViboraEnMapa(s1, 3,3);	 
+		 /*ME MUEVO DOS VECES A LA DERECHA*/
+		 s1.mover("Derecha", mapa1);
+		 /*VALIDO LA NUEVA POSICION DE LA VIBORA*/
+		 Assert.assertEquals(2,mapa1.getPosMatriz( new Posicion(4,3)));// POSICION OCUPADA POR LA VIBORA
+		 /*INTENTO MOVERME EN EL SENTIDO CONTRARIO AL QUE TENIA*/
+		 s1.mover("Izquierda", mapa1);
+		 /*VALIDO QUE AL INTENTAR MOVERME HACIA ATRAS NO CAMBIA LA POSICION*/
+		 Assert.assertEquals(2,mapa1.getPosMatriz( new Posicion(4,3)));// POSICION OCUPADA POR LA VIBORAA
+		 /*MISMA PRUEBA PERO CON LAS DIRECCIONES RESTANTES*/
+		 Vibora s2 = new Vibora(3);
+		 mapa1.ubicarViboraEnMapa(s2, 6,3);
+		 s2.mover("Abajo", mapa1);
+		 Assert.assertEquals(3,mapa1.getPosMatriz( new Posicion(6,4)));// POSICION OCUPADA POR LA VIBORAA
+		 /*INTENTO MOVERME EN EL SENTIDO CONTRARIO AL QUE TENIA*/
+		 s2.mover("Arriba", mapa1);
+		 /*VALIDO QUE AL INTENTAR MOVERME HACIA ATRAS NO CAMBIA LA POSICION*/
+		 Assert.assertEquals(3,mapa1.getPosMatriz( new Posicion(6,4)));// POSICION OCUPADA POR LA VIBORAA
+	}
+	
+	@Test
+	public void ValidarColisionesDeVivoraConCuerpoDeOtra(){
+		
+		 Mapa mapa1 = new Mapa("Arena"); 
+		 Vibora s1 = new Vibora(3);
+		 mapa1.ubicarViboraEnMapa(s1, 4,4);
+		 Vibora s2 = new Vibora(4);
+		 mapa1.ubicarViboraEnMapa(s2, 6,4);
+		 /*VALIDO POSICION INICIAL DE VIBORAS*/
+		 Assert.assertEquals(3,mapa1.getPosMatriz( new Posicion(4,4)));//POSICION OCUPADA POR VIBORA S1 
+		 Assert.assertEquals(4,mapa1.getPosMatriz( new Posicion(6,4)));//POSICION OCUPADA POR VIBORA S2 		 
+		 
+		 s2.mover("Arriba", mapa1);
+		 s1.mover("Derecha", mapa1);
+		 /*VALIDO QUE AMBAS VIBORAS ESTEN VIVAS*/
+		 Assert.assertEquals(true,s1.isEstoyVivo()); 
+		 Assert.assertEquals(true,s2.isEstoyVivo());
+		 s1.mover("Derecha", mapa1);
+		 /*HAGO QUE S1 CHOQUE CON EL CUERPO DE S2*/
+		 Assert.assertEquals(false,s1.isEstoyVivo()); 
+		 Assert.assertEquals(true,s2.isEstoyVivo());
+		
+	}
+	
+	@Test 
+	public void SalirDeMapa(){
+		
+		 Mapa mapa1 = new Mapa("Arena"); 
+		 Vibora s1 = new Vibora(5);
+		 mapa1.ubicarViboraEnMapa(s1, 3,3);
+		 Assert.assertEquals(true, s1.isEstoyVivo());
+		 for(int i= 0; i<7; i++){
+			 mapa1.mostrarMapa();
+			 s1.mover("Derecha", mapa1);
+		 }
+			 
+		 mapa1.mostrarMapa();
+		 Assert.assertEquals(false, s1.isEstoyVivo());
+		
+	}
+	@Test
+	public void ValidarColisionDeCabezasEntreVivoras(){
+		
+		 Mapa mapa1 = new Mapa("Arena"); 
+		 Vibora s1 = new Vibora(6);
+		 mapa1.ubicarViboraEnMapa(s1, 0,3);
+		 Vibora s2 = new Vibora(7);
+		 mapa1.ubicarViboraEnMapa(s2, 8,3);
+		 /*VALIDO POSICION INICIAL DE VIBORAS*/
+		 Assert.assertEquals(6,mapa1.getPosMatriz( new Posicion(0,3)));// 
+		 Assert.assertEquals(7,mapa1.getPosMatriz( new Posicion(8,3)));// 		 
+		 /*AMBAS VIBORAS SE MUEVEN*/
+		 for(int i = 0; i< 4; i++){
+			 s1.mover("Derecha", mapa1);
+			 s2.mover("Izquierda", mapa1);
+		 }
+		 /*VALIDO SI AMBAS VIBORAS MUEREN AL CHOCAR CABEZAS*/
+		 Assert.assertEquals(false,s1.isEstoyVivo());
+		 Assert.assertEquals(false,s2.isEstoyVivo());
+	}
+}
