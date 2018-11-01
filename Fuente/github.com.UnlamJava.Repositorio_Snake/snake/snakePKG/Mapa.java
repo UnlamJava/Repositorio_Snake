@@ -12,7 +12,7 @@ public class Mapa {
 		
 		private int tamanioX;
 		private int tamanioY;
-		private int[][] matriz;//las coordenadas son las pocisiones del objeto, y el entero es el id del objeto
+		private Integer[][] matriz;//las coordenadas son las pocisiones del objeto, y el entero es el id del objeto
 		private ObjetoDelMapa[] objetosDelMapa;
 		
 		private ArrayList<Vibora> ListaViboras;
@@ -23,12 +23,18 @@ public class Mapa {
 				this.tamanioX=10;
 				this.tamanioY=10;
 				
-				this.matriz=new int [this.tamanioX][this.tamanioY];
+				this.matriz= new Integer [this.tamanioX][this.tamanioY];
+				
+				for(int i  = 0; i < this.matriz.length; i++) {
+					for(int j = 0; j < this.matriz.length; j++) {
+						this.matriz[i][j] = 0;
+					}
+				}
 				//OBJETOS LOS DEFINIMOS NOSOTROS EN EL MAPA..
 				this.objetosDelMapa = new ObjetoDelMapa[3];
 				this.objetosDelMapa[0]=new Fruta(1, 2, Fruta.FRUTA_AGRANDA);
 				this.objetosDelMapa[1]=new Fruta(6, 3, Fruta.FRUTA_AGRANDA);
-				this.objetosDelMapa[2]= new Obstaculo(8,8);
+				this.objetosDelMapa[2]=new Fruta(8, 8, Fruta.FRUTA_AGRANDA);
 				setMapa();
 				
 				this.ListaViboras = new  ArrayList<Vibora>();
@@ -114,6 +120,10 @@ public class Mapa {
 
 		public void setTamanioY(int tamanioY) {
 			this.tamanioY = tamanioY;
+		}
+		
+		public Integer[][] getMapa(){
+			return this.matriz;
 		}
 		
 		public void LimpiarCuerpoVibora(List<CuerpoVibora> cuerpoViboraMuerta){

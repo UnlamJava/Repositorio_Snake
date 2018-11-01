@@ -46,6 +46,7 @@ public class Vibora {
 		//this.tamanio = 1;	
 		this.desplazamiento=1;
 		this.estoyVivo = true;
+		this.sentidoMovActual = "Derecha";
 	}
 	
 	
@@ -59,31 +60,43 @@ public class Vibora {
 	public void setCuerpo(List<CuerpoVibora> cuerpo) {
 		this.cuerpo = cuerpo;
 	}
-
-	public void mover(String sentidoDelMovimiento, Mapa mapa){
-		
-		if( sentidoDelMovimiento.equals(opuestoDe(this.sentidoMovActual))){
+	
+	public void mover(Mapa mapa) {
+		if(!this.estoyVivo) return; 
+		this.mover(this.sentidoMovActual, mapa);
+	}
+	
+	public void cambiarDir(String dir) {
+	
+		if( dir.equals(opuestoDe(this.sentidoMovActual))){
 			return;
 		}
 		
-		if(sentidoDelMovimiento=="Arriba") {
+		if(dir.equals("Arriba")) {
 			this.desplazamientoEnX = 0;
 			this.desplazamientoEnY = - this.desplazamiento;
 		}
-		if(sentidoDelMovimiento=="Abajo") {
+		if(dir.equals("Abajo")) {
 			this.desplazamientoEnX = 0;
 			this.desplazamientoEnY = this.desplazamiento;
 		}
-		if(sentidoDelMovimiento=="Izquierda") {
+		if(dir.equals("Izquierda")) {
 			this.desplazamientoEnX = -this.desplazamiento;
 			this.desplazamientoEnY = 0;
 		}
-		if(sentidoDelMovimiento=="Derecha") {
+		if(dir.equals("Derecha")) {
 			this.desplazamientoEnX = this.desplazamiento;
 			this.desplazamientoEnY = 0;
 		}
 		
-		this.sentidoMovActual = sentidoDelMovimiento;
+		this.sentidoMovActual = dir;
+	}
+	
+	public void mover(String sentidoDelMovimiento, Mapa mapa){
+		
+		if(!this.estoyVivo) return;
+		
+		this.cambiarDir(sentidoDelMovimiento);
 		
 		//*********Esto va dentro del un evento que se ejecute cada cierto tiempo.********************//
 		 // Cero representa que el mapa en esa ubicación quedo libre
@@ -156,19 +169,19 @@ public class Vibora {
 	
 	private String opuestoDe(String sentidoMovActual) {
 		String res = "";
-		if(sentidoMovActual == "Arriba"){
+		if(sentidoMovActual.equals("Arriba")){
 			res =  "Abajo"; 
-		} else if(sentidoMovActual == "Derecha"){
+		} else if(sentidoMovActual.equals("Derecha")){
 			res =  "Izquierda";
-		}else if(sentidoMovActual == "Izquierda"){
+		}else if(sentidoMovActual.equals("Izquierda")){
 			res =  "Derecha";
-		}else if(sentidoMovActual == "Abajo"){
+		}else if(sentidoMovActual.equals("Abajo")){
 			res = "Arriba";
 		}
 		return res;
 	}
 
-public boolean caminoValido(Mapa mapa){
+	public boolean caminoValido(Mapa mapa){
 	 
 		if(!mapa.estoyDentroDeMapa(this.cuerpo.get(0).getPocision()))
 			return false;
@@ -214,3 +227,4 @@ public boolean caminoValido(Mapa mapa){
 	
 
 }
+
