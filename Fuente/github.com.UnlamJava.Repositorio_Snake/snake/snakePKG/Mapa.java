@@ -20,8 +20,8 @@ public class Mapa {
 		
 		public Mapa(String nombreMapa) {
 			if(nombreMapa==MAPA_1) {
-				this.tamanioX=10;
-				this.tamanioY=10;
+				this.tamanioX=100;
+				this.tamanioY=100;
 				
 				this.matriz= new Integer [this.tamanioX][this.tamanioY];
 				

@@ -6,13 +6,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import graficos.PantallaInicio;
 import util.ClienteConn;
 
 public class Cliente {
 	
 	private Socket entrada;
 	private Socket salida;
-	
+	private String Usuario;
 	private ClienteConn conn;
 	
 	public Cliente(String ip, int port) {
@@ -60,15 +61,8 @@ public class Cliente {
 	
 	private void iniciarJuego(){
 		
-		try { // El server me avisa cuando empieza el juego
-			Boolean res = (Boolean) this.conn.recibirInfo();
-			
-			System.out.println(res);
-			
-		} catch (ClassNotFoundException | IOException e) {
-	
-			e.printStackTrace();
-		}
+		PantallaInicio inicio=new PantallaInicio(this.conn);
+		
 		
 		Juego juegoSnake = new Juego(this.conn);
 		

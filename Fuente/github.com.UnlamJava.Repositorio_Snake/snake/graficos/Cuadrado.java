@@ -4,7 +4,7 @@ package graficos;
 class Cuadrado {
 	
 	
-	public static final int LADO = 50;
+	public static final int LADO = 20;
 	
 	private Punto pos;
 	private boolean esFruta;
