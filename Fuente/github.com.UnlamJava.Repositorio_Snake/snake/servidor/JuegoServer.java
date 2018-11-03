@@ -64,7 +64,7 @@ public class JuegoServer {
 		
 		//Les aviso a todos que empieza el juego
 		
-		HiloLectura hc = null;
+		HiloLecturaJuego hc = null;
 		for(Entry<ClienteConn, Vibora> v : viboras.entrySet()) {
 			
 			try {
@@ -72,7 +72,7 @@ public class JuegoServer {
 				Boolean info = true;
 				
 				v.getKey().enviarInfo(info);
-				hc = new HiloLecturaJuego(v.getKey(), v.getValue());
+				hc = new HiloLecturaJuego(v.getValue(), v.getKey());
 			
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -19,24 +19,11 @@ public class HiloLectura extends Thread {
 		this.server = server;
 	}
 
-	public void run() {
+	public void run() {/*
 		boolean juegoOn = true;
 		try {
 
-			/*
-			 * while(juegoOn) { try {
-			 * 
-			 * dir = (String) con.recibirInfo();
-			 * 
-			 * this.vibora.cambiarDir(dir);
-			 * 
-			 * Thread.sleep(500);
-			 * 
-			 * } catch (ClassNotFoundException | IOException | InterruptedException e) {
-			 * 
-			 * e.printStackTrace(); break; } }
-			 */
-
+			
 			
 			mensaje =con.recibirInfo();
 			interpretarMensaje();
@@ -63,5 +50,6 @@ public class HiloLectura extends Thread {
 		if (this.mensaje.equals("Crear Sala")){
 			server.salas.add(new Sala(this.con));
 		}
-	}
+	*/}
+	
 }

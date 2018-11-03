@@ -20,10 +20,10 @@ public class Juego {
 	
 	public void iniciar() {
 		
-		System.out.println("juego iniciado");
-	
-		HiloLecturaMapa hl = new HiloLecturaMapa(this.jVentana, this.conn);
+		System.out.println("juego cliente iniciado");
 		
+		HiloLecturaMapa hl = new HiloLecturaMapa(this.jVentana, this.conn);
+		HiloEnviarInfo he;// = new Hil(jVentana, conn)
 		hl.start();
 		
 		Boolean juegoOn = true;

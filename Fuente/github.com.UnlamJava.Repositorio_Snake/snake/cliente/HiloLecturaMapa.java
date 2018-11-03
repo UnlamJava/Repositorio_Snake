@@ -35,9 +35,8 @@ public class HiloLecturaMapa extends Thread {
 			while (!salir) { 
 				
 				mapa = (Integer[][]) this.conn.recibirInfo();
-						
+				
 				this.jVentana.actualizarMapa(mapa);
-
 				Thread.sleep(500);
 			}
 

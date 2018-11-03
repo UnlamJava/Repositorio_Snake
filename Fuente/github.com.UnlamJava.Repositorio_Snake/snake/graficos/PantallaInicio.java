@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import cliente.Cliente;
 import util.ClienteConn;
 
 import java.awt.FlowLayout;
@@ -15,11 +16,11 @@ import java.awt.event.ActionEvent;
 public class PantallaInicio {
 
 	private JFrame frame;
-	private ClienteConn con;
+	private Cliente c;
 	
 	
-	public PantallaInicio(ClienteConn con) {
-		this.con=con;
+	public PantallaInicio(Cliente c) {
+		this.c=c;
 		initialize();
 	}
 
@@ -33,16 +34,25 @@ public class PantallaInicio {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnJugarSolo = new JButton("Jugar Solo");
+		btnJugarSolo.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("boton presionado");
+				
+				c.jugarSolo();
+			}
+		});
 		btnJugarSolo.setBounds(136, 57, 155, 23);
 		frame.getContentPane().add(btnJugarSolo);	
 		JButton btnNewButton = new JButton("Conectarse a servidor");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Login login=new Login(con);
+//				Login login=new Login(c);
 				frame.setVisible(false);
 			}
 		});
 		btnNewButton.setBounds(136, 132, 155, 23);
 		frame.getContentPane().add(btnNewButton);
+		
+		frame.setVisible(true);
 	}
 }

@@ -78,23 +78,31 @@ public class JVentanaGrafica extends JFrame {
 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
+				
 				if (mapa[i][j] != 0) {
 					c.add(new Cuadrado(new Punto(j, i), mapa[i][j] == 7));
 				}
 			}
+		
 		}
+	
 
 		contentPane.setCuadrados(c);
-		repaint();
+		paintComponents(this.contentPane.getGraphics());
+		//repaint();
 	}
 
 	public void dibujarMapa(Integer[][] mapa) {
-
+		
+		
+		
 		int n = mapa.length;
 		Collection<Cuadrado> c = new ArrayList<>();
-
+	
+		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
+				System.out.println( mapa[i][j] );
 				if (mapa[i][j] != 0) {
 					c.add(new Cuadrado(new Punto(j, i), mapa[i][j] == 7));
 				}

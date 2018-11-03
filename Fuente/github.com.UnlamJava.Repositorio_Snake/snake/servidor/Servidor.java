@@ -26,7 +26,7 @@ public class Servidor {
 			this.server = new ServerSocket(puerto);
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
 			
-			while (true) {
+			//while (true) {
 
 
 				Socket cliente = server.accept();
@@ -42,16 +42,20 @@ public class Servidor {
 				System.out.println("Cliente enlazado");
 
 				this.clientes.add(conn);
+				
 				HiloLectura hl=new HiloLectura(conn, this);
 				
-				/*
+				
+				
+				
+				
 				JuegoServer juego = new JuegoServer(clientes);
 
 				juego.iniciar();
 
 				System.out.println("juego iniciado");
-*/
-			}
+
+			//}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

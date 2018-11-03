@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import graficos.PantallaInicio;
+import servidor.Servidor;
 import util.ClienteConn;
 
 public class Cliente {
@@ -20,7 +21,11 @@ public class Cliente {
 		
 		// Conectado
 		
+		PantallaInicio inicio=new PantallaInicio(this);
+		
+		/*
 		try {
+		
 			
 			// Inicializo sockets
 			
@@ -55,14 +60,22 @@ public class Cliente {
 		// iniciarJuego(); se ejecuta al tocar el boton entrar - enrealidad se ejecuta 
 		// cuando el server diga que la sala esta lista para empezar.	
 		this.iniciarJuego();
-		
+		*/
 	}
 	
 	
 	private void iniciarJuego(){
 		
-		PantallaInicio inicio=new PantallaInicio(this.conn);
-		
+		try { // El server me avisa cuando empieza el juego
+			Boolean res = (Boolean) this.conn.recibirInfo();
+			
+			System.out.println(res);
+			
+			
+		} catch (ClassNotFoundException | IOException e) {
+	
+			e.printStackTrace();
+		}
 		
 		Juego juegoSnake = new Juego(this.conn);
 		
@@ -78,6 +91,39 @@ public class Cliente {
 	public static void main(String[] args) {
 		
 		new Cliente("localhost", 10000); // Me conecto al server
+		
+	}
+
+
+	public void jugarSolo() {
+		
+		HiloSinglePlayer hserv= new HiloSinglePlayer();
+		hserv.start();
+		
+		try {
+		
+			this.entrada = new Socket("localhost", 10000);
+	
+			this.salida = new Socket("localhost", 10000);
+			
+		    ObjectOutputStream out = new ObjectOutputStream(this.salida.getOutputStream());
+			
+			ObjectInputStream in = new ObjectInputStream(this.entrada.getInputStream());
+			
+			this.conn = new ClienteConn(in, out);
+			
+			System.out.println("Conectado al sv");
+		
+			this.iniciarJuego();
+	
+		
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+		
+	
+		
 		
 	}
 	

@@ -17,12 +17,21 @@ public class ClienteConn {
 		
 	}
 	
+
+	public void enviarInfo(Object info) throws IOException {
+		this.out.writeObject(info);
+	}
+	
+	public Object recibirInfo() throws ClassNotFoundException, IOException {
+		return this.in.readObject();
+	}
+	
 	public void enviarInfo(String id, String mensaje) throws IOException {
 		this.out.writeUTF(id);
 		this.out.writeUTF(mensaje);;
 	}
 	
-	public Mensaje recibirInfo() throws ClassNotFoundException, IOException {
+	public Mensaje recibirInfo(String s) throws ClassNotFoundException, IOException {
 		return new Mensaje(this.in.readUTF(), this.in.readUTF());
 	}
 
