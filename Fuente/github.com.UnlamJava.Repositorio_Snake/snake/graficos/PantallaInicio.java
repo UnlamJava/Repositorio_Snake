@@ -46,7 +46,8 @@ public class PantallaInicio {
 		JButton btnNewButton = new JButton("Conectarse a servidor");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				Login login=new Login(c);
+				c.conectarASerivodor();
+				Login login=new Login(c.getConn());
 				frame.setVisible(false);
 			}
 		});

@@ -19,7 +19,7 @@ public class HiloLectura extends Thread {
 		this.server = server;
 	}
 
-	public void run() {/*
+	public void run() {
 		boolean juegoOn = true;
 		try {
 
@@ -50,6 +50,6 @@ public class HiloLectura extends Thread {
 		if (this.mensaje.equals("Crear Sala")){
 			server.salas.add(new Sala(this.con));
 		}
-	*/}
+	}
 	
 }

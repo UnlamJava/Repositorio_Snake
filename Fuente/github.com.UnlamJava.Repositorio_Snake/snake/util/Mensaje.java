@@ -1,24 +1,27 @@
 package util;
-
 public class Mensaje {
-	private String id;
-	private String contenido;
-	public Mensaje(String id, String contenido) {
-		this.id = id;
-		this.contenido = contenido;
+	private String nombreMensaje;
+	private String json;
+
+	public Mensaje(String mensaje, String obj) {
+		nombreMensaje = mensaje;
+		json = obj;
 	}
-	public String getId() {
-		return id;
+
+	public void cambiarMensaje(String mensaje, String obj) {
+		nombreMensaje = mensaje;
+		json = obj;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public String getNombreMensaje() {
+		return nombreMensaje;
 	}
-	public String getContenido() {
-		return contenido;
+
+	public String getJson() {
+		return json;
 	}
-	public void setContenido(String contenido) {
-		this.contenido = contenido;
+
+	public void setNombreMensaje(String mensaje) {
+		this.nombreMensaje = mensaje;
 	}
-	
-	
 }
