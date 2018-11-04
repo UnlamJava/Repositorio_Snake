@@ -8,10 +8,12 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 
-import util.ClienteConn;
+//import util.ClienteConn;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import snakePKG.Vibora;
+import snakeSinglePlayer.HiloMover;
 
 public class JVentanaGrafica extends JFrame {
 
@@ -19,13 +21,23 @@ public class JVentanaGrafica extends JFrame {
 
 	private JPanelGrafico contentPane;
 	
-	private ClienteConn conn;
+	//private ClienteConn conn;
 	
-	public JVentanaGrafica(Integer mapa[][], ClienteConn conn) {
+	private Vibora vibora;
+	
+	private HiloMover hiloMover;
+	
+	private int bandera;
+	
+	public JVentanaGrafica(Integer mapa[][],Vibora vibora,HiloMover hiloMover/*, ClienteConn conn*/) {
 
-		super("Ejemplo Básico de Graphics");
+		this.vibora = vibora;
+		this.bandera=0;
+		this.hiloMover = hiloMover;
 		
-		this.conn = conn;
+		//super("Ejemplo Básico de Graphics");
+		
+		//this.conn = conn;
 		
 		setResizable(false);
 
@@ -44,31 +56,52 @@ public class JVentanaGrafica extends JFrame {
 	}
 
 	public void setMovimiento(KeyEvent evento) {
-		try {
+		
 			
 			String res;
 			
 			if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
 				res = "Izquierda";
-				conn.enviarInfo(res);
+				//conn.enviarInfo(res);
+				this.vibora.cambiarDir(res);
+				
+				if(bandera==0) {
+					this.hiloMover.start();
+					bandera=1;
+				}
 			}
 			if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {
 				res = "Derecha";
-				conn.enviarInfo(res);
+				//conn.enviarInfo(res);
+				this.vibora.cambiarDir(res);
+				
+				if(bandera==0) {
+					this.hiloMover.start();
+					bandera=1;
+				}
 			}
 			if (evento.getKeyCode() == KeyEvent.VK_UP) {
 				res = "Arriba";
-				conn.enviarInfo(res);
+				//conn.enviarInfo(res);
+				this.vibora.cambiarDir(res);
+				
+				if(bandera==0) {
+					this.hiloMover.start();
+					bandera=1;
+				}
 			}
 			if (evento.getKeyCode() == KeyEvent.VK_DOWN) {
 				res = "Abajo";
-				conn.enviarInfo(res);
+				//conn.enviarInfo(res);
+				this.vibora.cambiarDir(res);
+				
+				if(bandera==0) {
+					this.hiloMover.start();
+					bandera=1;
+				}
 			}
 			
-		} catch (IOException e) {
-		
-			e.printStackTrace();
-		}
+	
 	}
 
 	public void actualizarMapa(Integer[][] mapa) {

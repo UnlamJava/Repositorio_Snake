@@ -46,7 +46,7 @@ public class Vibora {
 		//this.tamanio = 1;	
 		this.desplazamiento=1;
 		this.estoyVivo = true;
-		this.sentidoMovActual = "Derecha";
+		this.sentidoMovActual = "Izquierda";
 	}
 	
 	
