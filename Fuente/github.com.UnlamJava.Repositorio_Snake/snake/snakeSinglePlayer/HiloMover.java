@@ -25,7 +25,7 @@ public class HiloMover extends Thread{
 					
 				
 						v.mover(mapa);
-						Thread.sleep(400);
+						Thread.sleep(100);
 					}
 					
 				 catch (InterruptedException e) {

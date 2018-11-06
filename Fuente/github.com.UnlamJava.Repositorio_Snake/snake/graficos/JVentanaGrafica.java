@@ -50,7 +50,7 @@ public class JVentanaGrafica extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, Cuadrado.LADO * mapa.length + 7, Cuadrado.LADO * mapa.length + 30);
-		setBackground(Color.WHITE);
+		setBackground(Color.ORANGE);
 		setLocationRelativeTo(null);
 		this.dibujarMapa(mapa);
 	}
