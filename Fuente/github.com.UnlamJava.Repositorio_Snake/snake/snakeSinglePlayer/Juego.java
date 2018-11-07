@@ -16,6 +16,9 @@ public class Juego {
      private String opcionElegida;
      private final JVentanaBasica menu;
 	 private HiloGenerarFruta hiloGenerarFruta;
+     private Vibora viboraBot;
+     private HiloMover hiloBot;
+     public static int GAMELOOP = 100;
      
       public Juego(){
     	  
@@ -26,19 +29,26 @@ public class Juego {
       }
       
       public void cargarJuego() {
+    	  
     	  this.salir = false;
   
     	  this.mapa = new Mapa("Arena");
     	  
     	  this.vibora = new Vibora(4);
     	  
+    	  this.viboraBot = new Vibora(2);
+    	  
     	  this.mapa.ubicarViboraEnMapa(this.vibora,5,5);
+    	  
+    	  this.mapa.ubicarViboraEnMapa(this.viboraBot, 28,20);
     	  
     	  this.hiloMover = new HiloMover(vibora, mapa);
     	  
+    	  this.hiloBot = new HiloMover(this.viboraBot, mapa);
+  
     	  this.hiloGenerarFruta = new HiloGenerarFruta(this.mapa);
     	  
-    	  this.jVentana = new JVentanaGrafica(this.mapa.getMapa(),this.vibora,this.hiloMover, this.hiloGenerarFruta);
+    	  this.jVentana = new JVentanaGrafica(this.mapa.getMapa(),this.vibora,this.hiloMover,this.hiloBot, this.hiloGenerarFruta, this.viboraBot);
     	  
       }
       
@@ -53,7 +63,9 @@ public class Juego {
 	   			juegoEnCurso();
 	   			
 	   			this.hiloMover.detener();
-	   		
+	   			
+	   			this.hiloBot.detener();
+	   			
 	   			this.hiloGenerarFruta.detener();
 	   		
 	   			this.jVentana.setVisible(false);           
@@ -66,13 +78,12 @@ public class Juego {
     	  this.jVentana.setVisible(true);
 			
     	  while(this.vibora.getTamanioVibora()>0) {
+    		  
     		  this.jVentana.actualizarMapa(this.mapa.getMapa());
     		 
-  			try {
-  				Thread.sleep(100);
-  			} catch (InterruptedException e) {e.printStackTrace();}
-    	  }
-    	 				
+    	  }// en tiempo real
+    	  
+    				
       }
 
 	public void inicarMenuPrincipal() {

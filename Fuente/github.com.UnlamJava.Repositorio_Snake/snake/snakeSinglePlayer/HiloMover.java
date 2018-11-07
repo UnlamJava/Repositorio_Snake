@@ -1,5 +1,6 @@
 package snakeSinglePlayer;
 
+import java.util.Arrays;
 import java.util.Map.Entry;
 
 import snakePKG.Vibora;
@@ -16,16 +17,18 @@ public class HiloMover extends Thread{
 	public HiloMover(Vibora vibora, Mapa mapa){
 		this.v = vibora;
 		this.mapa = mapa;
+		
 	}
 	
+
 	public void run() {
 			
 			while(enCurso) {
 				
 				try {
-						v.mover(mapa);
-
-						Thread.sleep(100);
+						v.moverMejorado();
+						
+						Thread.sleep(Juego.GAMELOOP);
 					}
 					
 				 catch (InterruptedException e) {

@@ -19,12 +19,17 @@ public class JPanelGrafico extends JPanel {
 		
 	    for(Cuadrado c : this.cuadrados) {
 	    	
-	    	if(c.esFruta()) 
+	    	if(c.esFruta()) {
 	    		g.setColor(Color.RED);
-	    	else
+	    		g.fillOval(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO  , Cuadrado.LADO);
+	    	}	
+	    	else {
 	    		g.setColor(Color.BLUE);
+	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
+	    	}
+	    		
 	    	
-			g.fillRect(c.getX() * Cuadrado.LADO, c.getY() * Cuadrado.LADO, Cuadrado.LADO, Cuadrado.LADO);	
+			
 	    }
 	
 	}

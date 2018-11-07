@@ -67,6 +67,43 @@ public class Mapa {
 			
 		}
 		
+		public void verificarPosicionDeCabezas() {
+			
+			
+			boolean mate;
+		
+			for(int i = 0; i < this.ListaViboras.size() - 1; i++) {
+				
+				mate = false;
+				
+				if(this.ListaViboras.get(i).isEstoyVivo()) {
+				
+					for(int j = 1; j < this.ListaViboras.size(); j++) {
+						
+	
+						if(this.ListaViboras.get(j).isEstoyVivo()) {
+							
+							if(this.ListaViboras.get(i).getPosCabeza().equals(this.ListaViboras.get(j).getPosCabeza())) {
+								this.ListaViboras.get(j).morir();
+								mate = true;
+							}
+							
+						}
+					
+						if(mate) {
+							
+							this.matriz[this.ListaViboras.get(i).getPosCabeza().getPosicionY()][this.ListaViboras.get(i).getPosCabeza().getPosicionX()] = 0;
+							this.ListaViboras.get(i).morir();
+						}
+					}
+				}
+				
+			
+				
+			}
+	
+		}
+		
 		public boolean estoyDentroDeMapa(Posicion pos){
 			if((pos.getPosicionX()>= this.tamanioX || pos.getPosicionX()<0)
 					|| (pos.getPosicionY()>= this.tamanioY || pos.getPosicionY()<0))
@@ -74,9 +111,9 @@ public class Mapa {
 			return true;
 			
 		}
+		
 		public int getPosMatriz(Posicion pos){
 			 
-			
 			return this.matriz[pos.getPosicionY()][pos.getPosicionX()];
 		}
 		
@@ -100,28 +137,29 @@ public class Mapa {
 			Posicion pos = new Posicion(0,0);
 			this.matriz[pos.getPosicionX()][pos.getPosicionY()]=vibora.getIdVibora();
 			vibora.getCuerpoVibora(0).setPocision(pos);
-			
-			
-			
 		}
+		
 		public void ubicarViboraEnMapa(Vibora vibora, int x, int y){
 		
+			vibora.setMapa(this);
+			
 			this.matriz[y][x]=vibora.getIdVibora();
 			
 			vibora.getCuerpoVibora(0).setPocision(new Posicion(x,y));
 			
-			this.ListaViboras.add(vibora);
+			this.ListaViboras.add(vibora);	
+			
 		}
 		
 		public Vibora getViboraDePosicion(Posicion pos){
 			
-			int idVibora;
+			int idVibora = this.matriz[pos.getPosicionY()][pos.getPosicionX()];
 			
-			idVibora= this.matriz[pos.getPosicionY()][pos.getPosicionX()];
 			for(int i= 0; i< this.ListaViboras.size();i++){
 				if(this.ListaViboras.get(i).getIdVibora() == idVibora)
 					return this.ListaViboras.get(i);
 			}
+			
 			return null;
 		}
 

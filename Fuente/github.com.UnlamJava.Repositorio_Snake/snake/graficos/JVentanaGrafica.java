@@ -15,6 +15,7 @@ import java.util.Collection;
 import snakePKG.Vibora;
 import snakeSinglePlayer.HiloGenerarFruta;
 import snakeSinglePlayer.HiloMover;
+import snakeSinglePlayer.Juego;
 
 public class JVentanaGrafica extends JFrame {
 
@@ -24,18 +25,24 @@ public class JVentanaGrafica extends JFrame {
 		
 	private Vibora vibora;
 	
+	private Vibora viboraBot;
+	
 	private HiloMover hiloMover;
+	
+	private HiloMover hiloBot;
 	
 	private int bandera;
 	
 	private HiloGenerarFruta hGen;
 	
-	public JVentanaGrafica(Integer mapa[][],Vibora vibora,HiloMover hiloMover, HiloGenerarFruta hGen) {
+	public JVentanaGrafica(Integer mapa[][],Vibora vibora,HiloMover hiloMover, HiloMover hiloBot, HiloGenerarFruta hGen, Vibora bot) {
 
 		this.vibora = vibora;
 		this.bandera=0;
 		this.hiloMover = hiloMover;
+		this.hiloBot = hiloBot;
 		this.hGen = hGen;
+		this.viboraBot = bot;
 		
 		setResizable(false);
 
@@ -57,54 +64,95 @@ public class JVentanaGrafica extends JFrame {
 		
 			String res;
 			
-			if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
+			if(evento.getKeyCode() == KeyEvent.VK_2) {
+				if(Juego.GAMELOOP == 100) return;
+				Juego.GAMELOOP -= 100;
+			}
+			if(evento.getKeyCode() == KeyEvent.VK_1) {
+				if(Juego.GAMELOOP == 3000) return;
+				Juego.GAMELOOP += 100;
+			}
+
+
+			if (evento.getKeyCode() == KeyEvent.VK_A) {
 				res = "Izquierda";
-				//conn.enviarInfo(res);
-				this.vibora.cambiarDir(res);
+				this.viboraBot.cambiarDir(res);	
+			}
+			if (evento.getKeyCode() == KeyEvent.VK_D) {
+				res = "Derecha";
+				this.viboraBot.cambiarDir(res);
+			}
+			if (evento.getKeyCode() == KeyEvent.VK_W) {
+				res = "Arriba";
+				this.viboraBot.cambiarDir(res);
+			}
+			if (evento.getKeyCode() == KeyEvent.VK_S) {
+				res = "Abajo";
+				this.viboraBot.cambiarDir(res);
+			}
+		
+			
+			if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
+			
+				res = "Izquierda";
 				
 				if(bandera==0) {
+					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
+				}else {
+					
+					this.vibora.cambiarDir(res);
 				}
+				
+				
 			}
 			if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {
 				res = "Derecha";
-				//conn.enviarInfo(res);
-				this.vibora.cambiarDir(res);
-				
 				if(bandera==0) {
+					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
+				}else {
+					
+					this.vibora.cambiarDir(res);
 				}
 			}
 			if (evento.getKeyCode() == KeyEvent.VK_UP) {
 				res = "Arriba";
-				//conn.enviarInfo(res);
-				this.vibora.cambiarDir(res);
-				
 				if(bandera==0) {
+					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
+				}else {
+					
+					this.vibora.cambiarDir(res);
 				}
 			}
 			if (evento.getKeyCode() == KeyEvent.VK_DOWN) {
 				res = "Abajo";
-				//conn.enviarInfo(res);
-				this.vibora.cambiarDir(res);
-				
 				if(bandera==0) {
+					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
+				}else {
+					
+					this.vibora.cambiarDir(res);
 				}
 			}
 			
 	
 	}
-
+	
+	
 	public void actualizarMapa(Integer[][] mapa) {
 
 		int n = mapa.length;
