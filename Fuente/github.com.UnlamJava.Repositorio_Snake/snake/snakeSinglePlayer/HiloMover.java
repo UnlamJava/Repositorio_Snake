@@ -11,6 +11,7 @@ public class HiloMover extends Thread{
 	
 	private Vibora v;
 	private Mapa mapa;
+	private boolean enCurso = true;
 	
 	public HiloMover(Vibora vibora, Mapa mapa){
 		this.v = vibora;
@@ -19,12 +20,11 @@ public class HiloMover extends Thread{
 	
 	public void run() {
 			
-			while(true) {
+			while(enCurso) {
 				
 				try {
-					
-				
 						v.mover(mapa);
+
 						Thread.sleep(100);
 					}
 					
@@ -35,6 +35,10 @@ public class HiloMover extends Thread{
 	
 			}
 			
-		}
+	}
+	
+	public void detener() {
+		this.enCurso = false;
+	}
 	
 }

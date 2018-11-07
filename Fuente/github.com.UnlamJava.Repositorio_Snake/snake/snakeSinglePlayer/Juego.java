@@ -22,8 +22,8 @@ public class Juego {
     	  this.salir = false; 	  
     	  this.opcionElegida = "JUGAR";
     	  this.menu = JVentanaBasica.iniciandoMenu();
-    	  
-    	  }
+    	
+      }
       
       public void cargarJuego() {
     	  this.salir = false;
@@ -45,16 +45,24 @@ public class Juego {
       public void iniciar(){
     	
 	       while (!salir) { 
+	    	   
 	    	    inicarMenuPrincipal();
+	    	    
 	   			cargarJuego();
+	   			
 	   			juegoEnCurso();
-	   			this.jVentana.setVisible(false);
-	           
+	   			
+	   			this.hiloMover.detener();
+	   		
+	   			this.hiloGenerarFruta.detener();
+	   		
+	   			this.jVentana.setVisible(false);           
 			}
-    	  
+	       
       }
       
       public void juegoEnCurso() {
+    	  
     	  this.jVentana.setVisible(true);
 			
     	  while(this.vibora.getTamanioVibora()>0) {
@@ -64,19 +72,25 @@ public class Juego {
   				Thread.sleep(100);
   			} catch (InterruptedException e) {e.printStackTrace();}
     	  }
-    	 			
-			
+    	 				
       }
 
 	public void inicarMenuPrincipal() {
+		
 		this.menu.setVisible(true);
+		
 		while(!this.opcionElegida.equals(this.menu.opcionDeMenu())) {
+			
 			//cada un segundo va preguntando al menu la opcion elegida
 			try {
 				Thread.sleep(1000);
+				
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}this.menu.setOpcionElegida("Inicio");
+		}
+		
+		this.menu.setOpcionElegida("Inicio");
+		
 	}
 }

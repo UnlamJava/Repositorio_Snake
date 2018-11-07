@@ -7,17 +7,18 @@ public class HiloGenerarFruta extends Thread {
 
 	private Mapa mapa;
 	
+	private boolean enCurso = true;
+	
 	public HiloGenerarFruta(Mapa mapa) {
 		this.mapa = mapa;
 	}
 
 	public void run() {
 		
-		
-		while(true) {
+		while(enCurso) {
 			
 			mapa.generarFruta();
-			
+	
 			try {
 				Thread.sleep(1500);
 			
@@ -28,6 +29,11 @@ public class HiloGenerarFruta extends Thread {
 			
 		}
 		
+	}
+	
+	public void detener() {
+		
+		this.enCurso = false;
 		
 	}
 	
