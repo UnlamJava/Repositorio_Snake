@@ -7,7 +7,7 @@ public class CuerpoVibora{
   public CuerpoVibora(int id){
 	  
 	 this.idCuerpo = id;
-	pocision = new Posicion(0,0);
+	 pocision = new Posicion(0,0);
 	 
   }
 

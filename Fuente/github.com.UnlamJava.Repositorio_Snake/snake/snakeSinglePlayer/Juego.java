@@ -15,6 +15,7 @@ public class Juego {
      private HiloMover hiloMover;
      private String opcionElegida;
      private final JVentanaBasica menu;
+	 private HiloGenerarFruta hiloGenerarFruta;
      
       public Juego(){
     	  
@@ -35,14 +36,16 @@ public class Juego {
     	  
     	  this.hiloMover = new HiloMover(vibora, mapa);
     	  
-    	  this.jVentana = new JVentanaGrafica(this.mapa.getMapa(),this.vibora,this.hiloMover);
+    	  this.hiloGenerarFruta = new HiloGenerarFruta(this.mapa);
+    	  
+    	  this.jVentana = new JVentanaGrafica(this.mapa.getMapa(),this.vibora,this.hiloMover, this.hiloGenerarFruta);
     	  
       }
       
       public void iniciar(){
     	
 	       while (!salir) { 
-	    	   inicarMenuPrincipal();
+	    	    inicarMenuPrincipal();
 	   			cargarJuego();
 	   			juegoEnCurso();
 	   			this.jVentana.setVisible(false);

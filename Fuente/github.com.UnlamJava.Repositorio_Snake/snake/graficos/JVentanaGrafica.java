@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Collection;
 import snakePKG.Vibora;
+import snakeSinglePlayer.HiloGenerarFruta;
 import snakeSinglePlayer.HiloMover;
 
 public class JVentanaGrafica extends JFrame {
@@ -20,24 +21,21 @@ public class JVentanaGrafica extends JFrame {
 	public static final int FRUTA_AGRANDA = 7;
 
 	private JPanelGrafico contentPane;
-	
-	//private ClienteConn conn;
-	
+		
 	private Vibora vibora;
 	
 	private HiloMover hiloMover;
 	
 	private int bandera;
 	
-	public JVentanaGrafica(Integer mapa[][],Vibora vibora,HiloMover hiloMover/*, ClienteConn conn*/) {
+	private HiloGenerarFruta hGen;
+	
+	public JVentanaGrafica(Integer mapa[][],Vibora vibora,HiloMover hiloMover, HiloGenerarFruta hGen) {
 
 		this.vibora = vibora;
 		this.bandera=0;
 		this.hiloMover = hiloMover;
-		
-		//super("Ejemplo Básico de Graphics");
-		
-		//this.conn = conn;
+		this.hGen = hGen;
 		
 		setResizable(false);
 
@@ -57,7 +55,6 @@ public class JVentanaGrafica extends JFrame {
 
 	public void setMovimiento(KeyEvent evento) {
 		
-			
 			String res;
 			
 			if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -67,6 +64,7 @@ public class JVentanaGrafica extends JFrame {
 				
 				if(bandera==0) {
 					this.hiloMover.start();
+					this.hGen.start();
 					bandera=1;
 				}
 			}
@@ -77,6 +75,7 @@ public class JVentanaGrafica extends JFrame {
 				
 				if(bandera==0) {
 					this.hiloMover.start();
+					this.hGen.start();
 					bandera=1;
 				}
 			}
@@ -87,6 +86,7 @@ public class JVentanaGrafica extends JFrame {
 				
 				if(bandera==0) {
 					this.hiloMover.start();
+					this.hGen.start();
 					bandera=1;
 				}
 			}
@@ -97,6 +97,7 @@ public class JVentanaGrafica extends JFrame {
 				
 				if(bandera==0) {
 					this.hiloMover.start();
+					this.hGen.start();
 					bandera=1;
 				}
 			}

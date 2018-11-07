@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Mapa {
+	
 	//MODIFACACION 12/10
 	//nombre para diferenciar los distintos mapas q hay disponibles
+		
 		public static final String MAPA_1="Arena";
 		public static final String MAPA_2="Bosque";
 		
@@ -19,6 +21,7 @@ public class Mapa {
 		
 		
 		public Mapa(String nombreMapa) {
+			
 			if(nombreMapa==MAPA_1) {
 				this.tamanioX=30;
 				this.tamanioY=30;
@@ -30,6 +33,7 @@ public class Mapa {
 						this.matriz[i][j] = 0;
 					}
 				}
+				
 				//OBJETOS LOS DEFINIMOS NOSOTROS EN EL MAPA..
 				this.objetosDelMapa = new ObjetoDelMapa[3];
 				this.objetosDelMapa[0]=new Fruta(1, 2, Fruta.FRUTA_AGRANDA);
@@ -46,6 +50,20 @@ public class Mapa {
 		public void setMapa(){
 			for(int i=0;i<objetosDelMapa.length;i++)
 				this.matriz[this.objetosDelMapa[i].getPosicionY()][this.objetosDelMapa[i].getPosicionX()]=this.objetosDelMapa[i].getIdObjeto();
+			
+		}
+		
+		public void generarFruta() {
+			
+			int x = (int) (Math.random() * this.tamanioX);
+			int y = (int) (Math.random() * this.tamanioY);
+			
+			while(this.matriz[x][y] != 0) {
+				 x = (int) (Math.random() * this.tamanioX);
+			     y = (int) (Math.random() * this.tamanioY);
+			}
+			
+			this.matriz[x][y] = Fruta.FRUTA_AGRANDA;
 			
 		}
 		
@@ -91,6 +109,7 @@ public class Mapa {
 			this.matriz[y][x]=vibora.getIdVibora();
 			
 			vibora.getCuerpoVibora(0).setPocision(new Posicion(x,y));
+			
 			this.ListaViboras.add(vibora);
 		}
 		
