@@ -10,12 +10,17 @@ import javax.swing.JFrame;
 
 //import util.ClienteConn;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
+
+import snakePKG.Fruta;
 import snakePKG.Vibora;
 import snakeSinglePlayer.HiloGenerarFruta;
 import snakeSinglePlayer.HiloMover;
 import snakeSinglePlayer.Juego;
+
+import javax.swing.JLabel;
 
 public class JVentanaGrafica extends JFrame {
 
@@ -34,6 +39,8 @@ public class JVentanaGrafica extends JFrame {
 	private int bandera;
 	
 	private HiloGenerarFruta hGen;
+	
+	private JLabel lblPuntaje;
 	
 	public JVentanaGrafica(Integer mapa[][],Vibora vibora,HiloMover hiloMover, HiloMover hiloBot, HiloGenerarFruta hGen, Vibora bot) {
 
@@ -167,6 +174,7 @@ public class JVentanaGrafica extends JFrame {
 		}
 
 		contentPane.setCuadrados(c);
+		lblPuntaje.setText("Puntaje: " + this.vibora.getPuntajeJugador());
 		repaint();
 	}
 
@@ -185,6 +193,10 @@ public class JVentanaGrafica extends JFrame {
 
 		contentPane = new JPanelGrafico(c);
 		setContentPane(contentPane);
+		
+		lblPuntaje = new JLabel("");
+		contentPane.add(this.lblPuntaje);
+		lblPuntaje.setText("Puntaje: ");
 
 	}
 }

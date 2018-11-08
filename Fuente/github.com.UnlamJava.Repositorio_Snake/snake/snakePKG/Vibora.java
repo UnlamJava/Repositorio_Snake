@@ -25,6 +25,7 @@ public class Vibora {
 	private boolean estoyVivo;
 	private String sentidoMovActual;
 	private Mapa mapa;
+	private int puntajeJugador;
 
 	public Vibora() {
 		this.idVibora = Vibora.id;
@@ -36,6 +37,7 @@ public class Vibora {
 		// this.tamanio = 1;
 		this.desplazamiento = 1;
 		this.estoyVivo = true;
+		this.puntajeJugador = 0;
 	}
 	// SOBRECARGA QUE ME PERMITE MANDAR EL ID DE LA VIBORA
 
@@ -248,6 +250,15 @@ public class Vibora {
 
 	public void crecer() {
 		this.cantidadFrutaComida++;
+		this.puntajeJugador += Fruta.PUNTAJE_FRUTA;
+	}
+
+	public int getPuntajeJugador() {
+		return puntajeJugador;
+	}
+
+	public void setPuntajeJugador(int puntajeJugador) {
+		this.puntajeJugador = puntajeJugador;
 	}
 
 	public int getIdVibora() {

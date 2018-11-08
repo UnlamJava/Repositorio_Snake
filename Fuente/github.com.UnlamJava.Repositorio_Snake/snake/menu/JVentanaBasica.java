@@ -54,7 +54,7 @@ public class JVentanaBasica extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		nombreJugador = new JLabel("SANKE - JAVA TEAM");
+		nombreJugador = new JLabel("SNAKE - JAVA TEAM");
 		nombreJugador.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.BOLD | Font.ITALIC, 41));
 		nombreJugador.setToolTipText("");
 		nombreJugador.setForeground(Color.BLUE);
