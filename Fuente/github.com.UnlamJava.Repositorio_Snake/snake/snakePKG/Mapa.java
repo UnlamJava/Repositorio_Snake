@@ -35,10 +35,14 @@ public class Mapa {
 				}
 				
 				//OBJETOS LOS DEFINIMOS NOSOTROS EN EL MAPA..
-				this.objetosDelMapa = new ObjetoDelMapa[3];
+				this.objetosDelMapa = new ObjetoDelMapa[6];
 				this.objetosDelMapa[0]=new Fruta(1, 2, Fruta.FRUTA_AGRANDA);
 				this.objetosDelMapa[1]=new Fruta(6, 3, Fruta.FRUTA_AGRANDA);
 				this.objetosDelMapa[2]=new Fruta(8, 8, Fruta.FRUTA_AGRANDA);
+				this.objetosDelMapa[3]=new Obstaculo(15, 15, Obstaculo.ID_OBSTACULO);
+				this.objetosDelMapa[4]=new Obstaculo(15, 16, Obstaculo.ID_OBSTACULO);
+				this.objetosDelMapa[5]=new Obstaculo(15, 17, Obstaculo.ID_OBSTACULO);
+				
 				setMapa();
 				
 				this.ListaViboras = new  ArrayList<Vibora>();

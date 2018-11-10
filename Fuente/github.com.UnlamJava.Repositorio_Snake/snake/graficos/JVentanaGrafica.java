@@ -168,7 +168,7 @@ public class JVentanaGrafica extends JFrame {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (mapa[i][j] != 0) {
-					c.add(new Cuadrado(new Punto(j, i), mapa[i][j] == 7));
+					c.add(new Cuadrado(new Punto(j, i), mapa[i][j]));//==7
 				}
 			}
 		}
@@ -186,7 +186,7 @@ public class JVentanaGrafica extends JFrame {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (mapa[i][j] != 0) {
-					c.add(new Cuadrado(new Punto(j, i), mapa[i][j] == 7));
+					c.add(new Cuadrado(new Punto(j, i), mapa[i][j]));//==7
 				}
 			}
 		}

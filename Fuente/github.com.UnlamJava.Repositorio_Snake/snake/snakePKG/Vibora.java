@@ -1,13 +1,8 @@
 package snakePKG;
 
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 //import java.util.Timer;
-
-import sun.util.locale.provider.CurrencyNameProviderImpl;
 
 //import javax.swing.plaf.synth.SynthSeparatorUI;
 

@@ -34,7 +34,7 @@ public class Juego {
   
     	  this.mapa = new Mapa("Arena");
     	  
-    	  this.vibora = new Vibora(4);
+    	  this.vibora = new Vibora(1);
     	  
     	  this.viboraBot = new Vibora(2);
     	  

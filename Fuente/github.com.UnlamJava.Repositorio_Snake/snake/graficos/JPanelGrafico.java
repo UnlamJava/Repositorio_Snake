@@ -23,11 +23,14 @@ public class JPanelGrafico extends JPanel {
 	    		g.setColor(Color.RED);
 	    		g.fillOval(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO  , Cuadrado.LADO);
 	    	}	
-	    	else {
-	    		g.setColor(Color.BLUE);
+	    	if(c.esJugador()) {
+	    		g.setColor(c.getcodElemento() == Cuadrado.JUGADOR_1 ? Color.BLUE : Color.GREEN);
 	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
 	    	}
-	    		
+	    	if(c.esObstaculo()) {
+	    		g.setColor(Color.BLACK);
+	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
+	    	}
 	    	
 			
 	    }
