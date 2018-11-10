@@ -1,5 +1,5 @@
 package cliente;
-
+/*
 import java.io.IOException;
 import graficos.JVentanaGrafica;
 import util.ClienteConn;
@@ -55,3 +55,4 @@ public class HiloLecturaMapa extends Thread {
 	}
 
 }
+*/

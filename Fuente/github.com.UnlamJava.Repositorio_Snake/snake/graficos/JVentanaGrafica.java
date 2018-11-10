@@ -1,5 +1,6 @@
 package graficos;
 
+/*
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -105,4 +106,4 @@ public class JVentanaGrafica extends JFrame {
 		setContentPane(contentPane);
 
 	}
-}
+}*/
