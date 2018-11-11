@@ -30,7 +30,19 @@ public class Lobby {
 		ha.start();
 	}
 	
+	public int cantJugadoresTest() {
+		return this.clientes.size();
+	}
 	
+	public String cantSalas() {
+		String res = "";
+		
+		for(Sala s: this.salas) {
+			res += s.getId() + " " + s.getCantJugadores() + System.lineSeparator();
+		}
+		
+		return res;
+	}
 	
 	public void enviarSalasAtodos() throws IOException {
 		

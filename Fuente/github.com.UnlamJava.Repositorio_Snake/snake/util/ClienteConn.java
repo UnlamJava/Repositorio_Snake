@@ -60,5 +60,10 @@ public class ClienteConn {
 		
 	}
 
+	public void cerrar() throws IOException {
+		this.in.close();
+		this.out.close();
+	}
+
 	
 }

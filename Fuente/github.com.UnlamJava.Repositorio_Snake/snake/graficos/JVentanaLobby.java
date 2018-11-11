@@ -17,6 +17,8 @@ import servidor.Sala;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import java.awt.Color;
@@ -32,8 +34,20 @@ public class JVentanaLobby extends JFrame {
 	private Cliente cli;
 	
 	public JVentanaLobby(Cliente cli) {
+		
 		this.cli = cli;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
+		this.addWindowListener(new WindowAdapter() {
+			
+			public void windowClosing(WindowEvent e) {
+				cli.desconectar("Lobby");
+				dispose();
+			}
+		});
+		
+		
 		setBounds(100, 100, 450, 444);
 		mainPanel = new JPanel();
 		mainPanel.setBackground(Color.WHITE);

@@ -11,6 +11,8 @@ public class HiloAtenderCliente extends Thread {
 	
 	private Servidor sv;
 	
+	private boolean clienteConectado = true;
+	
 	public HiloAtenderCliente(ClienteConn conn, Servidor sv) {
 
 		this.conn = conn;
@@ -23,12 +25,17 @@ public class HiloAtenderCliente extends Thread {
 		
 		Mensaje msg;
 
-		while(true) {
+		while(clienteConectado) {
 			
 			 try {
 			
 				msg = conn.recibirInfo();
+			
+				if(msg.getNombreMensaje().equals("TerminarConn")) {
+					this.clienteConectado = false;
 				
+				}
+		
 				sv.interpretarMensaje(msg, conn);
 				
 			 } catch (ClassNotFoundException | IOException e) {

@@ -1,6 +1,5 @@
 package graficos;
 
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -14,14 +13,27 @@ import util.ClienteConn;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class JVentanaLogeo extends JDialog {
-	
+
 	private JTextField usuarioTextField;
 	private JTextField contraseñaTextField;
-	
+
 	public JVentanaLogeo(Cliente cli) {
+		
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
+		this.addWindowListener(new WindowAdapter() {
+			
+			public void windowClosing(WindowEvent e) {
+				cli.desconectar("Login");
+				dispose();
+			}
+		});
+		
 		
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -67,4 +79,3 @@ public class JVentanaLogeo extends JDialog {
 	}
 
 }
-

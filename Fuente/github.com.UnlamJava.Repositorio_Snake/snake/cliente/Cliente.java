@@ -18,21 +18,19 @@ import com.google.gson.Gson;
 public class Cliente {
 
 	private Socket entrada;
-
-	private ObjectOutputStream out;
-	private ObjectInputStream in;
-
+	
 	private String ipServer;
 	private int puerto;
 
 	private ClienteConn conn;
-
 	private Gson gson;
 
 	private JVentanaLogeo login;
 	private JVentanaInicio inicio;
 	private JVentanaLobby lobby;
 	private JVentanaSala sala;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 
 	public Cliente(String ip, int port) {
 
@@ -49,14 +47,14 @@ public class Cliente {
 	public void jugarOnline() {
 
 		try {
-
+			
 			this.gson = new Gson();
 
 			this.entrada = new Socket(this.ipServer, this.puerto);
 
-			this.out = new ObjectOutputStream(this.entrada.getOutputStream());
+			ObjectOutputStream out = new ObjectOutputStream(this.entrada.getOutputStream());
 
-			this.in = new ObjectInputStream(this.entrada.getInputStream());
+			ObjectInputStream in = new ObjectInputStream(this.entrada.getInputStream());
 
 			conn = new ClienteConn(in, out);
 
@@ -122,7 +120,7 @@ public class Cliente {
 			this.lobby = new JVentanaLobby(this);
 
 			lobby.setVisible(true);
-
+			
 			this.conn.enviarInfo(new Mensaje("UnirseALobby", ""));
 
 			break;
@@ -151,10 +149,10 @@ public class Cliente {
 			
 			this.lobby.dispose();
 
-			this.sala = new JVentanaSala(this, idSalaCrear);
+			this.sala = new JVentanaSala(this, idSalaCrear, true);
 
 			this.sala.setVisible(true);
-
+			
 			break;
 
 		case "Jugadores":
@@ -171,10 +169,18 @@ public class Cliente {
 			
 			this.lobby.dispose();
 
-			this.sala = new JVentanaSala(this, idSalaUnir);
+			this.sala = new JVentanaSala(this, idSalaUnir, false);
 
 			this.sala.setVisible(true);
-
+			
+			break;
+			
+		case "TerminarOk":
+			
+			conn.cerrar();
+			
+			this.entrada.close();
+			
 			break;
 		}
 
@@ -203,6 +209,21 @@ public class Cliente {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void desconectar(String ventanaActual) {
+		
+		try {
+		
+			conn.enviarInfo(new Mensaje("TerminarConn", this.gson.toJson(ventanaActual)));
+			
+			
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+
+	
 	}
 
 	public static void main(String[] args) {

@@ -94,7 +94,9 @@ public class Sala {
 		}
 
 	}
-
+	
+	
+	
 	private Collection<String> obtenerJugadores() {
 		
 		Collection<String> jugadores=new ArrayList();

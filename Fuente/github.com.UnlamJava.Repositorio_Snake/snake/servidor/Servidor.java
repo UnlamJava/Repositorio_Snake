@@ -34,7 +34,8 @@ public class Servidor {
 			this.server = new ServerSocket(puerto);
 
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
-			
+			HiloTestClientes h = new HiloTestClientes(this);
+			h.start();
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
 			
 			ha.start();
@@ -128,11 +129,62 @@ public class Servidor {
 				this.lobby.quitarCliente(conn);
 		
 				break;
-
+				
+			case "TerminarConn":
+				
+				String ventanaActual = this.gson.fromJson(msg.getJson(), String.class);
+				
+				if(ventanaActual.equals("Login")) {
+					
+					this.quitarCliente(conn);
+					
+				}else if( ventanaActual.substring(0, 4).equals("Sala")) {
+					
+					this.lobby.quitarJugadorDeSala(Integer.parseInt(ventanaActual.substring(4)), conn);
+					
+				}else if( ventanaActual.equals("Lobby")) {
+					
+					this.lobby.quitarCliente(conn);
+				}
+				
+				conn.enviarInfo(new Mensaje("TerminarOk", ""));
+				conn.cerrar();
 		}
 
 	}
 
+	class HiloTestClientes extends Thread{
+		
+		private Servidor sv;
+		
+		public HiloTestClientes(Servidor sv) {
+			this.sv = sv;
+		}
+
+		public void run() {
+			
+			while(true) {
+				
+				System.out.println("sv : " + sv.clientes.size());
+				
+				System.out.println("lob : " + sv.lobby.cantJugadoresTest());
+				
+				System.out.println("Salas : " + sv.lobby.cantSalas());
+				
+				try {
+					Thread.sleep(4000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
+			
+		}
+	}
+	
+	
 	private Mensaje loguear(String user, String pass) {
 
 

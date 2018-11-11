@@ -12,6 +12,8 @@ public class HiloLecturaMensajes extends Thread{
 
 	private ClienteConn conn;
 	
+	private boolean clienteConectado = true;
+	
 	public HiloLecturaMensajes(Cliente cliente, ClienteConn conn) {
 		
 		this.cliente = cliente;
@@ -23,14 +25,18 @@ public class HiloLecturaMensajes extends Thread{
 	public void run() {
 		
 
-		while(true) {
+		while(clienteConectado) {
 			
 			Mensaje msg;
 		
 			try {
 				
 				msg = conn.recibirInfo();
-		
+				
+				if(msg.getNombreMensaje().equals("TerminarOk")) {
+					this.clienteConectado = false;
+				}
+				
 				cliente.interpretarMensaje(msg);
 
 			} catch (ClassNotFoundException | IOException e) {
@@ -41,5 +47,7 @@ public class HiloLecturaMensajes extends Thread{
 			
 		}
 	}
+	
+	
 	
 }
