@@ -16,6 +16,7 @@ public class HiloActualizarSala extends Thread {
 				this.sala.enviarSalasAtodos();
 				Thread.sleep(1000);
 			} catch (IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 				break;
 			}

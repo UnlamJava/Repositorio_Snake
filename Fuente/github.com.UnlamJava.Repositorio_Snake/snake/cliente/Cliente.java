@@ -65,7 +65,7 @@ public class Cliente {
 			hm.start();
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -82,7 +82,7 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("Loguearse", user + "-" + pass));
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -95,7 +95,7 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("Registrarse", user + "|" + pass));
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -193,7 +193,7 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("CrearSala", this.gson.toJson(id)));
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -205,7 +205,7 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("UnirseASala", this.gson.toJson(idSala)));
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -219,7 +219,7 @@ public class Cliente {
 			
 			
 		} catch (IOException e) {
-		
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

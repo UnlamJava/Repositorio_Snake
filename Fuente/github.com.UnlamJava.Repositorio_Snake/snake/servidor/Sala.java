@@ -12,7 +12,9 @@ import util.Mensaje;
 public class Sala {
 
 	private int id;
+	
 	private ClienteConn admin;
+	
 	private Collection<ClienteConn> jugadores;
 
 	private int cantJugadores;
@@ -21,7 +23,7 @@ public class Sala {
 
 	private boolean enPartida;
 	
-	private Gson gson=new Gson();
+	private Gson gson;
 
 	public Sala(int id, int cantJugadores, int limite) {
 
@@ -34,12 +36,22 @@ public class Sala {
 		this.limite = limite;
 
 		this.enPartida = false;
-
+		
+		this.gson = new Gson();
+		
 		HiloActualizarSala ha = new HiloActualizarSala(this);
 
 		ha.start();
 	}
-
+	
+	public void iniciarJuego() {
+		
+		Juego juego = new Juego(this.jugadores);
+		
+		juego.iniciar();
+		
+	}
+	
 	public void agregarJugador(ClienteConn j) {
 
 		if (this.cantJugadores == limite)
@@ -85,25 +97,27 @@ public class Sala {
 	}
 
 	public void enviarSalasAtodos() throws IOException {
-
+		
 		Collection<String> jugadores = this.obtenerJugadores();
-
+		
 		for (ClienteConn c : this.jugadores) {
-
+			
 			c.enviarInfo(new Mensaje("Jugadores", this.gson.toJson(jugadores)));
 		}
-
+		
 	}
 	
 	
 	
 	private Collection<String> obtenerJugadores() {
 		
-		Collection<String> jugadores=new ArrayList();
+		Collection<String> jugadores = new ArrayList<>();
 		
 		for(ClienteConn c :  this.jugadores) {
+			
 			jugadores.add(c.getUsuario());
 		}
+		
 		return jugadores;
 	}
 	

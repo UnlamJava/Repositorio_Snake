@@ -41,7 +41,7 @@ public class Servidor {
 			ha.start();
 
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		}
@@ -149,6 +149,25 @@ public class Servidor {
 				
 				conn.enviarInfo(new Mensaje("TerminarOk", ""));
 				conn.cerrar();
+				
+			case "EmpezarJuego":
+					
+				Integer salaJuego = this.gson.fromJson(msg.getJson(), Integer.class);
+				
+				
+				
+				break;
+				
+			case "TeclaDer":
+				break;
+				
+			case "TeclaIzq":
+				break;
+				
+			case "TeclaAbajo":
+				break;
+			case "TeclaArriba":
+				break;
 		}
 
 	}

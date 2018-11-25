@@ -40,7 +40,7 @@ public class HiloLecturaMensajes extends Thread{
 				cliente.interpretarMensaje(msg);
 
 			} catch (ClassNotFoundException | IOException e) {
-
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 				break;
 			}
