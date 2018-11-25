@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Collection;
 
 import graficos.JVentanaInicio;
 import graficos.JVentanaLogeo;
 import graficos.JVentanaSala;
 import graficos.JVentanaLobby;
+import graficos.JVentanaJuego;
 import util.ClienteConn;
 import util.Mensaje;
 import com.google.gson.Gson;
@@ -29,6 +31,7 @@ public class Cliente {
 	private JVentanaInicio inicio;
 	private JVentanaLobby lobby;
 	private JVentanaSala sala;
+	private JVentanaJuego ventanaJuego;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 
@@ -185,15 +188,27 @@ public class Cliente {
 		
 		case "EmpezarJuego":
 			
-			//cerrar ventana sala
+			Integer[][] mapaInicial = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
 			
-			//abrir vetana juego
+			this.sala.dispose();
+			
+			this.ventanaJuego = new JVentanaJuego(mapaInicial, this);
+			
+			this.ventanaJuego.setVisible(true);
 			
 			break;
 			
 		case "Mapa":
 			
-			//actualizar mapa
+			Integer[][] mapa = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
+			
+			/*
+			for(int i = 0; i < mapa.length; i++) {
+				System.out.println(Arrays.toString(mapa[i]));
+			}
+			
+			System.out.println();
+			*/
 			
 			break;
 		}
@@ -239,9 +254,59 @@ public class Cliente {
 
 	
 	}
+	
+	
+	public void empezarPartida(Integer idSala) {
+		
+		try {
+			this.conn.enviarInfo(new Mensaje("EmpezarJuego", this.gson.toJson(idSala)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		new Cliente("localhost", 10000); // Me conecto al server
+	}
+
+	public void enviarTeclaIzquierda() {
+		
+		try {
+			this.conn.enviarInfo(new Mensaje("TeclaIzquierda", ""));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void enviarTeclaDerecha() {
+		try {
+			this.conn.enviarInfo(new Mensaje("TeclaDerecha", ""));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void enviarTeclaArriba() {
+		try {
+			this.conn.enviarInfo(new Mensaje("TeclaArriba", ""));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void enviarTeclaAbajo() {
+		try {
+			this.conn.enviarInfo(new Mensaje("TeclaAbajo", ""));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

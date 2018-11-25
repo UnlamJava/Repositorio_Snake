@@ -6,9 +6,9 @@ public class Mensaje {
 	private String nombreMensaje;
 	private String json;
 
-	public Mensaje(String mensaje, String obj) {
+	public Mensaje(String mensaje, String json) {
 		nombreMensaje = mensaje;
-		json = obj;
+		this.json = json;
 	}
 
 	public void cambiarMensaje(String mensaje, String jsonObj) {

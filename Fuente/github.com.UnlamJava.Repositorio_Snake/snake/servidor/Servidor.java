@@ -34,8 +34,11 @@ public class Servidor {
 			this.server = new ServerSocket(puerto);
 
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
+			
 			HiloTestClientes h = new HiloTestClientes(this);
+			
 			h.start();
+			
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
 			
 			ha.start();
@@ -155,16 +158,16 @@ public class Servidor {
 				Integer salaJuego = this.gson.fromJson(msg.getJson(), Integer.class);
 				
 				this.lobby.iniciarJuegoSala(salaJuego);
-			
-				break;
-				
-			case "TeclaDer":
-				
-				
 				
 				break;
 				
-			case "TeclaIzq":
+			case "TeclaDerecha":
+				
+				
+				
+				break;
+				
+			case "TeclaIzquierda":
 				break;
 				
 			case "TeclaAbajo":
@@ -247,10 +250,7 @@ public class Servidor {
 	}
 	
 	
-	
-	
-	
-	
+
 	public static void main(String[] args) {
 		new Servidor(10000);
 	}

@@ -71,7 +71,7 @@ public class JVentanaSala extends JFrame {
 			btnEmpezar.setBounds(385, 107, 119, 76);
 			btnEmpezar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// cli.empezarPartida();
+					cli.empezarPartida(idSala);
 				}
 			});
 			contentPane.add(btnEmpezar);

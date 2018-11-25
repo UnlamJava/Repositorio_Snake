@@ -42,6 +42,8 @@ public class Sala {
 		HiloActualizarSala ha = new HiloActualizarSala(this);
 
 		ha.start();
+		
+		
 	}
 	
 	public void iniciarJuego() {

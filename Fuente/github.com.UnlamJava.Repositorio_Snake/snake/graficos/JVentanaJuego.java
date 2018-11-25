@@ -1,6 +1,5 @@
 package graficos;
 
-/*
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,25 +8,28 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 
+import cliente.Cliente;
 import util.ClienteConn;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class JVentanaGrafica extends JFrame {
+public class JVentanaJuego extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 
 	public static final int FRUTA_AGRANDA = 7;
 
 	private JPanelGrafico contentPane;
-	
-	private ClienteConn conn;
-	
-	public JVentanaGrafica(Integer mapa[][], ClienteConn conn) {
+
+	private Cliente cli;
+
+	public JVentanaJuego(Integer mapa[][], Cliente cli) {
 
 		super("Ejemplo Básico de Graphics");
-		
-		this.conn = conn;
-		
+
+		this.cli = cli;
+
 		setResizable(false);
 
 		addKeyListener(new KeyAdapter() {
@@ -45,31 +47,20 @@ public class JVentanaGrafica extends JFrame {
 	}
 
 	public void setMovimiento(KeyEvent evento) {
-		try {
-			
-			String res;
-			
-			if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
-				res = "Izquierda";
-				conn.enviarInfo(res);
-			}
-			if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {
-				res = "Derecha";
-				conn.enviarInfo(res);
-			}
-			if (evento.getKeyCode() == KeyEvent.VK_UP) {
-				res = "Arriba";
-				conn.enviarInfo(res);
-			}
-			if (evento.getKeyCode() == KeyEvent.VK_DOWN) {
-				res = "Abajo";
-				conn.enviarInfo(res);
-			}
-			
-		} catch (IOException e) {
-		
-			e.printStackTrace();
+
+		if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
+			cli.enviarTeclaIzquierda();
 		}
+		if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {
+			cli.enviarTeclaDerecha();
+		}
+		if (evento.getKeyCode() == KeyEvent.VK_UP) {
+			cli.enviarTeclaArriba();
+		}
+		if (evento.getKeyCode() == KeyEvent.VK_DOWN) {
+			cli.enviarTeclaAbajo();
+		}
+
 	}
 
 	public void actualizarMapa(Integer[][] mapa) {
@@ -106,4 +97,4 @@ public class JVentanaGrafica extends JFrame {
 		setContentPane(contentPane);
 
 	}
-}*/
+}

@@ -86,7 +86,7 @@ public class Lobby {
 		
 		for(Sala s : this.salas) {
 			
-			if(s.getId() == idSala) {
+			if(s.getId().equals(idSala)) {
 				
 				s.quitarJugador(cli);
 				
@@ -127,7 +127,7 @@ public class Lobby {
 				
 		for(Sala sala : this.salas) {
 			
-			if(sala.getId() == salaJuego) {
+			if(sala.getId().equals(salaJuego)) {
 				
 				sala.iniciarJuego();
 				
