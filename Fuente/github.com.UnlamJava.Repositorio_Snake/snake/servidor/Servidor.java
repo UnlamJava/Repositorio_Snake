@@ -154,11 +154,14 @@ public class Servidor {
 					
 				Integer salaJuego = this.gson.fromJson(msg.getJson(), Integer.class);
 				
-				
-				
+				this.lobby.iniciarJuegoSala(salaJuego);
+			
 				break;
 				
 			case "TeclaDer":
+				
+				
+				
 				break;
 				
 			case "TeclaIzq":

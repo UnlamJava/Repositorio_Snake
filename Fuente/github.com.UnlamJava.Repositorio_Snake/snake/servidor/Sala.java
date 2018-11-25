@@ -49,7 +49,7 @@ public class Sala {
 		Juego juego = new Juego(this.jugadores);
 		
 		juego.iniciar();
-		
+	
 	}
 	
 	public void agregarJugador(ClienteConn j) {

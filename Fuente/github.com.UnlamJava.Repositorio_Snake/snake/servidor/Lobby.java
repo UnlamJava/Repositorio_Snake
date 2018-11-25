@@ -122,6 +122,20 @@ public class Lobby {
 		
 		return res;
 	}
+
+	public void iniciarJuegoSala(Integer salaJuego) {
+				
+		for(Sala sala : this.salas) {
+			
+			if(sala.getId() == salaJuego) {
+				
+				sala.iniciarJuego();
+				
+				break;
+			}	
+		}
+		
+	}
 	
 	
 }

@@ -182,6 +182,20 @@ public class Cliente {
 			this.entrada.close();
 			
 			break;
+		
+		case "EmpezarJuego":
+			
+			//cerrar ventana sala
+			
+			//abrir vetana juego
+			
+			break;
+			
+		case "Mapa":
+			
+			//actualizar mapa
+			
+			break;
 		}
 
 	}
