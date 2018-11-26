@@ -25,6 +25,10 @@ public class Sala {
 	
 	private Gson gson;
 
+	private HiloActualizarSala ha;
+	
+	private Juego juego;
+	
 	public Sala(int id, int cantJugadores, int limite) {
 
 		this.jugadores = new ArrayList<>();
@@ -39,7 +43,7 @@ public class Sala {
 		
 		this.gson = new Gson();
 		
-		HiloActualizarSala ha = new HiloActualizarSala(this);
+		this.ha = new HiloActualizarSala(this);
 
 		ha.start();
 		
@@ -48,9 +52,11 @@ public class Sala {
 	
 	public void iniciarJuego() {
 		
-		Juego juego = new Juego(this.jugadores);
+		this.ha.detener();
 		
-		juego.iniciar();
+		this.juego = new Juego(this.jugadores);
+		
+		this.juego.iniciar();
 	
 	}
 	
@@ -121,6 +127,12 @@ public class Sala {
 		}
 		
 		return jugadores;
+	}
+
+	public void teclaJuego(String dir, ClienteConn conn) {
+		
+		this.juego.cambiarDir(conn, dir);
+		
 	}
 	
 }

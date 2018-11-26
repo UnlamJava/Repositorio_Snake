@@ -16,31 +16,31 @@ public class Servidor {
 	private ServerSocket server;
 
 	private Collection<ClienteConn> clientes;
-	
+
 	private Lobby lobby;
-	
-    //private UsuariosDB db;
+
+	// private UsuariosDB db;
 
 	public Servidor(int puerto) {
 
 		this.clientes = new ArrayList<>();
 
 		this.gson = new Gson();
-		
+
 		this.lobby = new Lobby();
-		
+
 		try {
 
 			this.server = new ServerSocket(puerto);
 
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
-			
+
 			HiloTestClientes h = new HiloTestClientes(this);
-			
+
 			h.start();
-			
+
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
-			
+
 			ha.start();
 
 		} catch (IOException e) {
@@ -50,7 +50,6 @@ public class Servidor {
 		}
 	}
 
-	
 	public void interpretarMensaje(Mensaje msg, ClienteConn conn) throws IOException {
 
 		String tipo = msg.getNombreMensaje();
@@ -59,143 +58,165 @@ public class Servidor {
 
 		switch (tipo) {
 
-			case "Loguearse":
-	
-				String user[] = gson.fromJson(msg.getJson(), String.class).split("-");
-				
-				res = this.loguear(user[0],user[1]);
-				
-				conn.setUsuario(user[0]);
-				
-				conn.enviarInfo(res);
-	
-				break;
-	
-			case "Registrarse":
-				
-				String userReg[] = new String[2];
-	
-				userReg = gson.fromJson(msg.getJson(), String.class).split("-");
-	
-				res = this.registrar(userReg[0], userReg[1]);
-	
-				conn.enviarInfo(res);
-	
-				break;
-	
-			case "ObtenerSalas":
-	
-				Collection<String> salas = this.lobby.obtenerSalas();
-				
-				res = new Mensaje("Salas", this.gson.toJson(salas));
-				
-				conn.enviarInfo(res);
-	
-				break;
-				
-			case "UnirseALobby":
-				
-				this.lobby.agregarCliente(conn);
-				
+		case "Loguearse":
+
+			String user[] = gson.fromJson(msg.getJson(), String.class).split("-");
+
+			res = this.loguear(user[0], user[1]);
+
+			conn.setUsuario(user[0]);
+
+			conn.enviarInfo(res);
+
+			break;
+
+		case "Registrarse":
+
+			String userReg[] = new String[2];
+
+			userReg = gson.fromJson(msg.getJson(), String.class).split("-");
+
+			res = this.registrar(userReg[0], userReg[1]);
+
+			conn.enviarInfo(res);
+
+			break;
+
+		case "ObtenerSalas":
+
+			Collection<String> salas = this.lobby.obtenerSalas();
+
+			res = new Mensaje("Salas", this.gson.toJson(salas));
+
+			conn.enviarInfo(res);
+
+			break;
+
+		case "UnirseALobby":
+
+			this.lobby.agregarCliente(conn);
+
+			this.quitarCliente(conn);
+
+			break;
+
+		case "SalirDeLobby":
+
+			this.lobby.quitarCliente(conn);
+
+			break;
+
+		case "UnirseASala":
+
+			Integer idSala = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			conn.enviarInfo(new Mensaje("UnirseASalaOk", gson.toJson(idSala)));
+
+			this.lobby.agregarJugadorASala(idSala, conn);
+
+			this.lobby.quitarCliente(conn);
+
+			break;
+
+		case "CrearSala":
+
+			Integer idSalaCrear = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			this.lobby.crearSala(idSalaCrear);
+
+			conn.enviarInfo(new Mensaje("CrearSalaOk", gson.toJson(idSalaCrear)));
+
+			this.lobby.agregarJugadorASala(idSalaCrear, conn);
+
+			this.lobby.quitarCliente(conn);
+
+			break;
+
+		case "TerminarConn":
+
+			String ventanaActual = this.gson.fromJson(msg.getJson(), String.class);
+
+			if (ventanaActual.equals("Login")) {
+
 				this.quitarCliente(conn);
-				
-				break;
+
+			} else if (ventanaActual.substring(0, 4).equals("Sala")) {
+
+				this.lobby.quitarJugadorDeSala(Integer.parseInt(ventanaActual.substring(4)), conn);
+
+			} else if (ventanaActual.equals("Lobby")) {
+
+				this.lobby.quitarCliente(conn);
+			}
+
+			conn.enviarInfo(new Mensaje("TerminarOk", ""));
+			conn.cerrar();
+
+		case "EmpezarJuego":
+
+			Integer salaJuego = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			this.lobby.iniciarJuegoSala(salaJuego);
+
+			break;
+
+		case "TeclaDerecha":
+
+			Integer salaId = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			this.lobby.teclaJuego("Derecha", salaId, conn);
+
+			break;
+
+		case "TeclaIzquierda":
+
+			Integer salaId2 = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			this.lobby.teclaJuego("Izquierda", salaId2, conn);
+
+			break;
+
+		case "TeclaAbajo":
 			
-			case "SalirDeLobby":
-				
-				this.lobby.quitarCliente(conn);
+			System.out.println("asd");
 			
-				break;
-				
-			case "UnirseASala":
-				
-				Integer idSala = this.gson.fromJson(msg.getJson(), Integer.class);
-				
-				conn.enviarInfo(new Mensaje("UnirseASalaOk", gson.toJson(idSala)));
-				
-				this.lobby.agregarJugadorASala(idSala, conn);
-				
-				this.lobby.quitarCliente(conn);
-				
-				break;
-	
-			case "CrearSala":
-				
-				Integer idSalaCrear = this.gson.fromJson(msg.getJson(), Integer.class);
-				
-				this.lobby.crearSala(idSalaCrear);
-				
-				conn.enviarInfo(new Mensaje("CrearSalaOk",gson.toJson(idSalaCrear)));
-				
-				this.lobby.agregarJugadorASala(idSalaCrear, conn);
-				
-				this.lobby.quitarCliente(conn);
-		
-				break;
-				
-			case "TerminarConn":
-				
-				String ventanaActual = this.gson.fromJson(msg.getJson(), String.class);
-				
-				if(ventanaActual.equals("Login")) {
-					
-					this.quitarCliente(conn);
-					
-				}else if( ventanaActual.substring(0, 4).equals("Sala")) {
-					
-					this.lobby.quitarJugadorDeSala(Integer.parseInt(ventanaActual.substring(4)), conn);
-					
-				}else if( ventanaActual.equals("Lobby")) {
-					
-					this.lobby.quitarCliente(conn);
-				}
-				
-				conn.enviarInfo(new Mensaje("TerminarOk", ""));
-				conn.cerrar();
-				
-			case "EmpezarJuego":
-					
-				Integer salaJuego = this.gson.fromJson(msg.getJson(), Integer.class);
-				
-				this.lobby.iniciarJuegoSala(salaJuego);
-				
-				break;
-				
-			case "TeclaDerecha":
-				
-				
-				
-				break;
-				
-			case "TeclaIzquierda":
-				break;
-				
-			case "TeclaAbajo":
-				break;
-			case "TeclaArriba":
-				break;
+			Integer salaId3 = this.gson.fromJson(msg.getJson(), Integer.class);
+			
+			System.out.println(salaId3);
+			
+			this.lobby.teclaJuego("Abajo", salaId3, conn);
+
+			break;
+
+		case "TeclaArriba":
+
+			Integer salaId4 = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			this.lobby.teclaJuego("Arriba", salaId4, conn);
+
+			break;
 		}
 
 	}
 
-	class HiloTestClientes extends Thread{
-		
+	class HiloTestClientes extends Thread {
+
 		private Servidor sv;
-		
+
 		public HiloTestClientes(Servidor sv) {
 			this.sv = sv;
 		}
 
 		public void run() {
-			
-			while(true) {
-				
+
+			while (true) {
+
 				System.out.println("sv : " + sv.clientes.size());
-				
+
 				System.out.println("lob : " + sv.lobby.cantJugadoresTest());
-				
+
 				System.out.println("Salas : " + sv.lobby.cantSalas());
-				
+
 				try {
 					Thread.sleep(4000);
 				} catch (InterruptedException e) {
@@ -203,26 +224,22 @@ public class Servidor {
 					e.printStackTrace();
 				}
 			}
-			
-			
-			
+
 		}
 	}
-	
-	
+
 	private Mensaje loguear(String user, String pass) {
 
-
 		if (user.equals("invalido")) {
-			
+
 			return new Mensaje("LogErr", this.gson.toJson("Logueo invalido"));
 		} else {
-			
+
 			return new Mensaje("LogOk", this.gson.toJson("Logueo exitoso"));
 		}
 
 	}
-	
+
 	private Mensaje registrar(String user, String pass) {
 
 		if (user.equals("invalid")) {
@@ -232,24 +249,22 @@ public class Servidor {
 		}
 
 	}
-	
+
 	public void quitarCliente(ClienteConn cli) {
-	
+
 		this.clientes.remove(cli);
-	
+
 	}
 
 	public Socket aceptarCliente() throws IOException {
-		
+
 		return this.server.accept();
-		
+
 	}
-	
+
 	public void agregarCliente(ClienteConn cli) {
 		this.clientes.add(cli);
 	}
-	
-	
 
 	public static void main(String[] args) {
 		new Servidor(10000);

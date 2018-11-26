@@ -27,17 +27,20 @@ public class Juego {
 		
 		this.mapa = new Mapa(Mapa.MAPA_1);
 		
+		Vibora v;
+		
+		int i = 1;
+		
 		for(ClienteConn cli : clientes) {
 			
-			this.viboras.put(cli, new Vibora());
+			v = new Vibora(i++);
 			
+			this.viboras.put(cli, v);
 			
+			mapa.ubicarViboraEnMapa(v);
 		}
 		
-		
-		//TODO: Generar el mapa (instanciarlo), y ubicar las viboras, enlazadas con sus respectivos clientes.
-		
-		
+		System.out.println("pos ok");
 		
 		
 	}
@@ -55,11 +58,11 @@ public class Juego {
 	
 		HiloEnviarMapa hiloMapa = new HiloEnviarMapa(this);
 		
-		//HiloMoverViboras hiloMoverViboras = new HiloMoverViboras();
+		HiloMoverViboras hiloMoverViboras = new HiloMoverViboras(this);
 		
 		hiloMapa.start();
 		
-		//hiloMoverViboras.start();
+		hiloMoverViboras.start();
 		
 		//condicion hasta q el juego termine
 		
@@ -85,7 +88,7 @@ public class Juego {
 	}
 	
 	public void cambiarDir(ClienteConn conn, String dir) {
-		
+			
 		this.viboras.get(conn).cambiarDir(dir);
 		
 	}
@@ -97,7 +100,15 @@ public class Juego {
 			cli.enviarInfo(new Mensaje("Mapa", this.gson.toJson(this.mapa.getMapa())));
 			
 		}
+	
+	}
+	
+	public void moverViboras() {
 		
+		for(Vibora v : this.viboras.values()) {
+			
+			v.moverMejorado();
+		}
 		
 	}
 	

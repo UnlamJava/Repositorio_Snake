@@ -237,7 +237,8 @@ public class Vibora {
 	}
 
 	public boolean caminoValido() {
-
+		
+		System.out.println(mapa);
 		if (!mapa.estoyDentroDeMapa(this.cuerpo.get(0).getPocision()))
 			return false;
 

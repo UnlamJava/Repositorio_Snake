@@ -96,4 +96,8 @@ public class JVentanaSala extends JFrame {
 		
 		this.list.setModel(modelList);
 	}
+	
+	public int getIdSala() {
+		return this.idSala;
+	}
 }

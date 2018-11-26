@@ -24,12 +24,16 @@ public class JVentanaJuego extends JFrame {
 
 	private Cliente cli;
 
-	public JVentanaJuego(Integer mapa[][], Cliente cli) {
+	private int idSala;
+	
+	public JVentanaJuego(Integer mapa[][], Cliente cli, int idSala) {
 
 		super("Ejemplo Básico de Graphics");
 
 		this.cli = cli;
-
+		
+		this.idSala = idSala;
+		
 		setResizable(false);
 
 		addKeyListener(new KeyAdapter() {
@@ -49,16 +53,18 @@ public class JVentanaJuego extends JFrame {
 	public void setMovimiento(KeyEvent evento) {
 
 		if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
-			cli.enviarTeclaIzquierda();
+	
+			cli.enviarTeclaIzquierda(idSala);
 		}
 		if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {
-			cli.enviarTeclaDerecha();
+			cli.enviarTeclaDerecha(idSala);
 		}
 		if (evento.getKeyCode() == KeyEvent.VK_UP) {
-			cli.enviarTeclaArriba();
+			cli.enviarTeclaArriba(idSala);
 		}
 		if (evento.getKeyCode() == KeyEvent.VK_DOWN) {
-			cli.enviarTeclaAbajo();
+		
+			cli.enviarTeclaAbajo(idSala);
 		}
 
 	}

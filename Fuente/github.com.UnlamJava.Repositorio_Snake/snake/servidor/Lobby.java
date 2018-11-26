@@ -136,6 +136,20 @@ public class Lobby {
 		}
 		
 	}
+
+	public void teclaJuego(String dir, Integer salaId, ClienteConn cli) {
+		
+		for(Sala sala : this.salas) {
+			
+			if(sala.getId().equals(salaId)) {
+				
+				sala.teclaJuego(dir, cli);
+				
+				break;
+			}	
+		}
+		
+	}
 	
 	
 }

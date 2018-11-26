@@ -190,9 +190,11 @@ public class Cliente {
 			
 			Integer[][] mapaInicial = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
 			
+			Integer idSala = this.sala.getIdSala();
+			
 			this.sala.dispose();
 			
-			this.ventanaJuego = new JVentanaJuego(mapaInicial, this);
+			this.ventanaJuego = new JVentanaJuego(mapaInicial, this, idSala);
 			
 			this.ventanaJuego.setVisible(true);
 			
@@ -209,6 +211,8 @@ public class Cliente {
 			
 			System.out.println();
 			*/
+			
+			this.ventanaJuego.actualizarMapa(mapa);
 			
 			break;
 		}
@@ -271,10 +275,10 @@ public class Cliente {
 		new Cliente("localhost", 10000); // Me conecto al server
 	}
 
-	public void enviarTeclaIzquierda() {
+	public void enviarTeclaIzquierda(Integer idSala) {
 		
 		try {
-			this.conn.enviarInfo(new Mensaje("TeclaIzquierda", ""));
+			this.conn.enviarInfo(new Mensaje("TeclaIzquierda", this.gson.toJson(idSala)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -282,29 +286,31 @@ public class Cliente {
 		
 	}
 
-	public void enviarTeclaDerecha() {
+	public void enviarTeclaDerecha(Integer idSala) {
 		try {
-			this.conn.enviarInfo(new Mensaje("TeclaDerecha", ""));
+			this.conn.enviarInfo(new Mensaje("TeclaDerecha", this.gson.toJson(idSala)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void enviarTeclaArriba() {
+	public void enviarTeclaArriba(Integer idSala) {
 		try {
-			this.conn.enviarInfo(new Mensaje("TeclaArriba", ""));
+			this.conn.enviarInfo(new Mensaje("TeclaArriba", this.gson.toJson(idSala)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void enviarTeclaAbajo() {
+	public void enviarTeclaAbajo(Integer idSala) {
 		try {
-			this.conn.enviarInfo(new Mensaje("TeclaAbajo", ""));
+			System.out.println(idSala);
+			this.conn.enviarInfo(new Mensaje("TeclaAbajo", this.gson.toJson(idSala)));
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}

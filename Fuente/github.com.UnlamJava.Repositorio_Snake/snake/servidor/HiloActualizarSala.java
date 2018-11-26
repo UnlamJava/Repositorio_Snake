@@ -4,14 +4,17 @@ package servidor;
 import java.io.IOException;
 
 public class HiloActualizarSala extends Thread {
+	
 	private Sala sala;
 
+	private boolean on = true;
+	
 	public HiloActualizarSala(Sala sala) {
 		this.sala = sala;
 	}
 
 	public void run() {
-		while (true) {
+		while (this.on) {
 			try {
 				this.sala.enviarSalasAtodos();
 				Thread.sleep(1000);
@@ -23,4 +26,9 @@ public class HiloActualizarSala extends Thread {
 
 		}
 	}
+	
+	public void detener() {
+		this.on = false;
+	}
+	
 }
