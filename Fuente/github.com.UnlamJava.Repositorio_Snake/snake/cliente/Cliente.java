@@ -204,15 +204,15 @@ public class Cliente {
 			
 			Integer[][] mapa = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
 			
-			/*
-			for(int i = 0; i < mapa.length; i++) {
-				System.out.println(Arrays.toString(mapa[i]));
-			}
-			
-			System.out.println();
-			*/
-			
 			this.ventanaJuego.actualizarMapa(mapa);
+			
+			break;
+			
+		case "Puntajes":
+			
+			Integer[] puntajes = this.gson.fromJson(mensaje.getJson(), Integer[].class);
+			
+			this.ventanaJuego.actualizarPuntajes(puntajes);
 			
 			break;
 		}

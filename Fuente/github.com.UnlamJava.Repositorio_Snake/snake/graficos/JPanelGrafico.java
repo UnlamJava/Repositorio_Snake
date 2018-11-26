@@ -16,21 +16,25 @@ public class JPanelGrafico extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		
+		this.setBackground(Color.WHITE);
 		
 	    for(Cuadrado c : this.cuadrados) {
 	    	
 	    	if(c.esFruta()) {
 	    		g.setColor(Color.RED);
-	    		g.fillOval(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO  , Cuadrado.LADO);
-	    	}	
-	    	if(c.esJugador()) {
+	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
+	    	}else if(c.esJugador()) {
 	    		g.setColor(c.getcodElemento() == Cuadrado.JUGADOR_1 ? Color.BLUE : Color.GREEN);
 	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
-	    	}
-	    	if(c.esObstaculo()) {
+	    	}else if(c.esObstaculo()) {
 	    		g.setColor(Color.BLACK);
 	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
+	    	}else {
+	    		g.setColor(Color.WHITE);
+	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
 	    	}
+	    	
+	    	
 	    	
 			
 	    }

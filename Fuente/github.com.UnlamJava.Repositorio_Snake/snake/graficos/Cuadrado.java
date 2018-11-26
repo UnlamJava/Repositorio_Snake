@@ -9,6 +9,7 @@ class Cuadrado {
 	public static final int JUGADOR_3 = 3;
 	public static final int JUGADOR_4 = 4;
 	public static final int OBSTACULO = 80;
+	public static final int NADA = 0;
 	
 	private Punto pos;
 	private int codElemento;
