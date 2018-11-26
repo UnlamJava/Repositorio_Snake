@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import cliente.Cliente;
 import util.ClienteConn;
@@ -25,6 +26,8 @@ public class JVentanaJuego extends JFrame {
 	private Cliente cli;
 
 	private int idSala;
+	
+	private JLabel lblPuntaje;
 	
 	public JVentanaJuego(Integer mapa[][], Cliente cli, int idSala) {
 
@@ -77,7 +80,7 @@ public class JVentanaJuego extends JFrame {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (mapa[i][j] != 0) {
-					c.add(new Cuadrado(new Punto(j, i), mapa[i][j] == 7));
+					c.add(new Cuadrado(new Punto(j, i), mapa[i][j]));
 				}
 			}
 		}
@@ -94,7 +97,7 @@ public class JVentanaJuego extends JFrame {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (mapa[i][j] != 0) {
-					c.add(new Cuadrado(new Punto(j, i), mapa[i][j] == 7));
+					c.add(new Cuadrado(new Punto(j, i), mapa[i][j]));
 				}
 			}
 		}
