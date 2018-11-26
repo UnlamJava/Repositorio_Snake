@@ -64,13 +64,6 @@ public class Vibora {
 		return this.cuerpo.get(pos);
 	}
 
-
-	public void mover(Mapa mapa) {
-		if (!this.estoyVivo)
-			return;
-		this.mover(this.sentidoMovActual, mapa);
-	}
-
 	public void cambiarDir(String dir) {
 
 		if (dir.equals(opuestoDe(this.sentidoMovActual))) {
@@ -149,79 +142,6 @@ public class Vibora {
 		return this.cuerpo.get(0).getPocision();
 	}
 	
-	public void mover(String sentidoDelMovimiento, Mapa mapa) {
-
-		if (!this.estoyVivo)
-			return;
-
-		this.cambiarDir(sentidoDelMovimiento);
-
-		// *********Esto va dentro del un evento que se ejecute cada cierto
-		// tiempo.********************//
-		// Cero representa que el mapa en esa ubicación quedo libre
-
-		// Seteo las nuevas posiciones del cuerpo
-
-		Posicion posAux = new Posicion(this.cuerpo.get(this.cuerpo.size() - 1).getPocision());
-		// System.out.println("tamanio: "+this.cuerpo.size());
-
-		for (int i = this.cuerpo.size() - 1; i > 0; i--) {
-			this.cuerpo.get(i).setPocision(this.cuerpo.get(i - 1).getPocision());
-			// System.out.println("pos: "+i+"
-			// "+this.cuerpo.get(i).getPocision().toString());
-		}
-
-		// Seteo la nueva posicion de la cabeza de la vibora
-		int x = this.cuerpo.get(0).getPocision().getPosicionX() + this.desplazamientoEnX;
-		int y = this.cuerpo.get(0).getPocision().getPosicionY() + this.desplazamientoEnY;
-		Posicion newPos = new Posicion(x, y);
-
-		this.cuerpo.get(0).setPocision(newPos);
-
-		if (this.caminoValido()) {
-
-			if (mapa.HayFruta(this.cuerpo.get(0).getPocision())) {
-
-				//this.crecer(posAux);
-
-				for (int i = 0; i < this.cuerpo.size(); i++)
-					mapa.setPosMatriz(this.cuerpo.get(i).getPocision(), this.cuerpo.get(i).getIdCuerpo());
-			}
-
-			else {
-
-				for (int i = 0; i < this.cuerpo.size(); i++)
-					mapa.setPosMatriz(this.cuerpo.get(i).getPocision(), this.cuerpo.get(i).getIdCuerpo());
-
-				mapa.setPosMatriz(posAux, 0);
-			}
-
-		} else {
-			if (mapa.estoyDentroDeMapa(this.cuerpo.get(0).getPocision())
-					&& mapa.getPosMatriz(this.cuerpo.get(0).getPocision()) != Obstaculo.ID_OBSTACULO) {
-				Vibora aux = mapa.getViboraDePosicion(this.cuerpo.get(0).getPocision());
-
-				if ((this != aux) && (this.cuerpo.get(0).getPocision().equals(aux.cuerpo.get(0).getPocision()))) {
-					aux.estoyVivo = false;
-
-					mapa.LimpiarCuerpoVibora((List) aux.cuerpo);
-
-					mapa.setPosMatriz(aux.cuerpo.get(aux.cuerpo.size() - 1).getPocision(), 0);
-					aux.cuerpo.clear();
-				}
-			}
-
-			mapa.LimpiarCuerpoVibora((List) this.cuerpo);
-
-			mapa.setPosMatriz(posAux, 0);
-
-			this.estoyVivo = false;
-			this.cuerpo.clear();
-
-		}
-
-	}
-
 	private String opuestoDe(String sentidoMovActual) {
 		String res = "";
 		if (sentidoMovActual.equals("Arriba")) {
@@ -237,8 +157,7 @@ public class Vibora {
 	}
 
 	public boolean caminoValido() {
-		
-		System.out.println(mapa);
+
 		if (!mapa.estoyDentroDeMapa(this.cuerpo.get(0).getPocision()))
 			return false;
 

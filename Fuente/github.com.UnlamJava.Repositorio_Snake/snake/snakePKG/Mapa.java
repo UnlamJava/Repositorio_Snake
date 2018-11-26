@@ -163,12 +163,12 @@ public class Mapa {
 				
 		}while(!posOk);
 		
+		vibora.setMapa(this);
+		
 		Posicion pos = new Posicion(x,y);
 		
 		this.matriz[y][x] = vibora.getIdVibora();
-		
-		System.out.println(vibora.getIdVibora() + " ok");
-		
+
 		vibora.getCuerpoVibora(0).setPocision(pos);
 	
 		this.ListaViboras.add(vibora);	

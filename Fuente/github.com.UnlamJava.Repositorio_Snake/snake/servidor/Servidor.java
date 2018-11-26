@@ -177,13 +177,9 @@ public class Servidor {
 			break;
 
 		case "TeclaAbajo":
-			
-			System.out.println("asd");
-			
+
 			Integer salaId3 = this.gson.fromJson(msg.getJson(), Integer.class);
-			
-			System.out.println(salaId3);
-			
+
 			this.lobby.teclaJuego("Abajo", salaId3, conn);
 
 			break;

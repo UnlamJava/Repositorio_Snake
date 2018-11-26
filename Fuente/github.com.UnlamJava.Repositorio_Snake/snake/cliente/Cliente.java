@@ -306,7 +306,7 @@ public class Cliente {
 
 	public void enviarTeclaAbajo(Integer idSala) {
 		try {
-			System.out.println(idSala);
+		
 			this.conn.enviarInfo(new Mensaje("TeclaAbajo", this.gson.toJson(idSala)));
 			
 		} catch (IOException e) {

@@ -40,9 +40,7 @@ public class Juego {
 			mapa.ubicarViboraEnMapa(v);
 		}
 		
-		System.out.println("pos ok");
-		
-		
+
 	}
 
 	public void iniciar() {
