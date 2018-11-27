@@ -1,6 +1,8 @@
 package graficos;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -13,9 +15,15 @@ import cliente.Cliente;
 import snakePKG.Fruta;
 import snakePKG.Obstaculo;
 import util.ClienteConn;
+import util.Puntaje;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JSplitPane;
 import javax.swing.JPanel;
@@ -27,7 +35,7 @@ public class JVentanaJuego extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int FRUTA_AGRANDA = 7;
+	public static final int FRUTA_AGRANDA = 100;
 
 	private JPanelGrafico panelGrafico;
 
@@ -37,7 +45,7 @@ public class JVentanaJuego extends JFrame {
 
 	private int idSala;
 
-	private JLabel lblPuntaje;
+	private JLabel[] labelsPuntajes;
 
 	public JVentanaJuego(Integer mapa[][], Cliente cli, int idSala) {
 
@@ -46,7 +54,9 @@ public class JVentanaJuego extends JFrame {
 		this.cli = cli;
 
 		this.idSala = idSala;
-
+		
+		this.labelsPuntajes = new JLabel[6];
+		
 		setResizable(false);
 
 		addKeyListener(new KeyAdapter() {
@@ -63,7 +73,7 @@ public class JVentanaJuego extends JFrame {
 		getContentPane().add(panelPuntajes);
 
 		this.panelPuntajes.setBackground(new Color(51, 55, 64));
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setBounds(100, 100, Cuadrado.LADO * mapa.length + 40 + this.panelPuntajes.getWidth(),
@@ -76,6 +86,19 @@ public class JVentanaJuego extends JFrame {
 		getContentPane().setLayout(null);
 
 		this.dibujarMapa(mapa);
+	
+		
+		this.panelPuntajes.setLayout(new BoxLayout(this.panelPuntajes,BoxLayout.PAGE_AXIS));
+		this.panelPuntajes.setBorder(BorderFactory.createEmptyBorder(40,20,15,15));
+		
+		
+		for(int i = 0; i < 6; i++) {
+			
+			this.labelsPuntajes[i] = new JLabel(System.lineSeparator());
+			
+			
+			this.panelPuntajes.add(labelsPuntajes[i]);
+		}
 	}
 
 	public void setMovimiento(KeyEvent evento) {
@@ -111,7 +134,7 @@ public class JVentanaJuego extends JFrame {
 		}
 
 		panelGrafico.setCuadrados(c);
-		repaint();
+		panelGrafico.repaint();
 	}
 
 	public void dibujarMapa(Integer[][] mapa) {
@@ -133,7 +156,7 @@ public class JVentanaJuego extends JFrame {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		Integer[][] mapa = new Integer[35][35];
 
@@ -148,10 +171,55 @@ public class JVentanaJuego extends JFrame {
 
 		JVentanaJuego jv = new JVentanaJuego(mapa, null, 12);
 		jv.setVisible(true);
-
+		
+		LinkedList<Puntaje> lista = new LinkedList<>();
+		
+		lista.add(new Puntaje("A", 1, 100));
+		lista.add(new Puntaje("B", 2, 60));
+		lista.add(new Puntaje("C", 3, 40));
+		
+		
+		jv.actualizarPuntajes(lista);
+		
+		Thread.sleep(1000);
+		
+		LinkedList<Puntaje> lista2 = new LinkedList<>();
+		
+		lista2.add(new Puntaje("A", 1, 100));
+		lista2.add(new Puntaje("B", 2, 600));
+		lista2.add(new Puntaje("C", 3, 400));
+	
+		jv.actualizarPuntajes(lista2);
+		
+		
 	}
 
-	public void actualizarPuntajes(Integer[] puntajes) {
+	public void actualizarPuntajes(LinkedList<Puntaje> lista) {
+		
+		Collections.sort(lista, new Comparator<Puntaje>() {
 
+			@Override
+			public int compare(Puntaje o1, Puntaje o2) {
+				return o2.getPuntaje() - o1.getPuntaje();
+			}
+		});
+		
+		int i = 0;
+		for(Puntaje p : lista) {
+			
+			this.labelsPuntajes[i].setForeground(Cuadrado.COLORES[p.getIdVibora() - 1]);
+			this.labelsPuntajes[i].setText(p.getNombreUsuario() + ": "+  p.getPuntaje() + System.lineSeparator());
+			
+			i++;
+		}
+		
+		for(int j = i; j < this.labelsPuntajes.length; j++) {
+			this.labelsPuntajes[j].setText("");
+		}
+		
+		
+		
+		
+		
 	}
 }

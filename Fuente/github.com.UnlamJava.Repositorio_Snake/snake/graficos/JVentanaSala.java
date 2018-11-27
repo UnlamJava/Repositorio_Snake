@@ -44,13 +44,15 @@ public class JVentanaSala extends JFrame {
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
+		/*
 		this.addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
 				cli.desconectar("Sala" + idSala);
 				dispose();
 			}
-		});
+		});*/
+		
 		setBounds(100, 100, 559, 389);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

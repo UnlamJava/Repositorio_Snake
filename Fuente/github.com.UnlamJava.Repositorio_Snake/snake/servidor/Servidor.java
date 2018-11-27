@@ -34,11 +34,11 @@ public class Servidor {
 			this.server = new ServerSocket(puerto);
 
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
-
+/*
 			HiloTestClientes h = new HiloTestClientes(this);
 
 			h.start();
-
+*/
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
 
 			ha.start();
@@ -150,6 +150,7 @@ public class Servidor {
 			}
 
 			conn.enviarInfo(new Mensaje("TerminarOk", ""));
+			
 			conn.cerrar();
 
 		case "EmpezarJuego":

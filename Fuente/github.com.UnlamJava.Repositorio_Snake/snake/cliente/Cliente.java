@@ -1,12 +1,16 @@
 package cliente;
 
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import graficos.JVentanaInicio;
 import graficos.JVentanaLogeo;
@@ -15,7 +19,11 @@ import graficos.JVentanaLobby;
 import graficos.JVentanaJuego;
 import util.ClienteConn;
 import util.Mensaje;
+import util.Puntaje;
+
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 
 public class Cliente {
 
@@ -55,9 +63,9 @@ public class Cliente {
 
 			this.entrada = new Socket(this.ipServer, this.puerto);
 
-			ObjectOutputStream out = new ObjectOutputStream(this.entrada.getOutputStream());
+			DataOutputStream out = new DataOutputStream(entrada.getOutputStream());
 
-			ObjectInputStream in = new ObjectInputStream(this.entrada.getInputStream());
+			DataInputStream in = new DataInputStream(this.entrada.getInputStream());
 
 			conn = new ClienteConn(in, out);
 
@@ -200,6 +208,7 @@ public class Cliente {
 			
 			break;
 			
+		
 		case "Mapa":
 			
 			Integer[][] mapa = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
@@ -210,9 +219,10 @@ public class Cliente {
 			
 		case "Puntajes":
 			
-			Integer[] puntajes = this.gson.fromJson(mensaje.getJson(), Integer[].class);
+			LinkedList<Puntaje> lista = this.gson.fromJson(mensaje.getJson(),new TypeToken<LinkedList<Puntaje>>() {}.getType());
+		
 			
-			this.ventanaJuego.actualizarPuntajes(puntajes);
+			this.ventanaJuego.actualizarPuntajes(lista);
 			
 			break;
 		}
@@ -238,7 +248,7 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("UnirseASala", this.gson.toJson(idSala)));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch blocka
 			e.printStackTrace();
 		}
 

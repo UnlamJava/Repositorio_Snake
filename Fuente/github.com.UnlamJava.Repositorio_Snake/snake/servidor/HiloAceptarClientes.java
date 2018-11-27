@@ -1,5 +1,7 @@
 package servidor;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,9 +27,9 @@ class HiloAceptarClientes extends Thread {
 
 				Socket cliente = sv.aceptarCliente();
 
-				ObjectOutputStream out = new ObjectOutputStream(cliente.getOutputStream());
+				DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
 
-				ObjectInputStream in = new ObjectInputStream(cliente.getInputStream());
+				DataInputStream in = new DataInputStream(cliente.getInputStream());
 
 				ClienteConn conn = new ClienteConn(in, out);
 

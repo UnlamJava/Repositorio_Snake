@@ -8,10 +8,14 @@ import javax.swing.JPanel;
 public class JPanelGrafico extends JPanel {
 
 	private Collection<Cuadrado> cuadrados;
+	
 
-	public JPanelGrafico(Collection<Cuadrado> cuadrados) {
+	
+	public JPanelGrafico(Collection<Cuadrado> cuadrados) {	
 		
 		this.cuadrados = cuadrados;
+		
+		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -24,8 +28,12 @@ public class JPanelGrafico extends JPanel {
 	    		g.setColor(Color.RED);
 	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
 	    	}else if(c.esJugador()) {
-	    		g.setColor(c.getcodElemento() == Cuadrado.JUGADOR_1 ? Color.BLUE : Color.GREEN);
+	    		
+	    		g.setColor(Cuadrado.COLORES[c.getcodElemento() - 1]);
+	    		
 	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	
+	    
+	    	
 	    	}else if(c.esObstaculo()) {
 	    		g.setColor(Color.BLACK);
 	    		g.fillRect(c.getX() * Cuadrado.LADO , c.getY() * Cuadrado.LADO , Cuadrado.LADO, Cuadrado.LADO);	

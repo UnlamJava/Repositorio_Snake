@@ -1,5 +1,7 @@
 package util;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,14 +13,14 @@ public class ClienteConn {
 	
 	private String Usuario;
 	
-	private ObjectInputStream in;
+	private DataInputStream  in;
 
-	private ObjectOutputStream out;
+	private DataOutputStream out;
 	
 	private Gson gson;
 	
 	
-	public ClienteConn(ObjectInputStream cliente, ObjectOutputStream clienteSalida) throws IOException {
+	public ClienteConn(DataInputStream cliente, DataOutputStream clienteSalida) throws IOException {
 		
 		this.Usuario= "Player";
 		

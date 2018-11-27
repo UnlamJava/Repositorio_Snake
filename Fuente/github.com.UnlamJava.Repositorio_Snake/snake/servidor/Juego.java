@@ -1,8 +1,11 @@
 package servidor;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import com.google.gson.Gson;
 
@@ -10,6 +13,7 @@ import snakePKG.Mapa;
 import snakePKG.Vibora;
 import util.ClienteConn;
 import util.Mensaje;
+import util.Puntaje;
 
 public class Juego {
 
@@ -19,6 +23,8 @@ public class Juego {
 	
 	private Gson gson;
 	
+	private LinkedList<Puntaje> puntajes;
+	
 	public Juego(Collection<ClienteConn> clientes) {
 		
 		this.gson = new Gson();
@@ -26,6 +32,8 @@ public class Juego {
 		this.viboras = new HashMap<>();
 		
 		this.mapa = new Mapa(Mapa.MAPA_1);
+		
+		this.puntajes = new LinkedList<>();
 		
 		Vibora v;
 		
@@ -56,11 +64,15 @@ public class Juego {
 	
 		HiloEnviarMapa hiloMapa = new HiloEnviarMapa(this);
 		
+		HiloEnviarPuntaje hp = new HiloEnviarPuntaje(this);
+		
 		HiloMoverViboras hiloMoverViboras = new HiloMoverViboras(this);
 		
 		hiloMapa.start();
 		
 		hiloMoverViboras.start();
+		
+		hp.start();
 		
 		//condicion hasta q el juego termine
 		
@@ -68,6 +80,7 @@ public class Juego {
 	}
 	
 	private void avisarATodos() throws IOException {
+		
 		
 		for(ClienteConn cli : this.viboras.keySet()) {
 			
@@ -98,6 +111,27 @@ public class Juego {
 			cli.enviarInfo(new Mensaje("Mapa", this.gson.toJson(this.mapa.getMapa())));
 			
 		}
+	
+	}
+	
+	public void enviarPuntajesAtodos() throws IOException {
+		
+		this.puntajes.clear();
+		
+		for(Map.Entry<ClienteConn, Vibora> entry : this.viboras.entrySet()) {
+			
+			
+			this.puntajes.add(new Puntaje(entry.getKey().getUsuario(), entry.getValue().getIdVibora(), entry.getValue().getPuntajeJugador()));
+			
+		}
+		
+		
+		for(ClienteConn cli : this.viboras.keySet()) {
+			
+			cli.enviarInfo(new Mensaje("Puntajes", this.gson.toJson(this.puntajes)));
+			
+		}
+		
 	
 	}
 	
