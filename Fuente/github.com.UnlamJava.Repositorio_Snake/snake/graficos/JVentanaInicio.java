@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import java.awt.Color;
+
 import cliente.Cliente;
 
 import javax.swing.JButton;
@@ -17,10 +19,14 @@ public class JVentanaInicio extends JFrame {
 
 	public JVentanaInicio(Cliente cli) {
 		
+		
+		setTitle("SNAKE - JAVA TEAM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		//setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 607, 607);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.orange);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -37,6 +43,7 @@ public class JVentanaInicio extends JFrame {
 		});
 		btnNewButton.setBounds(138, 146, 109, 33);
 		contentPane.add(btnNewButton);
+		this.setLocationRelativeTo(null);
 	}
 }
 

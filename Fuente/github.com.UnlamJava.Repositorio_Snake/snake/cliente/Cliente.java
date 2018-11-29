@@ -103,7 +103,7 @@ public class Cliente {
 
 		try {
 
-			this.conn.enviarInfo(new Mensaje("Registrarse", user + "|" + pass));
+			this.conn.enviarInfo(new Mensaje("Registrarse", user + "-" + pass));
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -141,8 +141,43 @@ public class Cliente {
 			String msgErr = this.gson.fromJson(mensaje.getJson(), String.class);
 
 			System.out.println(msgErr);
+				
+			this.login.mostrarError("No se encontro usuario","Lo sentimos");
+			
 
 			break;
+			
+		
+			
+			
+		case "RegOk":
+
+			String msgReg = this.gson.fromJson(mensaje.getJson(), String.class);
+
+			System.out.println(msgReg);
+
+			this.inicio.dispose();
+			
+			this.login.dispose();
+
+			this.lobby = new JVentanaLobby(this);
+
+			lobby.setVisible(true);
+			
+			this.conn.enviarInfo(new Mensaje("UnirseALobby", ""));
+
+			break;
+
+		case "RegErr":
+
+			String msgRegError = this.gson.fromJson(mensaje.getJson(), String.class);
+
+			System.out.println(msgRegError);
+			
+			this.login.mostrarError("Usuario ya existente","Lo sentimos");
+			
+			break;
+			
 
 		case "Salas":
 

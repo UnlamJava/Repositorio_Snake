@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -22,9 +23,13 @@ public class JVentanaLogeo extends JDialog {
 	private JTextField usuarioTextField;
 	private JTextField contraseñaTextField;
 
+
+
 	public JVentanaLogeo(Cliente cli) {
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setTitle("SNAKE - LOGIN");
+		
 		
 		this.addWindowListener(new WindowAdapter() {
 			
@@ -60,7 +65,15 @@ public class JVentanaLogeo extends JDialog {
 			JButton loguearseButton = new JButton("Loguearse");
 			loguearseButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					cli.loguearse(usuarioTextField.getText(), contraseñaTextField.getText());
+					
+					
+						if(usuarioTextField.getText().equals("")|| contraseñaTextField.getText().equals("")) 
+							JOptionPane.showMessageDialog(null,"UPs, por favor complete todos los campos");					
+						
+						else 							
+							cli.loguearse(usuarioTextField.getText(), contraseñaTextField.getText());
+					
+					
 				}
 			});
 			loguearseButton.setBounds(98, 197, 89, 23);
@@ -70,12 +83,22 @@ public class JVentanaLogeo extends JDialog {
 			JButton registrarseButton = new JButton("Registrarse");
 			registrarseButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					cli.registrarse(usuarioTextField.getText(), contraseñaTextField.getText());
+					
+
+						if(usuarioTextField.getText().equals("")||contraseñaTextField.getText().equals(""))
+							JOptionPane.showMessageDialog(null,"UPs, por favor complete todos los campos");		
+						else 
+							cli.registrarse(usuarioTextField.getText(), contraseñaTextField.getText());
+
 				}
 			});
 			registrarseButton.setBounds(226, 197, 89, 23);
 			getContentPane().add(registrarseButton);
 		}
+	}
+	
+	public void mostrarError(String mensaje,String titulo) {
+		JOptionPane.showMessageDialog(null,mensaje,titulo,JOptionPane.WARNING_MESSAGE);
 	}
 
 }

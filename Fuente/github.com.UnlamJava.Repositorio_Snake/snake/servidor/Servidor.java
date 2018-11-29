@@ -6,6 +6,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
 import com.google.gson.Gson;
+
+import login.Jugador;
+import login.UsuariosDB;
 import util.ClienteConn;
 import util.Mensaje;
 
@@ -19,7 +22,7 @@ public class Servidor {
 
 	private Lobby lobby;
 
-	// private UsuariosDB db;
+	private UsuariosDB db;
 
 	public Servidor(int puerto) {
 
@@ -28,9 +31,12 @@ public class Servidor {
 		this.gson = new Gson();
 
 		this.lobby = new Lobby();
-
+		 
+		this.db = new UsuariosDB();
+		
 		try {
-
+			
+			
 			this.server = new ServerSocket(puerto);
 
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
@@ -55,6 +61,8 @@ public class Servidor {
 		String tipo = msg.getNombreMensaje();
 
 		Mensaje res;
+		
+		
 
 		switch (tipo) {
 
@@ -75,9 +83,11 @@ public class Servidor {
 			String userReg[] = new String[2];
 
 			userReg = gson.fromJson(msg.getJson(), String.class).split("-");
-
+						
 			res = this.registrar(userReg[0], userReg[1]);
-
+			
+			conn.setUsuario(userReg[0]);
+            
 			conn.enviarInfo(res);
 
 			break;
@@ -227,7 +237,14 @@ public class Servidor {
 
 	private Mensaje loguear(String user, String pass) {
 
-		if (user.equals("invalido")) {
+		
+		Jugador player = new Jugador();
+		
+		player.setUsuario(user);
+		 
+        player.setClave(pass);
+        
+     	if (!db.getUsuario(player)) {
 
 			return new Mensaje("LogErr", this.gson.toJson("Logueo invalido"));
 		} else {
@@ -239,7 +256,14 @@ public class Servidor {
 
 	private Mensaje registrar(String user, String pass) {
 
-		if (user.equals("invalid")) {
+		
+		Jugador player = new Jugador();
+		
+		player.setUsuario(user);
+		 
+        player.setClave(pass);
+		
+		if (!db.setCrearUsuario(player)) {
 			return new Mensaje("RegErr", this.gson.toJson("Registro invalido"));
 		} else {
 			return new Mensaje("RegOk", this.gson.toJson("Registro exitoso"));
