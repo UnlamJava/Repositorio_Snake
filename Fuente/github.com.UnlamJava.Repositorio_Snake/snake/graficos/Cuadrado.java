@@ -2,7 +2,7 @@ package graficos;
 
 import java.awt.Color;
 
-class Cuadrado {
+public class Cuadrado {
 	
 	public static final int LADO = 20;
 	public static final int FRUTA = 100;

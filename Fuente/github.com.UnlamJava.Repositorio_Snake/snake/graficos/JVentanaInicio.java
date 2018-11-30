@@ -32,6 +32,13 @@ public class JVentanaInicio extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Jugar Solo");
 		btnNewButton_1.setBounds(173, 471, 109, 33);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				cli.jugarOffline(true);
+				
+			}
+		});
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton = new JButton("Jugar Online");

@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import graficos.JVentanaInicio;
 import graficos.JVentanaLogeo;
 import graficos.JVentanaSala;
+import sinlgePlayer.JuegoSingle;
 import graficos.JVentanaLobby;
 import graficos.JVentanaJuego;
 import util.ClienteConn;
@@ -31,25 +32,25 @@ public class Cliente {
 
 	private String ipServer;
 	private int puerto;
-
+	private boolean jugandoSolo;
 	private ClienteConn conn;
 	private Gson gson;
-
+	private boolean estoyEnInicio;
 	private JVentanaLogeo login;
 	private JVentanaInicio inicio;
 	private JVentanaLobby lobby;
 	private JVentanaSala sala;
 	private JVentanaJuego ventanaJuego;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
 
 	public Cliente(String ip, int port) {
 
 		this.ipServer = ip;
 
 		this.puerto = port;
-
-		this.inicio = new JVentanaInicio(this);
-
-		inicio.setVisible(true);
+		this.jugandoSolo = false;
+		this.estoyEnInicio=true;
 
 	}
 
@@ -354,9 +355,23 @@ public class Cliente {
 	}
 
 	public static void main(String[] args) {
-		new Cliente("localhost", 10000); // Me conecto al server
-	}
 
+		// new Cliente("10.11.3.13", 10000); // Me conecto al server
+		Cliente c = new Cliente("localhost", 10000); // Me conecto al server
+		c.inicio = new JVentanaInicio(c);
+		JuegoSingle j = new JuegoSingle(c);
+		while (c.estoyEnInicio) {
+
+			while (c.jugandoSolo) {
+
+				j.iniciar();
+			}
+
+			c.inicio.setVisible(true);
+			
+
+		}
+	}
 	public void enviarTeclaIzquierda(Integer idSala) {
 
 		try {
@@ -407,6 +422,19 @@ public class Cliente {
 
 			e.printStackTrace();
 		}
+	}
+	public void jugarOffline(boolean s) {
+		this.jugandoSolo = s;
+
+	}
+
+	public void estoyEnInicioOn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void estoyEnInicioOff() {
+		this.estoyEnInicio=false;
 	}
 
 }
