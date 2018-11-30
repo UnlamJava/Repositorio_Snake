@@ -19,6 +19,8 @@ public class HiloActualizarLobby extends Thread{
 		while(true) {
 			
 			try {
+				this.lobby.eliminarSalasVacias();
+				
 				this.lobby.enviarSalasAtodos();
 			
 				Thread.sleep(3000);

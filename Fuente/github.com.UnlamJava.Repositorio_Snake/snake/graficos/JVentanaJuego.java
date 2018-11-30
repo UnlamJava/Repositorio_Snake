@@ -130,7 +130,7 @@ public class JVentanaJuego extends JFrame {
 	public void setMovimiento(KeyEvent evento) {
 
 		if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
-			System.out.println("izquierda");
+
 			cli.enviarTeclaIzquierda(idSala);
 		}
 		if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {

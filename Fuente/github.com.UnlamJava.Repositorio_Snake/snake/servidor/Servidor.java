@@ -31,19 +31,15 @@ public class Servidor {
 		this.gson = new Gson();
 
 		this.lobby = new Lobby();
-		 
+
 		this.db = new UsuariosDB();
-		
+
 		try {
-			
-			
+
 			this.server = new ServerSocket(puerto);
 
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
-/*
-			HiloTestClientes h = new HiloTestClientes(this);
-			h.start();
-*/
+
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
 
 			ha.start();
@@ -60,8 +56,6 @@ public class Servidor {
 		String tipo = msg.getNombreMensaje();
 
 		Mensaje res;
-		
-		
 
 		switch (tipo) {
 
@@ -82,11 +76,11 @@ public class Servidor {
 			String userReg[] = new String[2];
 
 			userReg = gson.fromJson(msg.getJson(), String.class).split("-");
-						
+
 			res = this.registrar(userReg[0], userReg[1]);
-			
+
 			conn.setUsuario(userReg[0]);
-            
+
 			conn.enviarInfo(res);
 
 			break;
@@ -119,19 +113,25 @@ public class Servidor {
 
 			Integer idSala = this.gson.fromJson(msg.getJson(), Integer.class);
 
-			conn.enviarInfo(new Mensaje("UnirseASalaOk", gson.toJson(idSala)));
+			if (this.lobby.sePuedeUnir(idSala)) {
+				
+				conn.enviarInfo(new Mensaje("UnirseASalaErr", gson.toJson("Sala llena o en partida.")));
+				
+			} else {
+				
+				conn.enviarInfo(new Mensaje("UnirseASalaOk", gson.toJson(idSala)));
 
-			this.lobby.agregarJugadorASala(idSala, conn);
+				this.lobby.agregarJugadorASala(idSala, conn);
 
-			this.lobby.quitarCliente(conn);
-
+				this.lobby.quitarCliente(conn);
+			}
 			break;
 
 		case "CrearSala":
 
 			Integer idSalaCrear = this.gson.fromJson(msg.getJson(), Integer.class);
 
-			this.lobby.crearSala(idSalaCrear);
+			this.lobby.crearSala(idSalaCrear, conn);
 
 			conn.enviarInfo(new Mensaje("CrearSalaOk", gson.toJson(idSalaCrear)));
 
@@ -140,7 +140,22 @@ public class Servidor {
 			this.lobby.quitarCliente(conn);
 
 			break;
-
+			
+			
+		case "SalirDeSala":
+			
+			Integer idSalaSalir = this.gson.fromJson(msg.getJson(), Integer.class);
+			
+			conn.enviarInfo(new Mensaje("SalirDeSalaOk", gson.toJson("")));
+			
+			this.lobby.quitarJugadorDeSala(idSalaSalir, conn);
+			
+			this.lobby.agregarCliente(conn);
+			
+			//TODO: verificar si era admin y tengo mas de 1 jugador en sala
+			
+			break;
+			
 		case "TerminarConn":
 
 			String ventanaActual = this.gson.fromJson(msg.getJson(), String.class);
@@ -159,8 +174,10 @@ public class Servidor {
 			}
 
 			conn.enviarInfo(new Mensaje("TerminarOk", ""));
-			
+
 			conn.cerrar();
+			
+			break;
 
 		case "EmpezarJuego":
 
@@ -168,24 +185,23 @@ public class Servidor {
 
 			this.lobby.iniciarJuegoSala(salaJuego);
 
+			// this.lobby.moverJugadoresALobby(salaJuego);
+
+			// this.lobby.eliminarSala(salaJuego);
+
 			break;
-			
-			
-			
+
 		case "SalirJuego":
 
 			Integer idJuego = this.gson.fromJson(msg.getJson(), Integer.class);
 
 			conn.enviarInfo(new Mensaje("SalirJuegoOk", gson.toJson(idJuego)));
-			
+
 			this.lobby.quitarjugadorDeJuego(conn, idJuego);
-			
+
 			this.lobby.agregarCliente(conn);
-			
-						
+
 			break;
-
-
 
 		case "TeclaDerecha":
 
@@ -222,45 +238,15 @@ public class Servidor {
 
 	}
 
-	class HiloTestClientes extends Thread {
-
-		private Servidor sv;
-
-		public HiloTestClientes(Servidor sv) {
-			this.sv = sv;
-		}
-
-		public void run() {
-
-			while (true) {
-
-				System.out.println("sv : " + sv.clientes.size());
-
-				System.out.println("lob : " + sv.lobby.cantJugadoresTest());
-
-				System.out.println("Salas : " + sv.lobby.cantSalas());
-
-				try {
-					Thread.sleep(4000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		}
-	}
-
 	private Mensaje loguear(String user, String pass) {
 
-		
 		Jugador player = new Jugador();
-		
+
 		player.setUsuario(user);
-		 
-        player.setClave(pass);
-        
-     	if (!db.getUsuario(player)) {
+
+		player.setClave(pass);
+
+		if (!db.getUsuario(player)) {
 
 			return new Mensaje("LogErr", this.gson.toJson("Logueo invalido"));
 		} else {
@@ -272,13 +258,12 @@ public class Servidor {
 
 	private Mensaje registrar(String user, String pass) {
 
-		
 		Jugador player = new Jugador();
-		
+
 		player.setUsuario(user);
-		 
-        player.setClave(pass);
-		
+
+		player.setClave(pass);
+
 		if (!db.setCrearUsuario(player)) {
 			return new Mensaje("RegErr", this.gson.toJson("Registro invalido"));
 		} else {

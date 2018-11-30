@@ -35,6 +35,8 @@ public class JVentanaSala extends JFrame {
 	private JList<String> list;
 	private DefaultListModel<String> modelList;
 	private int idSala;
+	private JButton btnEmpezar;
+	
 	
 	public JVentanaSala(Cliente cli, int idSala, boolean esCreador) {
 		
@@ -69,25 +71,20 @@ public class JVentanaSala extends JFrame {
 		contentPane.add(list);
 		
 		if(esCreador) {
-			JButton btnEmpezar = new JButton("Empezar");
-			btnEmpezar.setBounds(385, 107, 119, 76);
-			btnEmpezar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cli.empezarPartida(idSala);
-				}
-			});
-			contentPane.add(btnEmpezar);
+			this.activarAdmin();
 		}
+		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBounds(404, 303, 89, 23);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//volver al lobby				
+				cli.salirDeSala(idSala);			
 			}
 		});
 		contentPane.add(btnVolver);
 		
 	}
+	
 	public void actualizarJugadores(Collection<String> jugadores) {
 		
 		this.modelList.removeAllElements();
@@ -101,5 +98,19 @@ public class JVentanaSala extends JFrame {
 	
 	public int getIdSala() {
 		return this.idSala;
+	}
+
+	public void activarAdmin() {
+		
+		this.btnEmpezar = new JButton("Empezar");
+		btnEmpezar.setBounds(385, 107, 119, 76);
+		btnEmpezar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cli.empezarPartida(idSala);
+			}
+		});
+		contentPane.add(btnEmpezar);
+		contentPane.repaint();
+		
 	}
 }

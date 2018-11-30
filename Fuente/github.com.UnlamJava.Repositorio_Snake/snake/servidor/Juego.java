@@ -1,6 +1,7 @@
 package servidor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +27,14 @@ public class Juego {
 	
 	private LinkedList<Puntaje> puntajes;
 	
+	private ArrayList<HiloMoverVibora> hilosViboras;
+	
+	private boolean juegoEnCurso;
+	
+	private HiloEnviarMapa hiloMapa;
+	
+	private HiloEnviarPuntaje hp;
+	
 	public Juego(Collection<ClienteConn> clientes) {
 		
 		this.gson = new Gson();
@@ -35,6 +44,9 @@ public class Juego {
 		this.mapa = new Mapa(Mapa.MAPA_1);
 		
 		this.puntajes = new LinkedList<>();
+		
+		this.hilosViboras = new ArrayList<>();
+		
 		
 		Vibora v;
 		
@@ -47,6 +59,8 @@ public class Juego {
 			this.viboras.put(cli, v);
 			
 			mapa.ubicarViboraEnMapa(v);
+			
+			this.hilosViboras.add(new HiloMoverVibora(v));
 		}
 		
 
@@ -62,24 +76,43 @@ public class Juego {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		HiloEnviarMapa hiloMapa = new HiloEnviarMapa(this);
 		
-		HiloEnviarPuntaje hp = new HiloEnviarPuntaje(this);
+		this.juegoEnCurso = true;
 		
-		HiloMoverViboras hiloMoverViboras = new HiloMoverViboras(this);
+		this.hiloMapa = new HiloEnviarMapa(this);
 		
-		hiloMapa.start();
-		
-		hiloMoverViboras.start();
+		this.hp = new HiloEnviarPuntaje(this);
 		
 		hp.start();
 		
-		//condicion hasta q el juego termine
+		hiloMapa.start();
+	
+		for(HiloMoverVibora h : this.hilosViboras){
+			h.start();
+		}
 		
-		//this.terminar();
+			
 	}
 	
+	public boolean juegoEnCurso() {
+		
+		if(this.viboras.size() == 0) return false;
+		
+		boolean vivos = false;
+		
+		for(Vibora v : this.viboras.values()){
+			
+			vivos = v.isEstoyVivo() || vivos;
+		
+			if(vivos){
+				break;
+			}
+		}
+		
+		
+		return vivos;
+	}
+
 	private void avisarATodos() throws IOException {
 		
 		
@@ -93,10 +126,18 @@ public class Juego {
 
 	public void terminar() {
 		
-		//limpio todo
 		
-		//los clientes vuelven a la sala o al lobby
+		this.hiloMapa.detener();
 		
+		this.hp.detener();
+		
+		for(Vibora v : this.viboras.values()){
+			v.morir();
+		}
+		
+		this.viboras.clear();
+		
+		//los clientes vuelven al lobby
 	}
 	
 	public void cambiarDir(ClienteConn conn, String dir) {
@@ -118,10 +159,11 @@ public class Juego {
 	public void quitarJugadorJuego(ClienteConn c1) {
 		
 		Vibora v =  this.viboras.get(c1);
-		
-		v.morir();
-		
+	
 		this.viboras.remove(c1);
+		
+		v.morir2();
+		
 		
 	}
 	
@@ -138,6 +180,7 @@ public class Juego {
 		
 		
 		for(ClienteConn cli : this.viboras.keySet()) {
+			
 			
 			cli.enviarInfo(new Mensaje("Puntajes", this.gson.toJson(this.puntajes)));
 			

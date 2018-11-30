@@ -38,14 +38,14 @@ public class JVentanaLobby extends JFrame {
 		this.cli = cli;
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		
+		/*
 		this.addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
 				cli.desconectar("Lobby");
 				dispose();
 			}
-		});
+		});*/
 		
 		
 		setBounds(100, 100, 450, 444);
@@ -95,7 +95,6 @@ public class JVentanaLobby extends JFrame {
 		int ancho = 300;
 		int alto = 60;
 		
-		salasPanel.removeAll();
 		
 		for(String sala : salas) {
 			
@@ -122,5 +121,14 @@ public class JVentanaLobby extends JFrame {
 			y += 75;
 		}
 	
+	}
+
+
+	public void refrescar() {
+	
+		salasPanel.removeAll();	
+		
+		salasPanel.repaint();
+		
 	}
 }

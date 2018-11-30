@@ -29,10 +29,12 @@ public class Sala {
 	
 	private Juego juego;
 	
-	public Sala(int id, int cantJugadores, int limite) {
+	public Sala(int id, int cantJugadores, int limite, ClienteConn admin) {
 
 		this.jugadores = new ArrayList<>();
 
+		this.admin = admin;
+		
 		this.id = id;
 
 		this.cantJugadores = cantJugadores;
@@ -52,12 +54,28 @@ public class Sala {
 	
 	public void iniciarJuego() {
 		
+		this.enPartida = true;
+		
 		this.ha.detener();
 		
 		this.juego = new Juego(this.jugadores);
 		
 		this.juego.iniciar();
+		
+	}
 	
+	
+	public void moverTodosALobby(Lobby lobby){
+		
+		for(ClienteConn c : this.jugadores){
+			
+			lobby.agregarCliente(c);
+
+		}
+		
+		
+		this.jugadores.clear();
+		
 	}
 	
 	public void agregarJugador(ClienteConn j) {
@@ -71,9 +89,28 @@ public class Sala {
 
 	}
 
-	public void quitarJugador(ClienteConn j) {
+	public void quitarJugador(ClienteConn cli) {
 
-		this.jugadores.remove(j);
+		if(cli.equals(this.admin) && this.jugadores.size() > 1){
+	
+			this.jugadores.remove(cli);
+			
+			this.admin = this.jugadores.iterator().next();
+		
+			try {
+				this.admin.enviarInfo(new Mensaje("EresAdmin", this.gson.toJson("")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			this.cantJugadores--;
+			
+			return;
+		}
+		
+		
+		this.jugadores.remove(cli);
 
 		this.cantJugadores--;
 	}
@@ -145,6 +182,10 @@ public class Sala {
 		
 		this.juego.cambiarDir(conn, dir);
 		
+	}
+
+	public boolean salaLLena() {
+		return this.cantJugadores == this.limite;
 	}
 	
 }

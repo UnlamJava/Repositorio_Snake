@@ -3,6 +3,7 @@ package servidor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.google.gson.Gson;
 
@@ -56,12 +57,10 @@ public class Lobby {
 
 	}
 
-	public void crearSala(Integer id) {
+	public void crearSala(Integer id, ClienteConn admin) {
 
-		this.salas.add(new Sala(id, 0, 10));
-	}
-
-	public void eliminarSala(Integer id) {
+		this.salas.add(new Sala(id, 0, 6, admin));
+		
 		
 	}
 
@@ -81,6 +80,7 @@ public class Lobby {
 
 	public void quitarJugadorDeSala(Integer idSala, ClienteConn cli) {
 
+		
 		for (Sala s : this.salas) {
 
 			if (s.getId().equals(idSala)) {
@@ -91,6 +91,9 @@ public class Lobby {
 			}
 
 		}
+		
+		
+		
 
 	}
 
@@ -104,8 +107,8 @@ public class Lobby {
 
 		this.clientes.remove(cli);
 	}
-	
-	public void quitarjugadorDeJuego(ClienteConn cli,Integer idSala) {
+
+	public void quitarjugadorDeJuego(ClienteConn cli, Integer idSala) {
 
 		for (Sala sala : this.salas) {
 
@@ -116,10 +119,26 @@ public class Lobby {
 				break;
 			}
 		}
-			
+
 		this.clientes.remove(cli);
 	}
 
+	public void eliminarSalasVacias() {
+
+		Iterator<Sala> itr = this.salas.iterator();
+
+		Sala sala;
+		while (itr.hasNext()) {
+		
+			sala = itr.next(); 
+			
+			if(sala.getCantJugadores() == 0){
+				itr.remove();
+			}
+			
+		}
+
+	}
 
 	public Collection<String> obtenerSalas() {
 
@@ -148,6 +167,33 @@ public class Lobby {
 
 	}
 
+	public void moverJugadoresALobby(Integer salaJuego) {
+
+		for (Sala sala : this.salas) {
+
+			if (sala.getId().equals(salaJuego)) {
+
+				sala.moverTodosALobby(this);
+
+				break;
+			}
+		}
+
+	}
+
+	public void eliminarSala(Integer id) {
+
+		for (Sala sala : this.salas) {
+
+			if (sala.getId().equals(id)) {
+
+				this.salas.remove(sala);
+
+				break;
+			}
+		}
+	}
+
 	public void teclaJuego(String dir, Integer salaId, ClienteConn cli) {
 
 		for (Sala sala : this.salas) {
@@ -160,6 +206,23 @@ public class Lobby {
 			}
 		}
 
+	}
+
+	public boolean sePuedeUnir(Integer idSala) {
+
+		boolean res = false;
+
+		for (Sala sala : this.salas) {
+
+			if (sala.getId().equals(idSala)) {
+
+				res = sala.getEstado() || sala.salaLLena();
+
+				break;
+			}
+		}
+
+		return res;
 	}
 
 }

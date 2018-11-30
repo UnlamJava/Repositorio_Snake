@@ -6,15 +6,20 @@ public class HiloEnviarPuntaje extends Thread {
 
 	private Juego juego;
 
+	private boolean enCurso;
+	
 	public HiloEnviarPuntaje(Juego juego) {
 
 		this.juego = juego;
+		
+		this.enCurso = true;
+		
 	}
 
 	public void run() {
 		try {
 			
-			while (true) {
+			while (enCurso) {
 
 				this.juego.enviarPuntajesAtodos();
 
@@ -26,6 +31,10 @@ public class HiloEnviarPuntaje extends Thread {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void detener(){
+		this.enCurso = false;
 	}
 
 }

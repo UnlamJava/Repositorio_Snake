@@ -32,7 +32,7 @@ public class HiloLecturaMensajes extends Thread{
 			try {
 				
 				msg = conn.recibirInfo();
-				
+		
 				if(msg.getNombreMensaje().equals("TerminarOk")) {
 					this.clienteConectado = false;
 				}

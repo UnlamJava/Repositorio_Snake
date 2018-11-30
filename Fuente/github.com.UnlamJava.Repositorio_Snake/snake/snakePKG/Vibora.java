@@ -10,7 +10,7 @@ import java.util.List;
 //import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class Vibora {
-	
+
 	public static int id = 1;
 
 	private int idVibora;
@@ -93,38 +93,40 @@ public class Vibora {
 
 	public void moverMejorado() {
 
-		if (!this.estoyVivo) return;
+		if (!this.estoyVivo)
+			return;
 
 		this.cambiarDir(this.sentidoMovActual);
 
-		 this.cola = new Posicion(this.cuerpo.get(this.cuerpo.size() - 1).getPocision());
+		this.cola = new Posicion(this.cuerpo.get(this.cuerpo.size() - 1).getPocision());
 
 		int x = this.cuerpo.get(0).getPocision().getPosicionX() + this.desplazamientoEnX;
 		int y = this.cuerpo.get(0).getPocision().getPosicionY() + this.desplazamientoEnY;
 
 		Posicion newPos = new Posicion(x, y);
-	
+
 		CuerpoVibora c = new CuerpoVibora(this.idVibora);
-		
+
 		c.setPocision(newPos);
 		
 		this.cuerpo.addFirst(c);
 		
-		
 		if (this.caminoValido()) {
 
-			if (mapa.HayFruta(this.cuerpo.get(0).getPocision())) 
-				this.crecer();
 			
+
+			if (mapa.HayFruta(this.cuerpo.get(0).getPocision()))
+
+				this.crecer();
+
 			else {
 				mapa.setPosMatriz(this.cola, 0);
-				
+
 				this.cuerpo.removeLast();
 			}
-			
+
 			this.mapa.setPosMatriz(newPos, this.idVibora);
-			
-		
+
 		} else {
 
 			this.morir();
@@ -136,7 +138,7 @@ public class Vibora {
 	public Posicion getPosCabeza() {
 		return this.cuerpo.get(0).getPocision();
 	}
-	
+
 	private String opuestoDe(String sentidoMovActual) {
 		String res = "";
 		if (sentidoMovActual.equals("Arriba")) {
@@ -160,7 +162,9 @@ public class Vibora {
 				|| mapa.HayFruta(this.cuerpo.get(0).getPocision());
 
 	}
-/// cambiar el metodo para que creer efectivamente agregue un pedazo de cuerpo
+
+	/// cambiar el metodo para que creer efectivamente agregue un pedazo de
+	/// cuerpo
 	public void crecer() {
 		this.cantidadFrutaComida++;
 		this.puntajeJugador += Fruta.PUNTAJE_FRUTA;
@@ -204,17 +208,32 @@ public class Vibora {
 
 	public void morir() {
 		
+		if(!this.estoyVivo) return;
+		
 		this.estoyVivo = false;
-		
+
 		this.mapa.LimpiarCuerpoVibora(this.cuerpo);
-		
+
 		mapa.setPosMatriz(this.cola, 0);
-		
+
+		// mapa.setPosMatriz(this.cuerpo.get(0).getPocision(), 0);
+
 		this.cuerpo.clear();
 	}
-	
-	
 
+	
+	public void morir2(){
+		
+		if(!this.estoyVivo) return;
+		
+		this.estoyVivo = false;
 
+		this.mapa.LimpiarCuerpoVibora(this.cuerpo);
+
+		mapa.setPosMatriz(this.cola, 0);
+
+		mapa.setPosMatriz(this.cuerpo.get(0).getPocision(), 0);
+
+		this.cuerpo.clear();
+	}
 }
-

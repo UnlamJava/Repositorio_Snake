@@ -1,6 +1,5 @@
 package cliente;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
 
 import graficos.JVentanaInicio;
 import graficos.JVentanaLogeo;
@@ -24,11 +25,10 @@ import util.Puntaje;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
 public class Cliente {
 
 	private Socket entrada;
-	
+
 	private String ipServer;
 	private int puerto;
 
@@ -40,8 +40,6 @@ public class Cliente {
 	private JVentanaLobby lobby;
 	private JVentanaSala sala;
 	private JVentanaJuego ventanaJuego;
-	private ObjectOutputStream out;
-	private ObjectInputStream in;
 
 	public Cliente(String ip, int port) {
 
@@ -58,7 +56,7 @@ public class Cliente {
 	public void jugarOnline() {
 
 		try {
-			
+
 			this.gson = new Gson();
 
 			this.entrada = new Socket(this.ipServer, this.puerto);
@@ -131,7 +129,7 @@ public class Cliente {
 			this.lobby = new JVentanaLobby(this);
 
 			lobby.setVisible(true);
-			
+
 			this.conn.enviarInfo(new Mensaje("UnirseALobby", ""));
 
 			break;
@@ -141,15 +139,11 @@ public class Cliente {
 			String msgErr = this.gson.fromJson(mensaje.getJson(), String.class);
 
 			System.out.println(msgErr);
-				
-			this.login.mostrarError("No se encontro usuario","Lo sentimos");
-			
+
+			this.login.mostrarError("No se encontro usuario", "Lo sentimos");
 
 			break;
-			
-		
-			
-			
+
 		case "RegOk":
 
 			String msgReg = this.gson.fromJson(mensaje.getJson(), String.class);
@@ -157,13 +151,13 @@ public class Cliente {
 			System.out.println(msgReg);
 
 			this.inicio.dispose();
-			
+
 			this.login.dispose();
 
 			this.lobby = new JVentanaLobby(this);
 
 			lobby.setVisible(true);
-			
+
 			this.conn.enviarInfo(new Mensaje("UnirseALobby", ""));
 
 			break;
@@ -173,103 +167,126 @@ public class Cliente {
 			String msgRegError = this.gson.fromJson(mensaje.getJson(), String.class);
 
 			System.out.println(msgRegError);
-			
-			this.login.mostrarError("Usuario ya existente","Lo sentimos");
-			
+
+			this.login.mostrarError("Usuario ya existente", "Lo sentimos");
+
 			break;
-			
 
 		case "Salas":
 
 			@SuppressWarnings("unchecked")
 
 			Collection<String> salas = this.gson.fromJson(mensaje.getJson(), Collection.class);
-
+			
+			this.lobby.refrescar();
+			
 			this.lobby.dibujarSalas(salas);
 
 			break;
 
 		case "CrearSalaOk":
-			
+
 			Integer idSalaCrear = gson.fromJson(mensaje.getJson(), Integer.class);
-			
+
 			this.lobby.dispose();
 
 			this.sala = new JVentanaSala(this, idSalaCrear, true);
 
 			this.sala.setVisible(true);
-			
+
 			break;
 
+		case "SalirDeSalaOk":
+			
+			this.sala.dispose();
+			
+			this.lobby = new JVentanaLobby(this);
+			
+			this.lobby.setVisible(true);
+			
+			break;
+			
 		case "Jugadores":
-
-			Collection<String> jugadores = this.gson.fromJson(mensaje.getJson(), Collection.class);
+		
+			Collection<String> jugadores = this.gson.fromJson(mensaje.getJson(),  new TypeToken<Collection<String>>() {
+			}.getType());
 
 			this.sala.actualizarJugadores(jugadores);
 
 			break;
 
 		case "UnirseASalaOk":
-			
+
 			Integer idSalaUnir = gson.fromJson(mensaje.getJson(), Integer.class);
-			
+
 			this.lobby.dispose();
 
 			this.sala = new JVentanaSala(this, idSalaUnir, false);
 
 			this.sala.setVisible(true);
+
+			break;
+			
+		case "UnirseASalaErr":
+
+			JOptionPane.showMessageDialog(this.lobby, gson.fromJson(mensaje.getJson(), String.class));
 			
 			break;
 			
 		case "TerminarOk":
-			
+
 			conn.cerrar();
-			
+
 			this.entrada.close();
-			
+
 			break;
-		
+
 		case "EmpezarJuego":
-			
+
 			Integer[][] mapaInicial = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
-			
+
 			Integer idSala = this.sala.getIdSala();
-			
+
 			this.sala.dispose();
-			
+
 			this.ventanaJuego = new JVentanaJuego(mapaInicial, this, idSala);
-			
+
 			this.ventanaJuego.setVisible(true);
-			
+
 			break;
-			
-		
+
 		case "Mapa":
-			
+
 			Integer[][] mapa = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
-			
+
 			this.ventanaJuego.actualizarMapa(mapa);
-		
-			
+
 			break;
-			
+
 		case "Puntajes":
-			
-			LinkedList<Puntaje> lista = this.gson.fromJson(mensaje.getJson(),new TypeToken<LinkedList<Puntaje>>() {}.getType());
-		
-			
+
+			LinkedList<Puntaje> lista = this.gson.fromJson(mensaje.getJson(), new TypeToken<LinkedList<Puntaje>>() {
+			}.getType());
+
 			this.ventanaJuego.actualizarPuntajes(lista);
+
+			break;
+
+		case "SalirJuegoOk":
+
+			this.ventanaJuego.dispose();
+
+			this.lobby = new JVentanaLobby(this);
+
+			this.lobby.setVisible(true);
 			
 			break;
 			
-		case "SalirJuegoOk":
+		case "EresAdmin":
 			
-			this.ventanaJuego.dispose();
+			this.sala.activarAdmin();
 			
-			this.lobby = new JVentanaLobby(this);
-			
-			this.lobby.setVisible(true);
-		
+			break;
 		}
 
 	}
@@ -298,47 +315,42 @@ public class Cliente {
 		}
 
 	}
-	
-	
+
 	public void salirJuego(Integer idSala) {
 
 		try {
 
 			this.conn.enviarInfo(new Mensaje("SalirJuego", this.gson.toJson(idSala)));
-			
-			
 
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 
 	}
+
 	public void desconectar(String ventanaActual) {
-		
+
 		try {
-		
+
 			conn.enviarInfo(new Mensaje("TerminarConn", this.gson.toJson(ventanaActual)));
-			
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-	
 	}
-	
-	
+
 	public void empezarPartida(Integer idSala) {
-		
+
 		try {
 			this.conn.enviarInfo(new Mensaje("EmpezarJuego", this.gson.toJson(idSala)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -346,14 +358,14 @@ public class Cliente {
 	}
 
 	public void enviarTeclaIzquierda(Integer idSala) {
-		
+
 		try {
 			this.conn.enviarInfo(new Mensaje("TeclaIzquierda", this.gson.toJson(idSala)));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void enviarTeclaDerecha(Integer idSala) {
@@ -376,11 +388,23 @@ public class Cliente {
 
 	public void enviarTeclaAbajo(Integer idSala) {
 		try {
-		
+
 			this.conn.enviarInfo(new Mensaje("TeclaAbajo", this.gson.toJson(idSala)));
-			
+
 		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public void salirDeSala(int idSala) {
 		
+		try {
+
+			this.conn.enviarInfo(new Mensaje("SalirDeSala", this.gson.toJson(idSala)));
+
+		} catch (IOException e) {
+
 			e.printStackTrace();
 		}
 	}
