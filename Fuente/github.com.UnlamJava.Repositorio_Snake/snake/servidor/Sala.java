@@ -77,7 +77,19 @@ public class Sala {
 
 		this.cantJugadores--;
 	}
+	
 
+	public void quitarjugadorDeJuegoSala(ClienteConn j) {
+
+		this.jugadores.remove(j);
+		
+		this.juego.quitarJugadorJuego(j);
+		
+		this.cantJugadores--;
+		
+		
+	}
+	
 	public Integer getId() {
 
 		return this.id;

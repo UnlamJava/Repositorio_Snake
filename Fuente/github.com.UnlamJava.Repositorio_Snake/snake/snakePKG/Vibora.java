@@ -24,6 +24,7 @@ public class Vibora {
 	private String sentidoMovActual;
 	private Mapa mapa;
 	private int puntajeJugador;
+	private Posicion cola;
 
 	public Vibora() {
 		this.idVibora = Vibora.id;
@@ -96,7 +97,7 @@ public class Vibora {
 
 		this.cambiarDir(this.sentidoMovActual);
 
-		Posicion posAux = new Posicion(this.cuerpo.get(this.cuerpo.size() - 1).getPocision());
+		 this.cola = new Posicion(this.cuerpo.get(this.cuerpo.size() - 1).getPocision());
 
 		int x = this.cuerpo.get(0).getPocision().getPosicionX() + this.desplazamientoEnX;
 		int y = this.cuerpo.get(0).getPocision().getPosicionY() + this.desplazamientoEnY;
@@ -116,7 +117,7 @@ public class Vibora {
 				this.crecer();
 			
 			else {
-				mapa.setPosMatriz(posAux, 0);
+				mapa.setPosMatriz(this.cola, 0);
 				
 				this.cuerpo.removeLast();
 			}
@@ -126,13 +127,7 @@ public class Vibora {
 		
 		} else {
 
-			mapa.LimpiarCuerpoVibora(this.cuerpo);
-
-			mapa.setPosMatriz(posAux, 0);
-
-			this.estoyVivo = false;
-			
-			this.cuerpo.clear();
+			this.morir();
 
 		}
 
@@ -165,7 +160,7 @@ public class Vibora {
 				|| mapa.HayFruta(this.cuerpo.get(0).getPocision());
 
 	}
-
+/// cambiar el metodo para que creer efectivamente agregue un pedazo de cuerpo
 	public void crecer() {
 		this.cantidadFrutaComida++;
 		this.puntajeJugador += Fruta.PUNTAJE_FRUTA;
@@ -213,8 +208,12 @@ public class Vibora {
 		
 		this.mapa.LimpiarCuerpoVibora(this.cuerpo);
 		
+		mapa.setPosMatriz(this.cola, 0);
+		
 		this.cuerpo.clear();
 	}
+	
+	
 
 
 }

@@ -1,31 +1,27 @@
 package cliente;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
-
-import graficos.JVentanaInicio;
-import graficos.JVentanaLogeo;
-import graficos.JVentanaSala;
-import graficos.JVentanaLobby;
-import graficos.JVentanaJuego;
-import util.ClienteConn;
-import util.Mensaje;
-import util.Puntaje;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import graficos.JVentanaInicio;
+import graficos.JVentanaJuego;
+import graficos.JVentanaLobby;
+import graficos.JVentanaLogeo;
+import graficos.JVentanaSala;
+import util.ClienteConn;
+import util.Mensaje;
+import util.Puntaje;
 
-public class Cliente {
+public class ClienteBot extends Cliente{
 
 	private Socket entrada;
 	
@@ -43,12 +39,10 @@ public class Cliente {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 
-	public Cliente(String ip, int port) {
+	public ClienteBot(String ip, int port) {
 
-		this.ipServer = ip;
-
-		this.puerto = port;
-
+		super(ip,port);
+		
 		this.inicio = new JVentanaInicio(this);
 
 		inicio.setVisible(true);
@@ -69,7 +63,7 @@ public class Cliente {
 
 			conn = new ClienteConn(in, out);
 
-			System.out.println("Conectado al sv");
+			//System.out.println("Conectado al sv");
 
 			HiloLecturaMensajes hm = new HiloLecturaMensajes(this, this.conn);
 
@@ -83,6 +77,7 @@ public class Cliente {
 		this.login = new JVentanaLogeo(this);
 
 		login.setVisible(true);
+		
 
 	}
 
@@ -249,7 +244,6 @@ public class Cliente {
 			Integer[][] mapa = this.gson.fromJson(mensaje.getJson(), Integer[][].class);
 			
 			this.ventanaJuego.actualizarMapa(mapa);
-		
 			
 			break;
 			
@@ -261,15 +255,6 @@ public class Cliente {
 			this.ventanaJuego.actualizarPuntajes(lista);
 			
 			break;
-			
-		case "SalirJuegoOk":
-			
-			this.ventanaJuego.dispose();
-			
-			this.lobby = new JVentanaLobby(this);
-			
-			this.lobby.setVisible(true);
-		
 		}
 
 	}
@@ -299,21 +284,6 @@ public class Cliente {
 
 	}
 	
-	
-	public void salirJuego(Integer idSala) {
-
-		try {
-
-			this.conn.enviarInfo(new Mensaje("SalirJuego", this.gson.toJson(idSala)));
-			
-			
-
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-
-	}
 	public void desconectar(String ventanaActual) {
 		
 		try {
@@ -345,6 +315,28 @@ public class Cliente {
 		new Cliente("localhost", 10000); // Me conecto al server
 	}
 
+	
+	public void movimientoAutonomo(Integer[][] mapa) {
+		
+		double aux =  Math.random();
+		
+		if(aux<=0.25) {
+			enviarTeclaIzquierda(1);
+		}
+		if(aux>0.25 && aux <=0.5) {
+			enviarTeclaDerecha(1);
+		}
+		if(aux>0.5 && aux <= 0.75) {
+			enviarTeclaArriba(1);
+		}
+		if(aux>0.75) {
+			enviarTeclaAbajo(1);
+		}
+		
+	}
+	
+	
+	
 	public void enviarTeclaIzquierda(Integer idSala) {
 		
 		try {
@@ -384,5 +376,5 @@ public class Cliente {
 			e.printStackTrace();
 		}
 	}
-
 }
+

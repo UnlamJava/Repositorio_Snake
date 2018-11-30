@@ -104,6 +104,22 @@ public class Lobby {
 
 		this.clientes.remove(cli);
 	}
+	
+	public void quitarjugadorDeJuego(ClienteConn cli,Integer idSala) {
+
+		for (Sala sala : this.salas) {
+
+			if (sala.getId().equals(idSala)) {
+
+				sala.quitarjugadorDeJuegoSala(cli);
+
+				break;
+			}
+		}
+			
+		this.clientes.remove(cli);
+	}
+
 
 	public Collection<String> obtenerSalas() {
 

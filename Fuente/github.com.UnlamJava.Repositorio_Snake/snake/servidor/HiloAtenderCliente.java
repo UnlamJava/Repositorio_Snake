@@ -41,7 +41,7 @@ public class HiloAtenderCliente extends Thread {
 			 } catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				break;
+			
 			 }
 			 
 		}

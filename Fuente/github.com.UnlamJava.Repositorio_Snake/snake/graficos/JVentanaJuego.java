@@ -10,11 +10,13 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import cliente.Cliente;
 import snakePKG.Fruta;
 import snakePKG.Obstaculo;
 import util.ClienteConn;
+import util.Mensaje;
 import util.Puntaje;
 
 import java.util.ArrayList;
@@ -29,7 +31,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JVentanaJuego extends JFrame {
 
@@ -46,6 +51,9 @@ public class JVentanaJuego extends JFrame {
 	private int idSala;
 
 	private JLabel[] labelsPuntajes;
+	
+	private JPanel volver;
+	
 
 	public JVentanaJuego(Integer mapa[][], Cliente cli, int idSala) {
 
@@ -67,10 +75,25 @@ public class JVentanaJuego extends JFrame {
 		});
 
 		this.panelPuntajes = new JPanel();
-
-		panelPuntajes.setBounds(Cuadrado.LADO * mapa.length + 20, 11, 150, Cuadrado.LADO * mapa.length);
-
+		
+		this.volver = new JPanel();
+		JButton btnVolver = new JButton("Volver");
+		
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				cli.salirJuego(idSala);
+			}
+		});
+		btnVolver.setBounds(10, 10, 20, 23);
+		
+		
+		panelPuntajes.setBounds(Cuadrado.LADO * mapa.length + 20, 11, 150, Cuadrado.LADO * mapa.length-40);
+		
+		
+		
 		getContentPane().add(panelPuntajes);
+		//getContentPane().add(volver);
 
 		this.panelPuntajes.setBackground(new Color(51, 55, 64));
 		
@@ -89,8 +112,9 @@ public class JVentanaJuego extends JFrame {
 	
 		
 		this.panelPuntajes.setLayout(new BoxLayout(this.panelPuntajes,BoxLayout.PAGE_AXIS));
-		this.panelPuntajes.setBorder(BorderFactory.createEmptyBorder(40,20,15,15));
+		this.panelPuntajes.setBorder(BorderFactory.createEmptyBorder(20,20,15,15));
 		
+		panelPuntajes.add(btnVolver);
 		
 		for(int i = 0; i < 6; i++) {
 			
@@ -99,12 +123,14 @@ public class JVentanaJuego extends JFrame {
 			
 			this.panelPuntajes.add(labelsPuntajes[i]);
 		}
+		
+		this.setFocusable(true);
 	}
 
 	public void setMovimiento(KeyEvent evento) {
 
 		if (evento.getKeyCode() == KeyEvent.VK_LEFT) {
-
+			System.out.println("izquierda");
 			cli.enviarTeclaIzquierda(idSala);
 		}
 		if (evento.getKeyCode() == KeyEvent.VK_RIGHT) {

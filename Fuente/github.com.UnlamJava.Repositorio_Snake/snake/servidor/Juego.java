@@ -17,7 +17,8 @@ import util.Puntaje;
 
 public class Juego {
 
-	private Mapa mapa;
+	//private Mapa mapa;
+	public Mapa mapa;
 	
 	private HashMap<ClienteConn, Vibora> viboras;
 	
@@ -112,6 +113,16 @@ public class Juego {
 			
 		}
 	
+	}
+	
+	public void quitarJugadorJuego(ClienteConn c1) {
+		
+		Vibora v =  this.viboras.get(c1);
+		
+		v.morir();
+		
+		this.viboras.remove(c1);
+		
 	}
 	
 	public void enviarPuntajesAtodos() throws IOException {

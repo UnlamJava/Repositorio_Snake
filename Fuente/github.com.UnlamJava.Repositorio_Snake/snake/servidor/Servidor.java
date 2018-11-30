@@ -42,7 +42,6 @@ public class Servidor {
 			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
 /*
 			HiloTestClientes h = new HiloTestClientes(this);
-
 			h.start();
 */
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
@@ -170,6 +169,23 @@ public class Servidor {
 			this.lobby.iniciarJuegoSala(salaJuego);
 
 			break;
+			
+			
+			
+		case "SalirJuego":
+
+			Integer idJuego = this.gson.fromJson(msg.getJson(), Integer.class);
+
+			conn.enviarInfo(new Mensaje("SalirJuegoOk", gson.toJson(idJuego)));
+			
+			this.lobby.quitarjugadorDeJuego(conn, idJuego);
+			
+			this.lobby.agregarCliente(conn);
+			
+						
+			break;
+
+
 
 		case "TeclaDerecha":
 

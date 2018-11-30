@@ -17,7 +17,10 @@ public class HiloEnviarMapa extends Thread{
 		try {
 
 			while (true) {
-
+				
+								
+				juego.mapa.generarFruta();
+				
 				juego.enviarMapaAtodos();
 
 				Thread.sleep(300);// GAME_LOOP

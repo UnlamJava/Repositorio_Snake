@@ -26,7 +26,7 @@ public class HiloActualizarLobby extends Thread{
 			} catch (IOException | InterruptedException e) {
 				// TODO Auto-generated catch block	
 				e.printStackTrace();
-				break;
+				
 			}
 			
 		}

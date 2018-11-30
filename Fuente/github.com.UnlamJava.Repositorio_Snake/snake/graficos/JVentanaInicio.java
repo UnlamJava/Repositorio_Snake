@@ -31,7 +31,7 @@ public class JVentanaInicio extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton_1 = new JButton("Jugar Solo");
-		btnNewButton_1.setBounds(138, 76, 109, 33);
+		btnNewButton_1.setBounds(173, 471, 109, 33);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton = new JButton("Jugar Online");
@@ -41,7 +41,7 @@ public class JVentanaInicio extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(138, 146, 109, 33);
+		btnNewButton.setBounds(292, 471, 109, 33);
 		contentPane.add(btnNewButton);
 		this.setLocationRelativeTo(null);
 	}
