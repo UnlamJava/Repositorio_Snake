@@ -118,6 +118,7 @@ public class Sala {
 
 	public void quitarjugadorDeJuegoSala(ClienteConn j) {
 
+
 		this.jugadores.remove(j);
 		
 		this.juego.quitarJugadorJuego(j);
@@ -164,7 +165,9 @@ public class Sala {
 		
 	}
 	
-	
+	public void detenerHilosJuego() {
+		this.juego.detenerHilos();
+	}
 	
 	private Collection<String> obtenerJugadores() {
 		

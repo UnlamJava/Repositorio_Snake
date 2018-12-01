@@ -5,6 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import javax.swing.JOptionPane;
+
 import com.google.gson.Gson;
 
 import login.Jugador;
@@ -38,15 +41,15 @@ public class Servidor {
 
 			this.server = new ServerSocket(puerto);
 
-			System.out.println("SERVER INICIADO - Esperando conexiones de clientes ...");
-
 			HiloAceptarClientes ha = new HiloAceptarClientes(this);
 
 			ha.start();
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+		
+			JOptionPane.showMessageDialog(null, "Error al iniciar el servidor", "Error", JOptionPane.ERROR_MESSAGE);
+			
+			System.exit(1);
 
 		}
 	}
@@ -152,8 +155,6 @@ public class Servidor {
 			
 			this.lobby.agregarCliente(conn);
 			
-			//TODO: verificar si era admin y tengo mas de 1 jugador en sala
-			
 			break;
 			
 		case "TerminarConn":
@@ -171,6 +172,10 @@ public class Servidor {
 			} else if (ventanaActual.equals("Lobby")) {
 
 				this.lobby.quitarCliente(conn);
+				
+			} else if(ventanaActual.substring(0, 5).equals("Juego")) {
+				
+				this.lobby.quitarjugadorDeJuego(conn, Integer.parseInt(ventanaActual.substring(5)));
 			}
 
 			conn.enviarInfo(new Mensaje("TerminarOk", ""));

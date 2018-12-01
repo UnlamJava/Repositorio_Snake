@@ -14,7 +14,7 @@ public class HiloMoverBot extends Thread {
 	}
 
 	public void run() {
-		while (v.getTamanioVibora() > 0) {
+		while (v.isEstoyVivo()) {
 
 			try {
 				v.cambiarDirBot(this.mapa);
@@ -22,9 +22,10 @@ public class HiloMoverBot extends Thread {
 				v.moverMejorado();
 
 				Thread.sleep(JuegoSingle.GAMELOOP);
-
+				System.out.println("asdaa");
 			}
-
+	
+			
 			catch (InterruptedException e) {
 				e.printStackTrace();
 				break;

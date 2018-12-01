@@ -111,7 +111,7 @@ public class Lobby {
 	public void quitarjugadorDeJuego(ClienteConn cli, Integer idSala) {
 
 		for (Sala sala : this.salas) {
-
+	
 			if (sala.getId().equals(idSala)) {
 
 				sala.quitarjugadorDeJuegoSala(cli);
@@ -133,6 +133,7 @@ public class Lobby {
 			sala = itr.next(); 
 			
 			if(sala.getCantJugadores() == 0){
+				sala.detenerHilosJuego();
 				itr.remove();
 			}
 			

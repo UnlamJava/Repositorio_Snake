@@ -22,12 +22,13 @@ public class HiloEnviarMapa extends Thread{
 
 			while (enCurso) {
 				
-								
-				juego.mapa.generarFruta();
+				juego.moverViboras();
+				
+				juego.getMapa().verificarPosicionDeCabezas();
 				
 				juego.enviarMapaAtodos();
-
-				Thread.sleep(300);// GAME_LOOP
+			
+				Thread.sleep(1000);// GAME_LOOP
 
 			}
 			

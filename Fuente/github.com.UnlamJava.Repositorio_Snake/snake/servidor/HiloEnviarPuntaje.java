@@ -23,7 +23,8 @@ public class HiloEnviarPuntaje extends Thread {
 
 				this.juego.enviarPuntajesAtodos();
 
-				Thread.sleep(300);
+
+				Thread.sleep(1000);
 
 			}
 		} catch (IOException | InterruptedException e) {

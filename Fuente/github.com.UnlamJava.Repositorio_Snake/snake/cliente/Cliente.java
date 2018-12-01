@@ -73,15 +73,18 @@ public class Cliente {
 			HiloLecturaMensajes hm = new HiloLecturaMensajes(this, this.conn);
 
 			hm.start();
+			
+			this.login = new JVentanaLogeo(this);
+
+			login.setVisible(true);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(this.inicio, "No se pudo conectar al servidor", "Error", JOptionPane.ERROR_MESSAGE);
+	
 		}
-
-		this.login = new JVentanaLogeo(this);
-
-		login.setVisible(true);
+	
+		
 
 	}
 
@@ -92,8 +95,9 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("Loguearse", user + "-" + pass));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			JOptionPane.showMessageDialog(this.login, "Error al enviar mensaje al servidor", "Error", JOptionPane.ERROR_MESSAGE);
+			
 		}
 
 	}
@@ -105,8 +109,8 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("Registrarse", user + "-" + pass));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this.login, "Error al enviar mensaje al servidor", "Error", JOptionPane.ERROR_MESSAGE);
+			
 		}
 
 	}
@@ -235,10 +239,10 @@ public class Cliente {
 			break;
 			
 		case "TerminarOk":
+			
+			//conn.cerrar();
 
-			conn.cerrar();
-
-			this.entrada.close();
+			//this.entrada.close();
 
 			break;
 
@@ -299,8 +303,9 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("CrearSala", this.gson.toJson(id)));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(this.login, "Error al enviar peticion", "Error", JOptionPane.ERROR_MESSAGE);
+			
 		}
 	}
 
@@ -311,8 +316,9 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("UnirseASala", this.gson.toJson(idSala)));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch blocka
-			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(this.login, "Error al enviar peticion", "Error", JOptionPane.ERROR_MESSAGE);
+			
 		}
 
 	}
@@ -324,8 +330,10 @@ public class Cliente {
 			this.conn.enviarInfo(new Mensaje("SalirJuego", this.gson.toJson(idSala)));
 
 		} catch (IOException e) {
-
-			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(this.login, "Error al salir del juego", "Error", JOptionPane.ERROR_MESSAGE);
+			
+			System.exit(1);
 		}
 
 	}
@@ -337,8 +345,8 @@ public class Cliente {
 			conn.enviarInfo(new Mensaje("TerminarConn", this.gson.toJson(ventanaActual)));
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.exit(1);
 		}
 
 	}
