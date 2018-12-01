@@ -2,6 +2,7 @@ package graficos;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,6 +22,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
 
+import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -54,14 +56,16 @@ public class JVentanaSala extends JFrame {
 				dispose();
 			}
 		});
-		
 		setBounds(100, 100, 559, 389);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.DARK_GRAY);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Sala  " + idSala);
+		JLabel lblNewLabel = new JLabel("SALA  " + idSala);
+		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.BOLD | Font.ITALIC, 20));
+		lblNewLabel.setForeground(Color.ORANGE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(23, 11, 280, 49);
 		contentPane.add(lblNewLabel);
@@ -82,7 +86,8 @@ public class JVentanaSala extends JFrame {
 			}
 		});
 		contentPane.add(btnVolver);
-		
+
+		this.setLocationRelativeTo(null);
 	}
 	
 	public void actualizarJugadores(Collection<String> jugadores) {

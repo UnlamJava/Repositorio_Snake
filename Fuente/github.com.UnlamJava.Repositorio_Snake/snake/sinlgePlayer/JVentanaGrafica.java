@@ -70,8 +70,7 @@ public class JVentanaGrafica extends JFrame {
 		this.dibujarMapa(mapa);
 	}
 
-	public void setMovimiento(KeyEvent evento) {
-			System.out.println("nasdad");
+	public void setMovimiento(KeyEvent evento) {;
 			String res;
 			
 			if(evento.getKeyCode() == KeyEvent.VK_2) {

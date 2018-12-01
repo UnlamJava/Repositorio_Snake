@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import cliente.Cliente;
+import joystick.Joystick;
 import snakePKG.Fruta;
 import snakePKG.Obstaculo;
 import util.ClienteConn;
@@ -55,6 +56,8 @@ public class JVentanaJuego extends JFrame {
 	private JLabel[] labelsPuntajes;
 
 	private JPanel volver;
+	
+	private Joystick joystick;
 
 	public JVentanaJuego(Integer mapa[][], Cliente cli, int idSala) {
 
@@ -63,9 +66,13 @@ public class JVentanaJuego extends JFrame {
 		this.cli = cli;
 
 		this.idSala = idSala;
-
+		
+		this.joystick = new Joystick(this.cli, this.idSala);
+		
 		this.labelsPuntajes = new JLabel[6];
-
+		
+		new Thread(this.joystick).start();
+		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		this.addWindowListener(new WindowAdapter() {
@@ -98,7 +105,7 @@ public class JVentanaJuego extends JFrame {
 		});
 		btnVolver.setBounds(10, 10, 20, 23);
 
-		panelPuntajes.setBounds(Cuadrado.LADO * mapa.length + 20, 11, 150, Cuadrado.LADO * mapa.length - 40);
+		panelPuntajes.setBounds(Cuadrado.LADO * mapa.length + 20, 11, 150, Cuadrado.LADO * mapa.length );
 
 		getContentPane().add(panelPuntajes);
 
@@ -222,7 +229,11 @@ public class JVentanaJuego extends JFrame {
 		jv.actualizarPuntajes(lista2);
 
 	}
-
+	
+	public Joystick getJoystick() {
+		return joystick;
+	}
+	
 	public void actualizarPuntajes(LinkedList<Puntaje> lista) {
 
 		Collections.sort(lista, new Comparator<Puntaje>() {

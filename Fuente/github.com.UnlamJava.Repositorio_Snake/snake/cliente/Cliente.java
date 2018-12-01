@@ -62,7 +62,6 @@ public class Cliente {
 
 			conn = new ClienteConn(in, out);
 
-			System.out.println("Conectado al sv");
 
 			HiloLecturaMensajes hm = new HiloLecturaMensajes(this, this.conn);
 
@@ -119,7 +118,6 @@ public class Cliente {
 
 			String msgLog = this.gson.fromJson(mensaje.getJson(), String.class);
 
-			System.out.println(msgLog);
 
 			this.inicio.dispose();
 
@@ -137,7 +135,6 @@ public class Cliente {
 
 			String msgErr = this.gson.fromJson(mensaje.getJson(), String.class);
 
-			System.out.println(msgErr);
 
 			this.login.mostrarError("No se encontro usuario", "Lo sentimos");
 
@@ -147,7 +144,6 @@ public class Cliente {
 
 			String msgReg = this.gson.fromJson(mensaje.getJson(), String.class);
 
-			System.out.println(msgReg);
 
 			this.inicio.dispose();
 
@@ -165,7 +161,6 @@ public class Cliente {
 
 			String msgRegError = this.gson.fromJson(mensaje.getJson(), String.class);
 
-			System.out.println(msgRegError);
 
 			this.login.mostrarError("Usuario ya existente", "Lo sentimos");
 
@@ -234,9 +229,9 @@ public class Cliente {
 			
 		case "TerminarOk":
 			
-			//conn.cerrar();
+			conn.cerrar();
 
-			//this.entrada.close();
+			this.entrada.close();
 
 			break;
 
@@ -274,6 +269,8 @@ public class Cliente {
 		case "SalirJuegoOk":
 
 			this.ventanaJuego.dispose();
+			
+			this.ventanaJuego.getJoystick().detener();
 
 			this.lobby = new JVentanaLobby(this);
 

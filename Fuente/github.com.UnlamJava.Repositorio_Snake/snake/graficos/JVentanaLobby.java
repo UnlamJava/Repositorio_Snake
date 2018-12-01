@@ -1,5 +1,6 @@
 package graficos;
 
+import java.awt.Font;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -38,7 +39,7 @@ public class JVentanaLobby extends JFrame {
 		this.cli = cli;
 		
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		
+		this.setTitle("SNAKE - LOBBY");
 		this.addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
@@ -47,35 +48,38 @@ public class JVentanaLobby extends JFrame {
 			}
 		});
 		
+		setBounds(100, 100, 607, 607);
 		
-		setBounds(100, 100, 450, 444);
 		mainPanel = new JPanel();
-		mainPanel.setBackground(Color.WHITE);
+		mainPanel.setBackground(Color.DARK_GRAY);
 		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPanel);
 		mainPanel.setLayout(null);
 		
 		salasPanel = new JPanel();
-		salasPanel.setBackground(Color.WHITE);
-		salasPanel.setBounds(0, 39, 434, 366);
+		salasPanel.setBackground(Color.DARK_GRAY);
+		salasPanel.setBounds(0, 39, 434, 519);
 		mainPanel.add(salasPanel);
 		
 		JPanel crearSalasPanel = new JPanel();
+		crearSalasPanel.setBackground(Color.DARK_GRAY);
 		crearSalasPanel.setBounds(0, 0, 434, 39);
 		mainPanel.add(crearSalasPanel);
 		crearSalasPanel.setLayout(null);
 		
 		this.lblSalas = new JLabel("SALAS");
-		lblSalas.setBounds(175, 9, 31, 14);
+		lblSalas.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.BOLD | Font.ITALIC, 40));
+		lblSalas.setForeground(Color.ORANGE);
+		lblSalas.setBounds(58, 5, 159, 34);
 		crearSalasPanel.add(lblSalas);
 		
 		idSalaTextField = new JTextField();
 		idSalaTextField.setBounds(338, 6, 86, 20);
 		crearSalasPanel.add(idSalaTextField);
 		idSalaTextField.setColumns(10);
-		
+
 		JButton btnCrearSala = new JButton("Crear Sala");
-		btnCrearSala.setBounds(245, 5, 83, 23);
+		btnCrearSala.setBounds(227, 5, 101, 34);
 		crearSalasPanel.add(btnCrearSala);
 		btnCrearSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

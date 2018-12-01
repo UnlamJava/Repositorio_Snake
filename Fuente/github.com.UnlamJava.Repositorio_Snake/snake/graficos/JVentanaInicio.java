@@ -1,9 +1,10 @@
 package graficos;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
+import java.awt.Font;
 import java.awt.Color;
 
 import cliente.Cliente;
@@ -21,14 +22,14 @@ public class JVentanaInicio extends JFrame {
 
 		setTitle("SNAKE - JAVA TEAM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setBounds(100, 100, 450, 300);
+		
 		setBounds(100, 100, 607, 607);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.orange);
+		contentPane.setBackground(Color.DARK_GRAY);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		JButton btnNewButton_1 = new JButton("Jugar Solo");
 		btnNewButton_1.setBounds(173, 471, 109, 33);
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -48,8 +49,17 @@ public class JVentanaInicio extends JFrame {
 
 			}
 		});
+		
 		btnNewButton.setBounds(292, 471, 109, 33);
 		contentPane.add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("SNAKE - JAVA TEAM");
+		lblNewLabel.setToolTipText("");
+		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.BOLD | Font.ITALIC, 45));
+		lblNewLabel.setForeground(Color.ORANGE);
+		lblNewLabel.setBounds(83, 57, 414, 62);
+		contentPane.add(lblNewLabel);
 		this.setLocationRelativeTo(null);
+	
 	}
 }

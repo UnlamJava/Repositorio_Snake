@@ -42,7 +42,7 @@ public class JuegoSingle {
 
 		this.hiloMover = new HiloMover(vibora, mapa);
 
-		this.hiloBot = new HiloMoverBot(this.viboraBot, mapa);
+		this.hiloBot = new HiloMoverBot(this.viboraBot, mapa, vibora);
 		
 		
 		this.hiloGenerarFruta = new HiloGenerarFruta(this.mapa);
@@ -82,7 +82,7 @@ public class JuegoSingle {
 		while (this.vibora.getTamanioVibora() > 0) {
 
 			this.jVentana.actualizarMapa(this.mapa.getMapa());
-
+			this.mapa.verificarPosicionDeCabezas(); 
 		} // en tiempo real
 
 	}

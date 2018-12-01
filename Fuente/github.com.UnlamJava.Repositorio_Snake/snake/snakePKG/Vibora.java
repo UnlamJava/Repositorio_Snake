@@ -53,7 +53,9 @@ public class Vibora {
 		this.estoyVivo = true;
 		this.sentidoMovActual = "Izquierda";
 	}
-
+	public void setSentidoMovActual(String sentidoMovActual) {
+		this.sentidoMovActual = sentidoMovActual;
+	}
 	public void setDirMov(String dir) {
 		this.sentidoMovActual = dir;
 	}
@@ -161,7 +163,7 @@ public class Vibora {
 			return false;
 
 		return mapa.getPosMatriz(this.cuerpo.get(0).getPocision()) == 0
-				|| mapa.HayFruta(this.cuerpo.get(0).getPocision());
+				|| mapa.HayFruta(this.cuerpo.get(0).getPocision()) || mapa.hayOtraCabeza(this.cuerpo.get(0).getPocision());
 
 	}
 
@@ -288,14 +290,22 @@ public class Vibora {
 		// System.out.println(posibles.get(0));
 		this.sentidoMovActual = posibles.get((int) (Math.random() * posibles.size()));
 		for (int i = 0; i < posibles.size(); i++)
-			if (posibles.get(i) == "Izquierda" && mapa.HayFrutaALaIzquierda(posIzquierda))
+			if (posibles.get(i) == "Izquierda" && mapa.HayFrutaALaIzquierda(posIzquierda)) {
 				this.sentidoMovActual = "Izquierda";
-			else if (posibles.get(i) == "Derecha" && mapa.HayFrutaALaDerecha(posDerecha))
+				return;
+			}
+			else if (posibles.get(i) == "Derecha" && mapa.HayFrutaALaDerecha(posDerecha)) {
 				this.sentidoMovActual = "Derecha";
-			else if (posibles.get(i) == "Abajo" && mapa.HayFruta(posAbajo))
+				return;
+			}
+			else if (posibles.get(i) == "Abajo" && mapa.HayFruta(posAbajo)) {
 				this.sentidoMovActual = "Abajo";
-			else if (posibles.get(i) == "Arriba" && mapa.HayFruta(posArriba))
+				return;
+			}
+			else if (posibles.get(i) == "Arriba" && mapa.HayFruta(posArriba)) {
 				this.sentidoMovActual = "Arriba";
+				return;
+			}
 
 	}
 }

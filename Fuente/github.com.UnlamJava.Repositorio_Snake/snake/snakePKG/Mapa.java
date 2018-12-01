@@ -34,8 +34,8 @@ public class Mapa {
 			// OBJETOS LOS DEFINIMOS NOSOTROS EN EL MAPA..
 			this.objetosDelMapa = new ObjetoDelMapa[6];
 			this.objetosDelMapa[0] = new Fruta(1, 2, Fruta.FRUTA_AGRANDA);
-			this.objetosDelMapa[1] = new Fruta(6, 3, Fruta.FRUTA_AGRANDA);
-			this.objetosDelMapa[2] = new Fruta(8, 8, Fruta.FRUTA_AGRANDA);
+			this.objetosDelMapa[1] = new Fruta(2, 0, Fruta.FRUTA_AGRANDA);
+			this.objetosDelMapa[2] = new Fruta(3, 3, Fruta.FRUTA_AGRANDA);
 			this.objetosDelMapa[3] = new Obstaculo(15, 15, Obstaculo.ID_OBSTACULO);
 			this.objetosDelMapa[4] = new Obstaculo(15, 16, Obstaculo.ID_OBSTACULO);
 			this.objetosDelMapa[5] = new Obstaculo(15, 17, Obstaculo.ID_OBSTACULO);
@@ -163,8 +163,18 @@ public class Mapa {
 					posOk = false;
 				}
 				
+				
+				if(this.tamanioX - x <= 3 || x <= 3 ) {
+					posOk = false;
+				}
+				
+				if(this.tamanioY - y <= 3 || y <= 3 ) {
+					posOk = false;
+				}
+				
+				
 				for(ObjetoDelMapa o : this.objetosDelMapa) {
-					if(o.getPosicionX() == otroX && o.getPosicionY() == otroY) {
+					if(o.getPosicionX() == x && o.getPosicionY() == y) {
 						
 						posOk = false;
 						break;
@@ -270,6 +280,23 @@ public class Mapa {
 			if(this.matriz[posAbajo.getPosicionX()][i]==Fruta.FRUTA_ACHICA || this.matriz[posAbajo.getPosicionX()][i]==Fruta.FRUTA_AGRANDA )
 				return true;
 		return false;
+	}
+
+	public boolean hayOtraCabeza(Posicion pocision) {
+		
+		boolean hayOtra = false;
+		
+		 for(Vibora v : this.ListaViboras) {
+		
+			 hayOtra =  v.getPosCabeza().equals(pocision);
+			 
+			 if(hayOtra) {
+				 break;
+			 }
+		 }
+		 
+
+		return hayOtra;
 	}
 
 }

@@ -5,16 +5,18 @@ import snakePKG.Vibora;
 
 public class HiloMoverBot extends Thread {
 	private Vibora v;
+	private Vibora principal;
 	private Mapa mapa;
 	private boolean enCurso = true;
 
-	public HiloMoverBot(Vibora viboraBot, Mapa mapa) {
+	public HiloMoverBot(Vibora viboraBot, Mapa mapa, Vibora principal) {
 		this.v = viboraBot;
 		this.mapa = mapa;
+		this.principal=principal;
 	}
 
 	public void run() {
-		while (v.isEstoyVivo()) {
+		while (principal.isEstoyVivo()) {
 
 			try {
 				v.cambiarDirBot(this.mapa);
@@ -22,7 +24,6 @@ public class HiloMoverBot extends Thread {
 				v.moverMejorado();
 
 				Thread.sleep(JuegoSingle.GAMELOOP);
-				System.out.println("asdaa");
 			}
 	
 			
