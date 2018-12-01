@@ -286,7 +286,6 @@ public class Vibora {
 			if (mapa.estoyDentroDeMapa(posAbajo) && (mapa.getPosMatriz(posAbajo) == 0 || mapa.HayFruta(posAbajo)))
 				posibles.add("Abajo");
 		}
-
 		// System.out.println(posibles.get(0));
 		this.sentidoMovActual = posibles.get((int) (Math.random() * posibles.size()));
 		for (int i = 0; i < posibles.size(); i++)
