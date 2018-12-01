@@ -81,6 +81,7 @@ public class Juego {
     		  
     		  this.jVentana.actualizarMapa(this.mapa.getMapa());
     		 
+    		  this.mapa.verificarPosicionDeCabezas();
     	  }// en tiempo real
     	  
     				
