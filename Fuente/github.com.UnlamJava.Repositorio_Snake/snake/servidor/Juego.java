@@ -82,11 +82,7 @@ public class Juego {
 		this.hiloPuntos = new HiloEnviarPuntaje(this);
 
 		this.hiloFrutas = new HiloGenerarFrutas(this);
-/*
-		HiloVerificador hv = new HiloVerificador(this);
-		
-		hv.start();
-	*/	
+
 		hiloPuntos.start();
 
 		hiloMapa.start();

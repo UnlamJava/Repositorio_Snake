@@ -60,8 +60,7 @@ public class Lobby {
 	public void crearSala(Integer id, ClienteConn admin) {
 
 		this.salas.add(new Sala(id, 0, 6, admin));
-		
-		
+
 	}
 
 	public void agregarJugadorASala(Integer idSala, ClienteConn jugador) {
@@ -80,7 +79,6 @@ public class Lobby {
 
 	public void quitarJugadorDeSala(Integer idSala, ClienteConn cli) {
 
-		
 		for (Sala s : this.salas) {
 
 			if (s.getId().equals(idSala)) {
@@ -91,9 +89,6 @@ public class Lobby {
 			}
 
 		}
-		
-		
-		
 
 	}
 
@@ -111,7 +106,7 @@ public class Lobby {
 	public void quitarjugadorDeJuego(ClienteConn cli, Integer idSala) {
 
 		for (Sala sala : this.salas) {
-	
+
 			if (sala.getId().equals(idSala)) {
 
 				sala.quitarjugadorDeJuegoSala(cli);
@@ -129,14 +124,17 @@ public class Lobby {
 
 		Sala sala;
 		while (itr.hasNext()) {
-		
-			sala = itr.next(); 
-			
-			if(sala.getCantJugadores() == 0){
-				sala.detenerHilosJuego();
+
+			sala = itr.next();
+
+			if (sala.getCantJugadores() == 0) {
+				if (sala.getEstado()) {
+					sala.detenerHilosJuego();
+				}
+				
 				itr.remove();
 			}
-			
+
 		}
 
 	}

@@ -163,7 +163,7 @@ public class Vibora {
 			return false;
 
 		return mapa.getPosMatriz(this.cuerpo.get(0).getPocision()) == 0
-				|| mapa.HayFruta(this.cuerpo.get(0).getPocision()) || mapa.hayOtraCabeza(this.cuerpo.get(0).getPocision());
+				|| mapa.HayFruta(this.cuerpo.get(0).getPocision());
 
 	}
 

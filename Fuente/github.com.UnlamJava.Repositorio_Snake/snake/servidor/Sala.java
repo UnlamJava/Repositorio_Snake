@@ -111,7 +111,8 @@ public class Sala {
 			return;
 		}
 		
-		
+		System.out.println("ultimo");
+
 		this.jugadores.remove(cli);
 
 		this.cantJugadores--;
@@ -166,8 +167,11 @@ public class Sala {
 		}
 		
 	}
+
+	
 	
 	public void detenerHilosJuego() {
+	
 		this.juego.detenerHilos();
 	}
 	

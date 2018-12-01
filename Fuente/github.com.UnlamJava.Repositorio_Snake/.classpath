@@ -25,6 +25,5 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="github.com.UnlamJava.Repositorio_Snake/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/eclipse-jee-2018-09-win32-x86_64/eclipse/plugins/net.sf.fjep.fatjar_0.0.31.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
