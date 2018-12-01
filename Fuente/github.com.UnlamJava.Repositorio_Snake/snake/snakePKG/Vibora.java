@@ -108,12 +108,10 @@ public class Vibora {
 		CuerpoVibora c = new CuerpoVibora(this.idVibora);
 
 		c.setPocision(newPos);
-		
-		this.cuerpo.addFirst(c);
-		
-		if (this.caminoValido()) {
 
-			
+		this.cuerpo.addFirst(c);
+
+		if (this.caminoValido()) {
 
 			if (mapa.HayFruta(this.cuerpo.get(0).getPocision()))
 
@@ -207,9 +205,10 @@ public class Vibora {
 	}
 
 	public void morir() {
-		
-		if(!this.estoyVivo) return;
-		
+
+		if (!this.estoyVivo)
+			return;
+
 		this.estoyVivo = false;
 
 		this.mapa.LimpiarCuerpoVibora(this.cuerpo);
@@ -221,11 +220,11 @@ public class Vibora {
 		this.cuerpo.clear();
 	}
 
-	
-	public void morir2(){
-		
-		if(!this.estoyVivo) return;
-		
+	public void morir2() {
+
+		if (!this.estoyVivo)
+			return;
+
 		this.estoyVivo = false;
 
 		this.mapa.LimpiarCuerpoVibora(this.cuerpo);
@@ -235,5 +234,59 @@ public class Vibora {
 		mapa.setPosMatriz(this.cuerpo.get(0).getPocision(), 0);
 
 		this.cuerpo.clear();
+	}
+
+	public void cambiarDirBot(Mapa mapa2) {
+		ArrayList<String> posibles = new ArrayList<>();
+		int x = this.cuerpo.get(0).getPocision().getPosicionX();
+		int y = this.cuerpo.get(0).getPocision().getPosicionY();
+		Posicion posArriba = new Posicion(x, y - 1);
+		Posicion posDerecha = new Posicion(x + 1, y);
+		Posicion posIzquierda = new Posicion(x - 1, y);
+		Posicion posAbajo = new Posicion(x, y + 1);
+
+		if (this.sentidoMovActual == "Arriba") {
+
+			if (mapa.getPosMatriz(posArriba) == 0 && mapa.estoyDentroDeMapa(posArriba))
+				posibles.add("Arriba");
+
+			if (mapa.getPosMatriz(posDerecha) == 0 && mapa.estoyDentroDeMapa(posDerecha))
+				posibles.add("Derecha");
+
+			if (mapa.getPosMatriz(posIzquierda) == 0 && mapa.estoyDentroDeMapa(posIzquierda))
+				posibles.add("Iquierda");
+		} else if (this.sentidoMovActual == "Abajo") {
+
+			if (mapa.getPosMatriz(posAbajo) == 0 && mapa.estoyDentroDeMapa(posAbajo))
+				posibles.add("Abajo");
+
+			if (mapa.getPosMatriz(posDerecha) == 0 && mapa.estoyDentroDeMapa(posDerecha))
+				posibles.add("Derecha");
+
+			if (mapa.getPosMatriz(posIzquierda) == 0 && mapa.estoyDentroDeMapa(posIzquierda))
+				posibles.add("Iquierda");
+		} else if (this.sentidoMovActual == "Derecha") {
+
+			if (mapa.getPosMatriz(posArriba) == 0 && mapa.estoyDentroDeMapa(posArriba))
+				posibles.add("Arriba");
+
+			if (mapa.getPosMatriz(posDerecha) == 0 && mapa.estoyDentroDeMapa(posDerecha))
+				posibles.add("Derecha");
+
+			if (mapa.getPosMatriz(posAbajo) == 0 && mapa.estoyDentroDeMapa(posAbajo))
+				posibles.add("Abajo");
+		} else if (this.sentidoMovActual == "Izquierda") {
+
+			if (mapa.getPosMatriz(posArriba) == 0 && mapa.estoyDentroDeMapa(posArriba))
+				posibles.add("Arriba");
+
+			if (mapa.getPosMatriz(posIzquierda) == 0 && mapa.estoyDentroDeMapa(posIzquierda))
+				posibles.add("Izquierda");
+
+			if (mapa.getPosMatriz(posAbajo) == 0 && mapa.estoyDentroDeMapa(posAbajo))
+				posibles.add("Abajo");
+		}
+		System.out.println("asd");
+		this.sentidoMovActual = posibles.get(0);
 	}
 }

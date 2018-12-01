@@ -44,6 +44,7 @@ public class JVentanaInicio extends JFrame {
 		JButton btnNewButton = new JButton("Jugar Online");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cli.estoyEnInicioOff();
 				cli.jugarOnline();
 				
 			}
