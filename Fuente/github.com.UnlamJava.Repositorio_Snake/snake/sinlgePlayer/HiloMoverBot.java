@@ -7,32 +7,34 @@ public class HiloMoverBot extends Thread {
 	private Vibora v;
 	private Mapa mapa;
 	private boolean enCurso = true;
+
 	public HiloMoverBot(Vibora viboraBot, Mapa mapa) {
 		this.v = viboraBot;
 		this.mapa = mapa;
 	}
 
 	public void run() {
-		
-		while(enCurso) {
-			
+		while (v.getTamanioVibora() > 0) {
+
 			try {
-					v.cambiarDirBot(this.mapa);
-					v.moverMejorado();
-					
-					Thread.sleep(JuegoSingle.GAMELOOP);
-				}
+				v.cambiarDirBot(this.mapa);
 				
-			 catch (InterruptedException e) {
+				v.moverMejorado();
+
+				Thread.sleep(JuegoSingle.GAMELOOP);
+
+			}
+
+			catch (InterruptedException e) {
 				e.printStackTrace();
 				break;
-			}	
+			}
 
 		}
-		
-}
 
-public void detener() {
-	this.enCurso = false;
-}
+	}
+
+	public void detener() {
+		this.enCurso = false;
+	}
 }

@@ -39,7 +39,6 @@ public class JVentanaGrafica extends JFrame {
 	private HiloMover hiloMover;
 	
 	private HiloMoverBot hiloBot;
-	
 	private int bandera;
 	
 	private HiloGenerarFruta hGen;
@@ -111,6 +110,7 @@ public class JVentanaGrafica extends JFrame {
 				if(bandera==0) {
 					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					
 					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
@@ -126,6 +126,7 @@ public class JVentanaGrafica extends JFrame {
 				if(bandera==0) {
 					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					
 					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
@@ -139,6 +140,7 @@ public class JVentanaGrafica extends JFrame {
 				if(bandera==0) {
 					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					
 					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;
@@ -152,6 +154,7 @@ public class JVentanaGrafica extends JFrame {
 				if(bandera==0) {
 					this.vibora.setDirMov(res);
 					this.hiloMover.start();
+					
 					this.hiloBot.start();
 					this.hGen.start();
 					bandera=1;

@@ -247,46 +247,51 @@ public class Vibora {
 
 		if (this.sentidoMovActual == "Arriba") {
 
-			if (mapa.getPosMatriz(posArriba) == 0 && mapa.estoyDentroDeMapa(posArriba))
+			if (mapa.estoyDentroDeMapa(posArriba) && (mapa.getPosMatriz(posArriba) == 0 || mapa.HayFruta(posArriba)))
 				posibles.add("Arriba");
-
-			if (mapa.getPosMatriz(posDerecha) == 0 && mapa.estoyDentroDeMapa(posDerecha))
+			if (mapa.estoyDentroDeMapa(posDerecha) && (mapa.getPosMatriz(posDerecha) == 0 || mapa.HayFruta(posDerecha)))
 				posibles.add("Derecha");
-
-			if (mapa.getPosMatriz(posIzquierda) == 0 && mapa.estoyDentroDeMapa(posIzquierda))
-				posibles.add("Iquierda");
+			if (mapa.estoyDentroDeMapa(posIzquierda)
+					&& (mapa.getPosMatriz(posIzquierda) == 0 || mapa.HayFruta(posIzquierda)))
+				posibles.add("Izquierda");
 		} else if (this.sentidoMovActual == "Abajo") {
-
-			if (mapa.getPosMatriz(posAbajo) == 0 && mapa.estoyDentroDeMapa(posAbajo))
-				posibles.add("Abajo");
-
-			if (mapa.getPosMatriz(posDerecha) == 0 && mapa.estoyDentroDeMapa(posDerecha))
+			if (mapa.estoyDentroDeMapa(posDerecha) && (mapa.getPosMatriz(posDerecha) == 0 || mapa.HayFruta(posDerecha)))
 				posibles.add("Derecha");
-
-			if (mapa.getPosMatriz(posIzquierda) == 0 && mapa.estoyDentroDeMapa(posIzquierda))
-				posibles.add("Iquierda");
+			if (mapa.estoyDentroDeMapa(posAbajo) && (mapa.getPosMatriz(posAbajo) == 0 || mapa.HayFruta(posAbajo)))
+				posibles.add("Abajo");
+			if (mapa.estoyDentroDeMapa(posIzquierda)
+					&& (mapa.getPosMatriz(posIzquierda) == 0 || mapa.HayFruta(posIzquierda)))
+				posibles.add("Izquierda");
 		} else if (this.sentidoMovActual == "Derecha") {
 
-			if (mapa.getPosMatriz(posArriba) == 0 && mapa.estoyDentroDeMapa(posArriba))
+			if (mapa.estoyDentroDeMapa(posArriba) && (mapa.getPosMatriz(posArriba) == 0 || mapa.HayFruta(posArriba)))
 				posibles.add("Arriba");
-
-			if (mapa.getPosMatriz(posDerecha) == 0 && mapa.estoyDentroDeMapa(posDerecha))
+			if (mapa.estoyDentroDeMapa(posDerecha) && (mapa.getPosMatriz(posDerecha) == 0 || mapa.HayFruta(posDerecha)))
 				posibles.add("Derecha");
-
-			if (mapa.getPosMatriz(posAbajo) == 0 && mapa.estoyDentroDeMapa(posAbajo))
+			if (mapa.estoyDentroDeMapa(posAbajo) && (mapa.getPosMatriz(posAbajo) == 0 || mapa.HayFruta(posAbajo)))
 				posibles.add("Abajo");
 		} else if (this.sentidoMovActual == "Izquierda") {
 
-			if (mapa.getPosMatriz(posArriba) == 0 && mapa.estoyDentroDeMapa(posArriba))
+			if (mapa.estoyDentroDeMapa(posArriba) && (mapa.getPosMatriz(posArriba) == 0 || mapa.HayFruta(posArriba)))
 				posibles.add("Arriba");
-
-			if (mapa.getPosMatriz(posIzquierda) == 0 && mapa.estoyDentroDeMapa(posIzquierda))
+			if (mapa.estoyDentroDeMapa(posIzquierda)
+					&& (mapa.getPosMatriz(posIzquierda) == 0 || mapa.HayFruta(posIzquierda)))
 				posibles.add("Izquierda");
-
-			if (mapa.getPosMatriz(posAbajo) == 0 && mapa.estoyDentroDeMapa(posAbajo))
+			if (mapa.estoyDentroDeMapa(posAbajo) && (mapa.getPosMatriz(posAbajo) == 0 || mapa.HayFruta(posAbajo)))
 				posibles.add("Abajo");
 		}
-		System.out.println("asd");
-		this.sentidoMovActual = posibles.get(0);
+
+		// System.out.println(posibles.get(0));
+		this.sentidoMovActual = posibles.get((int) (Math.random() * posibles.size()));
+		for (int i = 0; i < posibles.size(); i++)
+			if (posibles.get(i) == "Izquierda" && mapa.HayFrutaALaIzquierda(posIzquierda))
+				this.sentidoMovActual = "Izquierda";
+			else if (posibles.get(i) == "Derecha" && mapa.HayFrutaALaDerecha(posDerecha))
+				this.sentidoMovActual = "Derecha";
+			else if (posibles.get(i) == "Abajo" && mapa.HayFruta(posAbajo))
+				this.sentidoMovActual = "Abajo";
+			else if (posibles.get(i) == "Arriba" && mapa.HayFruta(posArriba))
+				this.sentidoMovActual = "Arriba";
+
 	}
 }

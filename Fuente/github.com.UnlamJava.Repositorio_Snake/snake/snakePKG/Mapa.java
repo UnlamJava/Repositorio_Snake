@@ -228,4 +228,34 @@ public class Mapa {
 
 	}
 
+	public boolean estoyDentroDeMapaBot(Posicion posIzquierda) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean HayFrutaALaIzquierda(Posicion posIzquierda) {
+		for(int i =posIzquierda.getPosicionX(); i>=0;i--)
+			if(this.matriz[i][posIzquierda.getPosicionY()]==Fruta.FRUTA_ACHICA || this.matriz[i][posIzquierda.getPosicionY()]==Fruta.FRUTA_AGRANDA )
+				return true;
+		return false;
+	}
+	public boolean HayFrutaALaDerecha(Posicion posDerecha) {
+		for(int i =posDerecha.getPosicionX(); i<this.tamanioX;i++)
+			if(this.matriz[i][posDerecha.getPosicionY()]==Fruta.FRUTA_ACHICA || this.matriz[i][posDerecha.getPosicionY()]==Fruta.FRUTA_AGRANDA )
+				return true;
+		return false;
+	}
+	public boolean HayFrutaArriba(Posicion posArriba) {
+		for(int i =posArriba.getPosicionY();i>=0;i--)
+			if(this.matriz[posArriba.getPosicionX()][i]==Fruta.FRUTA_ACHICA || this.matriz[posArriba.getPosicionX()][i]==Fruta.FRUTA_AGRANDA )
+				return true;
+		return false;
+	}
+	public boolean HayFrutaAbajo(Posicion posAbajo) {
+		for(int i =posAbajo.getPosicionY();i<this.tamanioY;i++)
+			if(this.matriz[posAbajo.getPosicionX()][i]==Fruta.FRUTA_ACHICA || this.matriz[posAbajo.getPosicionX()][i]==Fruta.FRUTA_AGRANDA )
+				return true;
+		return false;
+	}
+
 }
