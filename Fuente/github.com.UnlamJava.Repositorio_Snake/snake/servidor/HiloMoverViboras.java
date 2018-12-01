@@ -17,7 +17,7 @@ public class HiloMoverViboras extends Thread {
 
 				this.juego.moverViboras();
 
-				Thread.sleep(1000);
+				Thread.sleep(100);
 
 			}
 			

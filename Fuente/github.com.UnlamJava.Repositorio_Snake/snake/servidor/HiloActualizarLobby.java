@@ -23,7 +23,7 @@ public class HiloActualizarLobby extends Thread{
 				
 				this.lobby.enviarSalasAtodos();
 			
-				Thread.sleep(3000);
+				Thread.sleep(2000);
 			
 			} catch (IOException | InterruptedException e) {
 				// TODO Auto-generated catch block	

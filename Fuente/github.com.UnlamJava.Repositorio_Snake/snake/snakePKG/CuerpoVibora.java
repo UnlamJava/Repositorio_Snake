@@ -1,17 +1,18 @@
 package snakePKG;
 
-public class CuerpoVibora{
-  private int idCuerpo;
-  private Posicion pocision;
-  
-  public CuerpoVibora(int id){
-	  
-	 this.idCuerpo = id;
-	pocision = new Posicion(0,0);
-	 
-  }
+public class CuerpoVibora {
 
-  public Posicion getPocision() {
+	private int idCuerpo;
+	private Posicion pocision;
+
+	public CuerpoVibora(int id) {
+
+		this.idCuerpo = id;
+		pocision = new Posicion(0, 0);
+
+	}
+
+	public Posicion getPocision() {
 		return this.pocision;
 	}
 
@@ -26,7 +27,5 @@ public class CuerpoVibora{
 	public void setIdCuerpo(int idCuerpo) {
 		this.idCuerpo = idCuerpo;
 	}
-	
-	
-  
+
 }

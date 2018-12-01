@@ -4,7 +4,7 @@ package snakePKG;
 //import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+
 //import java.util.Timer;
 
 //import javax.swing.plaf.synth.SynthSeparatorUI;
@@ -47,6 +47,7 @@ public class Vibora {
 		this.cuerpo = new LinkedList<CuerpoVibora>();
 		CuerpoVibora cabeza = new CuerpoVibora(this.idVibora);
 		this.cuerpo.add(0, cabeza);
+		this.cola = new Posicion(0,0);
 		// this.tamanio = 1;
 		this.desplazamiento = 1;
 		this.estoyVivo = true;
@@ -56,7 +57,10 @@ public class Vibora {
 	public void setDirMov(String dir) {
 		this.sentidoMovActual = dir;
 	}
-
+	
+	public Posicion getCola() {
+		return this.cola;
+	}
 	public int getTamanioVibora() {
 		return this.cuerpo.size();
 	}

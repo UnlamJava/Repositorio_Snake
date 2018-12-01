@@ -2,7 +2,6 @@ package servidor;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,7 +17,6 @@ import util.Puntaje;
 
 public class Juego {
 
-	// private Mapa mapa;
 	private Mapa mapa;
 
 	private HashMap<ClienteConn, Vibora> viboras;
@@ -84,21 +82,17 @@ public class Juego {
 		this.hiloPuntos = new HiloEnviarPuntaje(this);
 
 		this.hiloFrutas = new HiloGenerarFrutas(this);
-
-		//HiloMoverViboras hm = new HiloMoverViboras(this);
+/*
+		HiloVerificador hv = new HiloVerificador(this);
 		
+		hv.start();
+	*/	
 		hiloPuntos.start();
 
 		hiloMapa.start();
 
-		//hm.start();
-		
 		hiloFrutas.start();
-/*
-		for (HiloMoverVibora h : this.hilosViboras) {
-			h.start();
-		}
-*/
+		
 	}
 
 	public void detenerHilos() {

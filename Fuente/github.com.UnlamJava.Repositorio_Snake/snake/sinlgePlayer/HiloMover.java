@@ -1,13 +1,8 @@
 package sinlgePlayer;
 
-
-import java.util.Arrays;
-import java.util.Map.Entry;
-
 import snakePKG.Vibora;
 
 import snakePKG.Mapa;
-//import util.ClienteConn;
 
 public class HiloMover extends Thread{
 	

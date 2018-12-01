@@ -84,6 +84,7 @@ public class Mapa {
 					if (this.ListaViboras.get(j).isEstoyVivo()) {
 
 						if (this.ListaViboras.get(i).getPosCabeza().equals(this.ListaViboras.get(j).getPosCabeza())) {
+							System.out.println("mate");
 							this.ListaViboras.get(j).morir();
 							mate = true;
 						}
@@ -91,10 +92,11 @@ public class Mapa {
 					}
 
 					if (mate) {
-
+/*
 						this.matriz[this.ListaViboras.get(i).getPosCabeza().getPosicionY()][this.ListaViboras.get(i)
 								.getPosCabeza().getPosicionX()] = 0;
 						this.ListaViboras.get(i).morir();
+	*/
 					}
 				}
 			}
@@ -157,8 +159,18 @@ public class Mapa {
 				dist = Math.sqrt(Math.pow(x - otroX, 2) + Math.pow(y - otroY, 2));
 			
 				if(dist < 5) {
+				
 					posOk = false;
 				}
+				
+				for(ObjetoDelMapa o : this.objetosDelMapa) {
+					if(o.getPosicionX() == otroX && o.getPosicionY() == otroY) {
+						
+						posOk = false;
+						break;
+					}
+				}
+				
 			}
 				
 		}while(!posOk);
@@ -170,7 +182,9 @@ public class Mapa {
 		this.matriz[y][x] = vibora.getIdVibora();
 
 		vibora.getCuerpoVibora(0).setPocision(pos);
-	
+		
+		vibora.getCola().setPosiciones(pos.getPosicionX(), pos.getPosicionY());
+		
 		this.ListaViboras.add(vibora);	
 		
 		

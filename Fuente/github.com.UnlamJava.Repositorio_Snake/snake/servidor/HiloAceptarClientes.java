@@ -3,8 +3,6 @@ package servidor;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import util.ClienteConn;
@@ -16,15 +14,13 @@ class HiloAceptarClientes extends Thread {
 	public HiloAceptarClientes(Servidor sv) {
 
 		this.sv = sv;
-	
+
 	}
-	
+
 	public void run() {
-		
-		try {
 
-			while (true) {
-
+		while (true) {
+			try {
 				Socket cliente = sv.aceptarCliente();
 
 				DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
@@ -40,13 +36,13 @@ class HiloAceptarClientes extends Thread {
 				HiloAtenderCliente ha = new HiloAtenderCliente(conn, sv);
 
 				ha.start();
+			} catch (IOException e) {
 
+				e.printStackTrace();
 			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
+
 	}
 
 }

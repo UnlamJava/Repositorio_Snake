@@ -24,11 +24,10 @@ public class HiloEnviarMapa extends Thread{
 				
 				juego.moverViboras();
 				
-				juego.getMapa().verificarPosicionDeCabezas();
-				
+		
 				juego.enviarMapaAtodos();
 			
-				Thread.sleep(1000);// GAME_LOOP
+				Thread.sleep(100);// GAME_LOOP
 
 			}
 			

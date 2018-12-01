@@ -3,8 +3,6 @@ package cliente;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -36,8 +34,6 @@ public class ClienteBot extends Cliente{
 	private JVentanaLobby lobby;
 	private JVentanaSala sala;
 	private JVentanaJuego ventanaJuego;
-	private ObjectOutputStream out;
-	private ObjectInputStream in;
 
 	public ClienteBot(String ip, int port) {
 
@@ -198,6 +194,7 @@ public class ClienteBot extends Cliente{
 
 		case "Jugadores":
 
+			@SuppressWarnings("unchecked") 
 			Collection<String> jugadores = this.gson.fromJson(mensaje.getJson(), Collection.class);
 
 			this.sala.actualizarJugadores(jugadores);

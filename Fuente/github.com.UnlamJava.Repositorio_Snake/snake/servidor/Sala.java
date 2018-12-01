@@ -98,9 +98,11 @@ public class Sala {
 			this.admin = this.jugadores.iterator().next();
 		
 			try {
+			
 				this.admin.enviarInfo(new Mensaje("EresAdmin", this.gson.toJson("")));
+			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 			
